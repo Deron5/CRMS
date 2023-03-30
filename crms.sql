@@ -30,24 +30,24 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `customers`;
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` int NOT NULL,
-  `first_name` varchar(50) DEFAULT NULL,
-  `surname` varchar(50) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(15) DEFAULT NULL,
-  `drivers_license` varchar(15) DEFAULT NULL,
-  `issue_location` varchar(255) DEFAULT NULL,
-  `expiration_date` date DEFAULT NULL,
-  `prefered_vehicle` varchar(10) DEFAULT NULL,
-  `rental_duration` varchar(5) DEFAULT NULL,
-  `prefered_dropoff` int DEFAULT NULL,
-  `preferred_pickup` int DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `role` tinyint UNSIGNED DEFAULT NULL,
+  `first_name` varchar(50) ,
+  `surname` varchar(50) ,
+  `email` varchar(255) ,
+  `phone_number` varchar(15) ,
+  `drivers_license` varchar(15) ,
+  `issue_location` varchar(255) ,
+  `expiration_date` date ,
+  `prefered_vehicle` varchar(10) ,
+  `rental_duration` varchar(5) ,
+  `prefered_dropoff` int ,
+  `preferred_pickup` int ,
+  `password` varchar(25) ,
+  `role` tinyint UNSIGNED ,
   PRIMARY KEY (`customer_id`),
   KEY `prefered_vehicle` (`prefered_vehicle`),
   KEY `preferred_pickup` (`preferred_pickup`),
   KEY `prefered_dropoff` (`prefered_dropoff`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 -- --------------------------------------------------------
 
@@ -59,18 +59,18 @@ DROP TABLE IF EXISTS `rentals`;
 CREATE TABLE IF NOT EXISTS `rentals` (
   `customer_id` int NOT NULL,
   `vehicle_id` varchar(10) NOT NULL,
-  `rental_Rate` varchar(255) DEFAULT NULL,
-  `additional_charges` varchar(255) DEFAULT NULL,
-  `lend_date` date DEFAULT NULL,
-  `return_date` date DEFAULT NULL,
-  `lent_condition` varchar(255) DEFAULT NULL,
-  `return_condition` varchar(255) DEFAULT NULL,
-  `rental_fee` float DEFAULT NULL,
-  `payment_method` varchar(10) DEFAULT NULL,
-  `paid` tinyint(1) DEFAULT NULL,
+  `rental_Rate` varchar(255) ,
+  `additional_charges` varchar(255) ,
+  `lend_date` date ,
+  `return_date` date ,
+  `lent_condition` varchar(255) ,
+  `return_condition` varchar(255) ,
+  `rental_fee` float ,
+  `payment_method` varchar(10) ,
+  `paid` tinyint(1) ,
   PRIMARY KEY (`customer_id`,`vehicle_id`),
   KEY `vehicle_id` (`vehicle_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 -- --------------------------------------------------------
 
@@ -81,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `rentals` (
 DROP TABLE IF EXISTS `stores`;
 CREATE TABLE IF NOT EXISTS `stores` (
   `store_id` int NOT NULL AUTO_INCREMENT,
+  `store location` varchar(50),
   PRIMARY KEY (`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 -- --------------------------------------------------------
 
@@ -92,14 +93,14 @@ CREATE TABLE IF NOT EXISTS `stores` (
 
 DROP TABLE IF EXISTS `vehicles`;
 CREATE TABLE IF NOT EXISTS `vehicles` (
-  `interior_colour` varchar(10) DEFAULT NULL,
-  `exterior_colour` varchar(10) DEFAULT NULL,
+  `interior_colour` varchar(10) ,
+  `exterior_colour` varchar(10) ,
   `license_plate_number` varchar(10) NOT NULL,
-  `odometer_reading` int DEFAULT NULL,
+  `odometer_reading` int ,
   `vehicle_type` varchar(17) NOT NULL,
   PRIMARY KEY (`license_plate_number`),
   KEY `vehicle_type` (`vehicle_type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 -- --------------------------------------------------------
 
@@ -109,12 +110,12 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 
 DROP TABLE IF EXISTS `vehicle_types`;
 CREATE TABLE IF NOT EXISTS `vehicle_types` (
-  `brand` varchar(25) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `manufactured_year` year DEFAULT NULL,
+  `brand` varchar(25) ,
+  `model` varchar(255) ,
+  `manufactured_year` year ,
   `vin` varchar(17) NOT NULL,
   PRIMARY KEY (`vin`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
