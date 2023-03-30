@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="rentals.css">
+</head>
+<body>
+    <div>
+    Rentals Page
+        
+    </div>
+
+    <script>
+        console.log(JSON.stringify({func:"rental_report",params:{}}))
+        fetch('rentals',{
+            method: 'POST',
+            body: JSON.stringify({func:"rental_report"}),
+        }).then((res)=>res.json())
+          .then((data)=>{console.log(data)})
+
+    </script>
+</body>
+</html>
