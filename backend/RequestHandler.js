@@ -11,7 +11,6 @@ const customerRentalsQuery = `select * from rentals, customers, vehicle_types, v
                             rentals.vehicle_id = vehicles.license_plate_number and 
                             vehicles.vehicle_type = vehicle_types.vin`;
 
-
 conn.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");

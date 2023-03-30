@@ -6,15 +6,20 @@
 </head>
 <body>
     <div>
-    Rentals Page
-        
+        <div>
+
+        </div>
+        <div>
+            <div>Reports</div>
+            <div>Actual Report</div>
+        </div>
     </div>
 
     <script>
-        console.log(JSON.stringify({func:"rental_report",params:{}}))
+        // example fetch does nothing 
         fetch('rentals',{
             method: 'POST',
-            body: JSON.stringify({func:"rental_report"}),
+            body: JSON.stringify({func:"rental_report",params:{}}),
         }).then((res)=>res.json())
           .then((data)=>{console.log(data)})
 
