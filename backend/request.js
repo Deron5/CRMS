@@ -6,6 +6,7 @@ const qs = require('querystring')
 const query = new RequestHandler();
 
 const INDEX_FILE =  "../index.html"
+const PORT = 8080;
 
 const isEmpty = (obj)=>{
     for(var i in obj) return false;
@@ -49,6 +50,7 @@ function loadFile(req,res,url_) {
 
 
 http.createServer((req, res) => {
+    console.log(req.headers.cookie)
     let data = "";
     
     req.on('data',(chunk)=>{
@@ -57,17 +59,30 @@ http.createServer((req, res) => {
 
     req.on('end',()=>{
         if(data){
-            data = JSON.parse(data)
 
-            res.setHeader('Content-Type','application/json');
-            
-            //try calling the function passed as the func parameter
-            //return the results of the function
-            try {
-                let returndata = query[data["func"]](data["params"]);
-                returndata.then(data=>{
-                    res.end(data)
-                })
+            data = JSON.parse(data)
+            try{
+                switch (data["func"]) {
+                    case "login":
+                        query["login"](data["params"]).then(data=>{
+                            res.writeHead(200,{
+                                'Set-Cookie': `role:${JSON.parse(data)["role"]};httpOnly:true`
+                            }).end(JSON.stringify({redirect:`http://localhost:${PORT}/index.html`}));
+                        }).catch(err=>{
+                            console.log(err)
+                            res.setHeader('Content-Type','application/json');
+                            res.end(JSON.stringify({error:"Invalid Login Credentials"}));
+                        })
+                        break;
+                
+                    default:
+                        res.setHeader('Content-Type','application/json');
+                        let returndata = query[data["func"]](data["params"]);
+                        returndata.then(data=>{
+                            res.end(data)
+                        })
+                        break;
+                }
             } catch (error) {
                 console.log(error)
                 res.end(JSON.stringify({error:"Unknown Function"}));
@@ -82,4 +97,4 @@ http.createServer((req, res) => {
     // if it has query parameters assume it is a  query
     
 
-}).listen(8080);
+}).listen(PORT);

@@ -4,7 +4,9 @@
   "description": "",
   "main": "RequestHandler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev1": "npx tailwind -i ../input.css -o ../main.css --watch && node request.js",
+    "dev2": "node ./request.js"
   },
   "keywords": [],
   "author": "",

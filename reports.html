@@ -4,26 +4,72 @@
 <head>
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
+    
+    <style>
+          .arrow {
+            z-index: 1;
+            margin-left: .5rem;
+            display: inline-block;
+            position: relative;
+            font-size: 1.2rem;
+            top: 3px;
+            width: 2rem;
+        }
+
+        .head {
+            font-weight: bolder;
+        }
+
+        .jiku1 {
+            font-size: 1.6rem;
+            position: absolute;
+            top: -4px;
+            left: 5px;
+
+        }
+
+        .cutoff {
+            position: absolute;
+            display: inline-block;
+            height: .2rem;
+            width: .25rem;
+            top: 12px;
+            left: 25px;
+            background-color: rgb(255, 255, 255);
+        }
+    </style>
+
 </head>
 
-<body>
+<body class="h-screen">
 
     Reports page
-    <div class="flex-row">
-        <div>
+    <div class="flex flex-row h-full">
+        <div id="siderbar" class="flex-col w-min">
+            <div>
+                
+
+
+            </div>
             <div class="text-4xl w-8 bg-gray-400">&#8801</div>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+            <button class="w-44 bg-violet-300 hover:bg-violet-400 text-white font-bold py-2 px-4 border border-slate-300 rounded font">Vehicle Rentals</button>
+            <button class="w-44 bg-violet-300 hover:bg-violet-400 text-white font-bold py-2 px-4 border border-violet-200 rounded">Customer Rentals</button>
+            <button class="w-44 bg-violet-300 hover:bg-violet-400 text-white font-bold py-2 px-4 border border-violet-200 rounded">Rental History</button>
+            <button class="w-44 bg-violet-300 hover:bg-violet-400 text-white font-bold py-2 px-4 border border-violet-200 rounded">Vehicle Availability</button>
+            <button class="w-44 bg-violet-300 hover:bg-violet-400 text-white font-bold py-2 px-4 border border-violet-200 rounded">Late Returns</button>
         </div>
-        <div>
-            <div class="text-3xl text-blue-300">Report</div>
-            <div></div>
+        <div class="h-full w-full">
+            <div id="report" class="flex items-center justify-center h-24 text-4xl text bg-slate-100">
+                Report
+            </div>
+            <div class="bg-slate-50 h-full"></div>
         </div>
     </div>
+
+    <script>
+
+    </script>
+
 
 </body>
 

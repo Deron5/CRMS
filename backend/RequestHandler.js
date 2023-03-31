@@ -6,6 +6,8 @@ const conn = mysql.createConnection({
     database: "crms", //database name
 });
 
+const loginQuery = `select role from customers where email = ? and password = ?`;
+
 const customerRentalsQuery = `select * from rentals, customers, vehicle_types, vehicles 
                             where rentals.customer_id = customers.customer_id and 
                             rentals.vehicle_id = vehicles.license_plate_number and 
@@ -17,16 +19,15 @@ conn.connect(function (err) {
 });
 
 /** Queries //just didn't bother making them variables yet
- customer rentals;
-select * from rentals, customers, vehicle_types, vehicles where rentals.customer_id = customers.customer_id and rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin; 
+ customer rentals history;
+select * from rentals, customers, vehicle_types, vehicles where rentals.customer_id = ? and rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin; 
+select * from customers where customer_id = ?
 
 rental history report;
-select * from rentals, vehicle_types, vehicles where rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin; 
+select * from rentals, vehicle_types, vehicles where rentals.vehicle_id = ? and rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin; 
 
 late return report;
-select * from rentals, customers where rentals.customer_id = customers.customer_id and rentals.return_condition is null 
-
-
+select * from rentals, customers where rentals.customer_id = customers.customer_id and rentals.return_condition is null;
 
 vehicle turnover report
 select * from rentals,vehicles, vehicle_types where rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin;
@@ -86,6 +87,21 @@ class RequestHandler{
     {
 
     }
+
+    async login(params){
+        const res = await new Promise((resolve,reject)=>{
+            conn.query(loginQuery,[params.email,params.password], (err,results)=>{
+                if(err) reject(new Error(err.message));
+                else if(!results.length)
+                    reject(JSON.stringify({msg:"Invalid Login Credentials",res:results,params:params,err:err}))
+                else{
+                    resolve(JSON.stringify(results[0]));
+                }
+            });
+        })
+        return res;
+    }
+
 }
 
 module.exports = RequestHandler;
