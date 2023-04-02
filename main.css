@@ -58,3 +58,6 @@ details.opts[open]>summary {
   display: grid;
   grid-template-rows: min-content 1fr;
 }
+details>summary{
+  user-select: none;
+}
