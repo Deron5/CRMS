@@ -34,9 +34,16 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `surname` varchar(50) ,
   `email` varchar(255) ,
   `phone_number` varchar(15) ,
+
   `drivers_license` varchar(15) ,
-  `issue_location` varchar(255) ,
-  `expiration_date` date ,
+  `license_issue_location` varchar(255) ,
+  `license_expiration_date` date ,
+  
+  `payment_method` varchar(7),
+  `card_number` varchar(7),
+  `billing_address` varchar(255),
+  `card_expiry_data` date,
+
   `prefered_vehicle` varchar(10) ,
   `rental_duration` varchar(5) ,
   `prefered_dropoff` int ,

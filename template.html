@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Customers</title>
     <link rel="stylesheet" href="tailwind.css">
     <link rel="stylesheet" href="main.css">
   
 </head>
-
-<body class="" onload="init()">
+<body class="">
 
     <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
         <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
@@ -94,26 +92,7 @@
     </div>
 
 
-    <script>
-        function init() {
-            let func = (new URLSearchParams(window.location.search)).get('load');
-      
-            if(func){//call the function and load the data
-                fetch('rentals', {
-                    method: 'POST',
-                    body: JSON.stringify({ func: "rental_report", params: {} }),
-                }).then((res) => res.json())
-                  .then((data) => { console.log(data) })
 
-            }
-            
-        }
-
-        function loadData(params) {
-            
-        }
-    </script>
 
 </body>
-
 </html>

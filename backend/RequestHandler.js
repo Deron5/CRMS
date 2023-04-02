@@ -88,6 +88,12 @@ class RequestHandler{
 
     }
 
+    async turnover_report()
+    {
+
+    }
+
+
     async login(params){
         const res = await new Promise((resolve,reject)=>{
             conn.query(loginQuery,[params.email,params.password], (err,results)=>{
