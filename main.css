@@ -61,3 +61,17 @@ details.opts[open]>summary {
 details>summary{
   user-select: none;
 }
+
+#grph{
+  display: grid;
+  width: 500px;
+  height: 400px;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr min-content;
+
+}
+
+.col{
+  grid-row: 12;
+  /* align-self: end; */
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Customers</title>
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="main.css">
+
+</head>
+<!-- add border to h-screen and update the sidebar reports stuff -->
+
+<body class="" onload="init()">
+
+    <div class="h-screen grid grid-rows-1 main border-indigo-200  border-2">
+        <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
+            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-blue-400 border-b-2">
+                CRMS
+            </summary>
+            <div class="flex flex-col w-40 gap-6">
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/index.html'">Home Page
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
+                    </div>
+                </button>
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/customers.html'">Customer Page
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
+                    </div>
+                </button>
+
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/vehicles.html'">Vehicles Page
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
+                    </div>
+                </button>
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/rentals.html'">Rentals Page
+
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
+                    </div>
+                </button>
+
+                <details open class="leftArw opts">
+                    <summary
+                        class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
+                        Reports</summary>
+                    <div class="flex flex-col bg-slate-100">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
+                            onclick="window.location.href='http://localhost:8080/vehicle_reports'">
+                            Vehicle Rentals
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/customer_reports'">
+                            Customer Rentals
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/rental_reports'">
+                            Rental History
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/availability_reports'">
+                            Vehicle Availability
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/late_return_reports'">
+                            Late Returns
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/turnover_reports'">
+                            Vehicle Turnover
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </details>
+
+
+
+
+            </div>
+        </details>
+        <div class="bg-white w-full h-full PageContents">
+            <div id="title" class="flex items-center justify-center h-20 text-4xl  text-[#404355] bg-[#e6ebf2]">
+                Vehicle Turnover Reports
+            </div>
+            <div class="bg-slate-50">
+
+                <div class="w-[36.5rem]">
+                    <div id="vehicleinfo">
+                        <div>Brand: <span id="brand"></span></div>
+                        <div>Model: <span id="model"></span></div>
+                        <div>Manufactured Year: <span id="manufactured_year"></span></div>
+                        <div>VIN: <span id="vin"></span></div>
+                        <div>Interior Colour: <span id="interior_colour"></span></div>
+                        <div>Exterior Colour: <span id="exterior_colour"></span></div>
+                        <div>License Number: <span id="license"></span></div>
+                        <div>Odometer Reading: <span id="odometer_reading"></span></div>
+                    </div>
+                    <div id="rentalsGraph">
+                        <div id="grph" class="grid">
+                            <div class="grid grid-rows-[repeat(12,1fr)] w-8 text-center" style="grid-column: 1; grid-row: 1;">
+                                <div class="relative" style="grid-row: 2;"><span class="absolute left-0 right-0 top-[-10px]">10</span></div>
+                                <div class="relative" style="grid-row: 4;"><span class="absolute left-0 right-0 top-[-10px]">8</span></div>
+                                <div class="relative" style="grid-row: 6;"><span class="absolute left-0 right-0 top-[-10px]">6</span></div>
+                                <div class="relative" style="grid-row: 8;"><span class="absolute left-0 right-0 top-[-10px]">4</span></div>
+                                <div class="relative" style="grid-row: 10;"><span class="absolute left-0 right-0 top-[-10px]">2</span></div>
+                                <div  style="grid-row: 12;"><span >0</span></div>
+                            </div>
+                            <div class="grid border-2 bg-transparent" style="grid-column: 2; grid-row: 1;">
+                                <div class="m-1 mb-0 mt-0 col bg-[#c3d4e94f] border-[#a1b0c280] border-[1px] border-b-0" ></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#ffea5f3f] border-[#ffdd006f] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#66ff904d] border-[#40ba614d] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#34efef3f] border-[#12c9c96f] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#9966ff33] border-[#5933a65e] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#7cd6ff4d] border-[#3463ef74] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#c3d4e94f] border-[#a1b0c280] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#7cd6ff4d] border-[#3463ef74] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#ffea5f3f] border-[#ffdd006f] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#34efef3f] border-[#12c9c96f] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#66ff904d] border-[#40ba614d] border-[1px] border-b-0"></div>
+                                <div class="m-1 mb-0 mt-0 col bg-[#9966ff33] border-[#5933a65e] border-[1px] border-b-0"></div>
+                            </div>
+                            <div style="grid-column: 2; grid-row: 2;" class="grid grid-cols-12 text-center">
+                                <div class="p-1 pb-0 pt-0">Jan</div>
+                                <div class="p-1 pb-0 pt-0">Feb</div>
+                                <div class="p-1 pb-0 pt-0">Mar</div>
+                                <div class="p-1 pb-0 pt-0">Apr</div>
+                                <div class="p-1 pb-0 pt-0">May</div>
+                                <div class="p-1 pb-0 pt-0">Jun</div>
+                                <div class="p-1 pb-0 pt-0">July</div>
+                                <div class="p-1 pb-0 pt-0">Aug</div>
+                                <div class="p-1 pb-0 pt-0">Sep</div>
+                                <div class="p-1 pb-0 pt-0">Oct</div>
+                                <div class="p-1 pb-0 pt-0">Nov</div>
+                                <div class="p-1 pb-0 pt-0">Dec</div>
+                            </div>
+                        </div>
+
+                       
+                        <!-- <script>
+                            let data = [10, 9, 15, 11, 6, 7, 2, 9, 2, 3, 7, 2]
+                            let ticks = [0, 2, 4, 6, 8, 10, 12, 15]
+                            console.log(data);
+                            const canvas = document.getElementById("grph");
+                            const width = canvas.width;
+                            const height = canvas.height;
+
+                            const ratio = window.devicePixelRatio;
+                            canvas.width = width * ratio;
+                            canvas.height = height * ratio;
+                            canvas.style.width = width + "px";
+                            canvas.style.height = height + "px";
+
+                            
+
+                            if (canvas.getContext) {
+                                const ctx = canvas.getContext("2d")//.scale(ratio, ratio);
+                                ctx.fillStyle = "black";
+                                ctx.strokeStyle = "#e5e7eb";
+                                ctx.lineWidth = 3;
+                                ctx.font = "16px arial"
+                            
+                                // rgba(54, 162, 235, 0.2)
+                            
+                                for (let y = 8; y > 0; y-=1) {
+                                    ctx.beginPath();
+
+                                    ctx.moveTo(25, y*((canvas.height)/8));
+                                    ctx.lineTo(canvas.width,y*((canvas.height)/8) );
+                                    ctx.fillText(ticks[7-(y-1)],5,y*((canvas.height)/8) + ((y == 8) ? 0 : 5))
+                                    ctx.stroke();
+                                    ctx.closePath();
+                                }
+                                let i = 0;
+
+                                const ow = 515;
+
+                                data.forEach(val =>{
+                                    if(val !== 15)
+                                        val = val%2 ? (val+1)/2 : val/2;
+                                    else
+                                        val = 7
+                                    // ctx.fillRect(x,y,w,h)
+                                    ctx.fillStyle = "#36a2eb33"
+                                    ctx.fillRect( (i*((ow/12)+15.25))+25,canvas.height-((val*(canvas.height/8))+1),(ow-100)/12,((val*(canvas.height/8))+1));
+                                    i+=1;
+                                })
+                            }
+
+ 
+                        </script> -->
+                        
+                    </div>
+                </div>
+                <div id="other">
+                    <div>Total Rentals: <span id="total_rentals"></span> </div>
+                    <div>Rentals This Month: <span id="rtm"></span> </div>
+                    <div>Rentals This Year: <span id="year_rentals"></span> </div>
+                    <div>Average Rentals Per Month: <span id="arm"></span> </div>
+                    <div>Average Rental Time This Year: <span id="avg_rent_time"></span> </div>
+                </div>
+                <div id="btns">
+                    <button>Details</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        function init() {
+
+            let params = (new URLSearchParams(window.location.search));
+
+                fetch('rentals', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "turnover_report", params: {} }),
+                }).then((res) => res.json())
+                    .then((data) => {
+                        let typeinfo = data.typeinfo;
+                        let monthly_rentals = data.monthly_rentals;
+                        let columns = document.querySelectorAll(".col");
+                        // grid-row: 10/ span 3;
+
+                        for(let i = 0; i < 12;i++){
+                            console.log(columns[i])
+                            console.log(monthly_rentals[i])
+                            if(monthly_rentals[i] !== 0){
+                                columns[i].style.gridRow=`${12-monthly_rentals[i]}/span ${monthly_rentals[i]+1}`
+                            }else{
+                                columns[i].style.alignSelf = "end";
+                                columns[i].style.height = "70%";
+                            }
+                            columns[i].title =monthly_rentals[i];
+                        }
+
+
+                        delete data.typeinfo
+                        delete data.monthly_rentals
+                        delete typeinfo.license_plate_number;
+                        delete typeinfo.vehicle_type;
+                        
+                        for(const [key,value] of Object.entries(data)){
+                            console.log(`${key}:${value}`)
+                            document.getElementById(key).innerHTML = value;
+                        }
+
+                        for(const [key,value] of Object.entries(typeinfo)){
+                            console.log(`${key}:${value}`)
+                            document.getElementById(key).innerHTML = value;
+                        }
+
+                        document.getElementById("rtm").innerHTML = monthly_rentals[new Date().getMonth()];
+                        document.getElementById("arm").innerHTML = Math.floor(monthly_rentals.reduce((sum, val) => sum + val, 0)/12);
+
+                    })
+
+
+        }
+
+        function loadData(params) {
+
+        }
+    </script>
+
+</body>
+
+</html>

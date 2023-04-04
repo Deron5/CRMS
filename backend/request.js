@@ -9,18 +9,6 @@ const INDEX_FILE =  "../index.html"
 const PORT = 8080;
 
 
-
-query.getRentalVehicles().then(data =>{
-    let temp = JSON.parse(data)
-    console.log(temp.ids)
-    console.log(temp.first.rentals)
-    console.log(temp.first.typeinfo)
-    
-})
-.catch(err => console.log(err))
-
-
-
 const isEmpty = (obj)=>{
     for(var i in obj) return false;
     return true;

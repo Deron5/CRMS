@@ -70,6 +70,7 @@ CREATE TABLE `rentals` (
   `additional_charges` varchar(255) DEFAULT NULL,
   `lend_date` date DEFAULT NULL,
   `return_date` date DEFAULT NULL,
+  `returned_date` date DEFAULT NULL,
   `lent_condition` varchar(255) DEFAULT NULL,
   `return_condition` varchar(255) DEFAULT NULL,
   `rental_fee` float DEFAULT NULL,

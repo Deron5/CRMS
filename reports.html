@@ -5,113 +5,177 @@
     <title>Customers</title>
     <link rel="stylesheet" href="tailwind.css">
     <link rel="stylesheet" href="main.css">
-  
+
 </head>
+<!-- add border to h-screen and update the sidebar reports stuff -->
 
 <body class="" onload="init()">
 
-    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
+    <div class="h-screen grid grid-rows-1 main border-indigo-200  border-2">
         <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
             <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-blue-400 border-b-2">
                 CRMS
             </summary>
             <div class="flex flex-col w-40 gap-6">
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/index.html'">Home Page
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/index.html'">Home Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/customers.html'">Customer Page
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/customers.html'">Customer Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
-               
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/vehicles.html'">Vehicles Page
+
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/vehicles.html'">Vehicles Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/rentals.html'">Rentals Page
+                <button
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+                    onclick="window.location.href='http://localhost:8080/rentals.html'">Rentals Page
 
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
-               </button>
+                </button>
 
                 <details open class="leftArw opts">
-                    <summary class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">Reports</summary>
+                    <summary
+                        class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
+                        Reports</summary>
                     <div class="flex flex-col bg-slate-100">
-                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative" onclick="window.location.href='http://localhost:8080/reports?load=vehicle_report'">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
+                            onclick="window.location.href='http://localhost:8080/vehicle_reports'">
                             Vehicle Rentals
                             <div class="absolute right-[-5px] top-[.35rem]">
-                                <svg viewBox="0 0 24 24" focusable="false"  height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
                             </div>
                         </button>
-                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"  onclick="window.location.href='http://localhost:8080/reports?load=customer_report'">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/customer_reports'">
                             Customer Rentals
                             <div class="absolute right-[-5px] top-[.35rem]">
-                                <svg viewBox="0 0 24 24" focusable="false"  height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
                             </div>
                         </button>
-                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/reports?load=rental_report'">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/rental_reports'">
                             Rental History
                             <div class="absolute right-[-5px] top-[.35rem]">
-                                <svg viewBox="0 0 24 24" focusable="false"  height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
                             </div>
                         </button>
-                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/reports?load=availability_report'">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/availability_reports'">
                             Vehicle Availability
                             <div class="absolute right-[-5px] top-[.35rem]">
-                                <svg viewBox="0 0 24 24" focusable="false"  height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
                             </div>
                         </button>
-                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/reports?load=late_return_report'">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/late_return_reports'">
                             Late Returns
                             <div class="absolute right-[-5px] top-[.35rem]">
-                                <svg viewBox="0 0 24 24" focusable="false"  height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
                             </div>
                         </button>
-                        <button class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/reports?load=turnover_report'">
+                        <button
+                            class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative"
+                            onclick="window.location.href='http://localhost:8080/turnover_reports'">
                             Vehicle Turnover
                             <div class="absolute right-[-5px] top-[.35rem]">
-                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
                             </div>
                         </button>
                     </div>
                 </details>
 
 
-                
+
             </div>
         </details>
         <div class="bg-white w-full h-full PageContents">
-            <div id="title" class="flex items-center justify-center h-24 text-4xl text bg-slate-100">
+            <div id="title" class="flex items-center justify-center h-20 text-4xl  text-[#404355] bg-[#e6ebf2]">
                 Title
             </div>
-            <div class="bg-slate-50"></div>
+            <div class="bg-slate-50">
+    
+            </div>
+
         </div>
+    </div>
     </div>
 
 
     <script>
-        function init() {
-            let func = (new URLSearchParams(window.location.search)).get('load');
-      
-            if(func){//call the function and load the data
-                fetch('rentals', {
-                    method: 'POST',
-                    body: JSON.stringify({ func: "rental_report", params: {} }),
-                }).then((res) => res.json())
-                  .then((data) => { console.log(data) })
+        // function init() {
 
-            }
-            
-        }
+            // let params = (new URLSearchParams(window.location.search));
+            // document.getElementById("title").innerHTML = params.get('title');
+            // let func = params.get('load');
 
-        function loadData(params) {
-            
-        }
+            // if (func) {//call the function and load the data
+            //     fetch('rentals', {
+            //         method: 'POST',
+            //         body: JSON.stringify({ func: func, params: {} }),
+            //     }).then((res) => res.json())
+            //         .then((data_) => {
+
+            //         })
+
+            // }
+
+        // }
     </script>
 
 </body>

@@ -20,17 +20,18 @@ conn.connect(function (err) {
 
 const NO_RESULTS = 'empty result-set';
 
-const RENTALS_QUERY = "select * from rentals where vehicle_id = ?";
+const RENTALS_QUERY = "select * from rentals where vehicle_id = ? order by lend_date"
 
-const FIRST_RENTAL = "select * from rentals order by vehicle_id limit 1";
+const SPECIFIC_YEAR_RENTALS_QUERY = "select * from rentals where vehicle_id = ? and Year(lend_date)> ? order by lend_date"
+
+
+const FIRST_RENTAL = "select count(vehicle_id) as c, vehicle_id from rentals group by vehicle_id order by c desc limit 1";
+
 const NEXT_RENTAL_QUERY = "select * from rentals where vehicle_id = (select min(vehicle_id) from rentals where vehicle_id > ?)";
 const PREV_RENTAL_QUERY = "select * from rentals where vehicle_id = (select max(vehicle_id) from rentals where vehicle_id < ?)";
 
 
 const CAR_TYPE_QUERY = "select * from vehicles, vehicle_types where vehicles.license_plate_number = ? and vehicles.vehicle_type = vehicle_types.vin"
-
-
-const UNIQUE_RENTALS_QUERY = "select distinct vehicle_id from rentals";
 
 /** Queries //just didn't bother making them variables yet
  customer rentals history;
@@ -135,7 +136,7 @@ class RequestHandler{
                         reject(NO_RESULTS);
                     }
                     else{//do something with data
-                        resolve(results)
+                        resolve(results[0])
                     }
                 })
             });
@@ -144,10 +145,11 @@ class RequestHandler{
 
     //takes a vehicle id and gets all rentals related to said vehicle
     //returns an object with the data and the vehicle info
-    async rentals(vid)
+    async getVehicleRentals(params)
     {
         const res = await new Promise((resolve,reject)=>{
-            conn.query(RENTALS_QUERY,[vid], (err,results)=>{
+            if(params && Object.hasOwn(params,"vid")){
+                conn.query(RENTALS_QUERY,[params.vid], (err,results)=>{
                     if(err) {
                         reject(new Error(err.message))
                     }
@@ -155,42 +157,78 @@ class RequestHandler{
                         reject(NO_RESULTS);
                     }
                     else{//do something with data
-                        this.vehicleType(vid).then(res=>{
+                        this.vehicleType(params.vid).then(res=>{
                             let data = {rentals: results, typeinfo: res}
 
                             resolve(JSON.stringify(data))
 
-                        }).catch(err => reject(new Error(err.message)))
+                        }).catch(err => {
+                            console.log("getVehicleRentals from call to vehicleType")
+                            reject(err)
+                        })
                     }
                 })
+            }else{
+                reject(new Error("No vID Given"))
+            }    
+            
             });
         return res;
 
     }
 
-
-    async getRentalVehicles(){
+    async turnover_report(params){
         const res = await new Promise((resolve,reject)=>{
-            conn.query(UNIQUE_RENTALS_QUERY, (err,results)=>{
-                let data = []
-                if(err) reject(new Error(err.message))
-                else if(!results.length){
-                    reject(NO_RESULTS);
-                }else{
-                    results.forEach(res => {
-                        data.push(res.vehicle_id)
-                    });
-                    
-                    data = {ids:data,first:null};
-                    this.rentals(data.ids[0]).then(res=>{
-                        data.first = JSON.parse(res);
-                        resolve(JSON.stringify(data));
-                    }).catch( err => reject(new Error(err.message)))
-
-                }
-            })
+            if(params && Object.hasOwn(params,"vid")){
+                return this.getVehicleRentals(params);
+            } else{
+                conn.query(FIRST_RENTAL, (err,results)=>{
+                    if(err) {
+                        reject(new Error(err.message))
+                    }
+                    else if(!results.length) {
+                        reject(NO_RESULTS);
+                    }
+                    else{//do something with data
+                        this.getVehicleRentals({vid:results[0].vehicle_id}).then(data=>{
+                            resolve(this.formatTurnoverReport(JSON.parse(data)));
+                        }).catch(err=>{
+                            console.log("turnover_report from call to getVehicleRentals");
+                            reject(err)
+                        })
+                    }
+                })
+            }
+                
         });
         return res;
+    }
+
+    formatTurnoverReport(queryResults) {
+        let data = {
+            license:queryResults.rentals[0].vehicle_id,
+            typeinfo: queryResults.typeinfo,
+            monthly_rentals:[8,5,1,2,5,10,5,7,4,3,0,2],
+            year_rentals: 0,    
+            total_rentals: queryResults.rentals.length,
+            avg_rent_time: null,
+        }
+        let rentDays = 0;
+        let current_year = new Date().getFullYear();
+
+        queryResults.rentals.forEach(element => {
+            let dateInfo = element.lend_date.split("-").map(Number);
+            //dateInfo = [year,month,day]
+            if(dateInfo[0] == current_year){
+                Monthly_Rentals[dateInfo[1]-1]+=1;
+                Year_Rentals+=1;
+            }
+            rentDays += Math.round((new Date(element.lend_date) -new Date(element.retrun_date) )/((1000 * 60 * 60 * 24)) )
+            
+        });
+
+        data.avg_rent_time = (rentDays/data.total_rentals) || 0;
+        return JSON.stringify(data);
     }
 
 
