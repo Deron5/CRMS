@@ -64,6 +64,7 @@ DROP TABLE IF EXISTS `rentals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rentals` (
+  `rental_id` int NOT NULL,
   `customer_id` int NOT NULL,
   `vehicle_id` varchar(10) NOT NULL,
   `rental_Rate` varchar(255) DEFAULT NULL,
@@ -76,7 +77,7 @@ CREATE TABLE `rentals` (
   `rental_fee` float DEFAULT NULL,
   `payment_method` varchar(10) DEFAULT NULL,
   `paid` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`customer_id`,`vehicle_id`),
+  PRIMARY KEY (`rental_id`), /*users can have multiple rentals and possibly rent multiple things on the same day*/
   KEY `vehicle_id` (`vehicle_id`)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;

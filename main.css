@@ -6,6 +6,10 @@
   right: 5px;
 }
 
+*{
+  color: #404355;
+}
+
 .sidebar[open]>summary {
   text-align: center;
   padding-right: 1rem;
@@ -64,7 +68,7 @@ details>summary{
 
 #grph{
   display: grid;
-  width: 500px;
+  width: 550px;
   height: 400px;
   grid-template-columns: min-content 1fr;
   grid-template-rows: 1fr min-content;
@@ -74,4 +78,70 @@ details>summary{
 .col{
   grid-row: 12;
   /* align-self: end; */
+}
+.col>div{
+  transition: opacity 1s;
+  /* visibility: visible !important; */
+  /* opacity: initial !important; */
+  z-index: 2;
+}
+
+.col:hover>div{
+  visibility: visible;
+  opacity: 1;
+}
+
+.search {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  box-sizing: border-box;
+  /* background-color: #dcdee6; */
+  background-color: #dcdee67a;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  border-radius: 3px;
+  width: 17rem;
+  font-size: 1.2rem;
+}
+
+
+.searchIconOuter {
+  height: 1.6rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  transform: rotate(135deg);
+  width: min-content;
+}
+
+.searchIconInner {
+  font-size: 4rem;
+  line-height: 1.3rem;
+  width: fit-content;
+  rotate: 35px;
+  transform: rotate(180deg);
+  padding-right: 0.1rem;
+}
+
+#searchContainer>#searchBox:focus + div{
+  display: flex;
+  flex-direction: column;
+  top: 1.71rem;
+} 
+
+
+#searchContainer> div:hover{
+  display: flex;
+  flex-direction: column;
+  top: 1.71rem;
+}
+
+
+.searchOpt{
+  width: 65%;
+  margin: auto;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.searchOpt:hover{
+  background-color: #dedde08e;
 }

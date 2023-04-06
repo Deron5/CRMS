@@ -67,7 +67,7 @@
                     <div class="flex flex-col bg-slate-100">
                         <button
                             class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
-                            onclick="window.location.href='http://localhost:8080/vehicle_reports'">
+                            onclick="window.location.href='http://localhost:8080/rentals_reports'">
                             Vehicle Rentals
                             <div class="absolute right-[-5px] top-[.35rem]">
                                 <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
@@ -91,7 +91,7 @@
                         </button>
                         <button
                             class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                            onclick="window.location.href='http://localhost:8080/rental_reports'">
+                            onclick="window.location.href='http://localhost:8080/rentals_reports'">
                             Rental History
                             <div class="absolute right-[-5px] top-[.35rem]">
                                 <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
@@ -145,46 +145,135 @@
 
             </div>
         </details>
-        <div class="bg-white w-full h-full PageContents">
+        <div class="bg-white w-full h-full PageContents overflow-y-auto">
             <div id="title" class="flex items-center justify-center h-20 text-4xl  text-[#404355] bg-[#e6ebf2]">
                 Vehicle Turnover Reports
             </div>
-            <div class="bg-slate-50">
-
-                <div class="w-[36.5rem]">
-                    <div id="vehicleinfo">
-                        <div>Brand: <span id="brand"></span></div>
-                        <div>Model: <span id="model"></span></div>
-                        <div>Manufactured Year: <span id="manufactured_year"></span></div>
-                        <div>VIN: <span id="vin"></span></div>
-                        <div>Interior Colour: <span id="interior_colour"></span></div>
-                        <div>Exterior Colour: <span id="exterior_colour"></span></div>
-                        <div>License Number: <span id="license"></span></div>
-                        <div>Odometer Reading: <span id="odometer_reading"></span></div>
-                    </div>
-                    <div id="rentalsGraph">
-                        <div id="grph" class="grid">
-                            <div class="grid grid-rows-[repeat(12,1fr)] w-8 text-center" style="grid-column: 1; grid-row: 1;">
-                                <div class="relative" style="grid-row: 2;"><span class="absolute left-0 right-0 top-[-10px]">10</span></div>
-                                <div class="relative" style="grid-row: 4;"><span class="absolute left-0 right-0 top-[-10px]">8</span></div>
-                                <div class="relative" style="grid-row: 6;"><span class="absolute left-0 right-0 top-[-10px]">6</span></div>
-                                <div class="relative" style="grid-row: 8;"><span class="absolute left-0 right-0 top-[-10px]">4</span></div>
-                                <div class="relative" style="grid-row: 10;"><span class="absolute left-0 right-0 top-[-10px]">2</span></div>
-                                <div  style="grid-row: 12;"><span >0</span></div>
+            <div class="bg-[#f4f6f8] flex flex-wrap pt-8">
+                <div id="vehicleinfo" class=" w-[35rem] md:m-[0_auto_0_1.75rem] p-4 pt-0 text-xl flex flex-col">
+                    <div id="searchContainer" class="search relative mb-4">
+                        <button class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
+                            <div class="searchIconOuter">
+                                <div class="searchIconInner">
+                                    &#10991;
+                                </div>
                             </div>
-                            <div class="grid border-2 bg-transparent" style="grid-column: 2; grid-row: 1;">
-                                <div class="m-1 mb-0 mt-0 col bg-[#c3d4e94f] border-[#a1b0c280] border-[1px] border-b-0" ></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#ffea5f3f] border-[#ffdd006f] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#66ff904d] border-[#40ba614d] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#34efef3f] border-[#12c9c96f] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#9966ff33] border-[#5933a65e] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#7cd6ff4d] border-[#3463ef74] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#c3d4e94f] border-[#a1b0c280] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#7cd6ff4d] border-[#3463ef74] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#ffea5f3f] border-[#ffdd006f] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#34efef3f] border-[#12c9c96f] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#66ff904d] border-[#40ba614d] border-[1px] border-b-0"></div>
-                                <div class="m-1 mb-0 mt-0 col bg-[#9966ff33] border-[#5933a65e] border-[1px] border-b-0"></div>
+                        </button>
+                        <input id="searchBox" type="text" placeholder="Search License Plate" class="rounded-tr-[3px] rounded-br-[3px] outline-none pl-2" maxlength='10' onkeyup="searchLicense()">
+                        </input>
+                        <div class="absolute bg-white w-full h-max hidden border-2">
+                            <button class="searchOpt">Option 1</button>
+                            <button class="searchOpt">Option 2</button>
+                            <button class="searchOpt">Option 3</button>
+                        </div>
+                    </div>
+                   
+                    <div class="grid grid-cols-[repeat(2_,_max-content)] bg-white gap-x-8 gap-y-4 p-4 rounded-md">
+                        <div>Brand: <span id="brand"></span></div>
+                        <div>License Number: <span id="license"></span></div>
+                        <div>Model: <span id="model"></span></div>
+                        <div>Interior Colour: <span id="interior_colour"></span></div>
+                        <div>VIN: <span id="vin"></span></div>
+                        <div>Exterior Colour: <span id="exterior_colour"></span></div>
+                        <div>Manufactured Year: <span id="manufactured_year"></span></div>
+                        <div>Odometer Reading: <span id="odometer_reading"></span></div>
+                        <div class="col-span-2">
+                            Condition:
+                            <div id="condition"></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4 mt-4 text-base" style="grid-template-columns: 1fr 1fr;">
+                        <button onclick="prevNext(-1);" class="text-white h-7 bg-violet-400 shadow-lg hover:bg-[#8e72e1] rounded w-40  font-bold">Previous Vehicle</button>
+                        <button onclick="prevNext(1);" class="text-white h-7 bg-violet-400 shadow-lg hover:bg-[#8e72e1] rounded w-40 font-bold">Next Vehicle</button>
+                        <button  onclick="rentals()" class="text-white h-7 bg-violet-400 shadow-lg hover:bg-[#8e72e1] rounded w-40 font-bold">Rental Details</button>
+                       
+                    </div>
+                </div>
+
+                <div class="bg-white mr-auto pt-4 pr-4 pb-4">
+                    <div id="rentalsGraph">
+                        <div id="grph" class="grid bg-transparent">
+                            <div class="grid grid-rows-[repeat(12,1fr)] w-8 text-center"
+                                style="grid-column: 1; grid-row: 1;">
+                                <div class="relative" style="grid-row: 3;">
+                                    <span class="absolute left-0 right-0 top-[-12px]">10</span>
+                                </div>
+                                <div class="relative" style="grid-row: 5;">
+                                    <span class="absolute left-0 right-0 top-[-12px]">8</span>
+                                </div>
+                                <div class="relative" style="grid-row: 7;">
+                                    <span class="absolute left-0 right-0 top-[-12px]">6</span>
+                                </div>
+                                <div class="relative" style="grid-row: 9;">
+                                    <span class="absolute left-0 right-0 top-[-12px]">4</span>
+                                </div>
+                                <div class="relative" style="grid-row: 11;">
+                                    <span class="absolute left-0 right-0  top-[-12px]">2</span>
+                                </div>
+                                <div style="grid-row: 12;" class="relative">
+                                    <span class="absolute left-0 right-0 bottom-[-8px]">0</span>
+                                </div>
+                            </div>
+                            <div class="border-2 relative" style="grid-column: 2; grid-row: 1;">
+                                <div class="grid relative w-full h-full z-20">
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#c3d4e94f] border-[#a1b0c280] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Jan: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#ffea5f3f] border-[#ffdd006f] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Feb: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#66ff904d] border-[#40ba614d] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Mar: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#34efef3f] border-[#12c9c96f] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Apr: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#9966ff33] border-[#5933a65e] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">May: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#7cd6ff4d] border-[#3463ef74] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Jun: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#c3d4e94f] border-[#a1b0c280] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Jul: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#7cd6ff4d] border-[#3463ef74] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Aug: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#ffea5f3f] border-[#ffdd006f] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Sep: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#34efef3f] border-[#12c9c96f] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Oct: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#66ff904d] border-[#40ba614d] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] left-[50%]">Nov: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                    <div class="-1.65rem m-1 mb-0 mt-0 col bg-[#9966ff33] border-[#5933a65e] border-[1px] border-b-0 relative">
+                                        <div class="invisible  bg-slate-500 text-white absolute w-12  opacity-0 rounded text-center top-[-1.65rem] right-[50%]">Dec: <span class="text-[15px] text-inherit"></span></div>
+                                    </div>
+                                </div>
+                                <canvas id="grphLines" class="-1.65rem w-full absolute h-full top-0 z-10">
+                                    <script>
+                                        const canvas = document.getElementById("grphLines");
+                                        canvas.width = canvas.parentElement.getBoundingClientRect().width;
+                                        canvas.height = canvas.parentElement.getBoundingClientRect().height;
+                                        
+
+                                        if (canvas.getContext) {
+                                            const ctx = canvas.getContext("2d")
+                                            ctx.beginPath();
+                                            ctx.lineWidth = 1;
+                                            ctx.strokeStyle = "#b7bdc43f";
+                                            for (let y = 1; y < 6; y++) {
+                                                ctx.moveTo(0, y * ((canvas.height) / 6));
+                                                ctx.lineTo(canvas.width, y * ((canvas.height) / 6));
+                                                ctx.stroke();
+                                            }
+                                            ctx.closePath();
+                                        }
+                                    </script>
+                                </canvas>
                             </div>
                             <div style="grid-column: 2; grid-row: 2;" class="grid grid-cols-12 text-center">
                                 <div class="p-1 pb-0 pt-0">Jan</div>
@@ -202,7 +291,7 @@
                             </div>
                         </div>
 
-                       
+
                         <!-- <script>
                             let data = [10, 9, 15, 11, 6, 7, 2, 9, 2, 3, 7, 2]
                             let ticks = [0, 2, 4, 6, 8, 10, 12, 15]
@@ -255,19 +344,50 @@
 
  
                         </script> -->
-                        
+
                     </div>
                 </div>
-                <div id="other">
-                    <div>Total Rentals: <span id="total_rentals"></span> </div>
-                    <div>Rentals This Month: <span id="rtm"></span> </div>
-                    <div>Rentals This Year: <span id="year_rentals"></span> </div>
-                    <div>Average Rentals Per Month: <span id="arm"></span> </div>
-                    <div>Average Rental Time This Year: <span id="avg_rent_time"></span> </div>
+                <div id="other" class="w-full grid  grid-cols-[repeat(auto-fill,13rem)] gap-8 justify-center mt-4">
+                    <div class="bg-white w-[13rem]  h-24 p-[.5rem_1rem]">
+                        <div class="text-lg border-b-2 mb-2">Total Rentals</div>
+                        <div id="total_rentals" class="text-3xl font-medium">0</div>
+                    </div>
+                    <div class="bg-white w-[13rem] h-24 p-[.5rem_1rem]">
+                        <div class="text-lg border-b-2 mb-2">Rentals This Month</div>
+                        <div class="text-3xl font-medium flex flex-wrap justify-between">
+                            <div id="rtm">0</div>
+                            <div class="flex flex-wrap align-middle items-center text-2xl gap-x-1  ">
+                                
+                                <div id="month_percentage">
+                                </div>
+                                
+                                <div class="border-red-500 border-2 w-6 h-6 relative rounded-full mt-[2px] rotate-180 hidden indePercent" style="font-family: auto;">
+                                    <div class="text-red-500 absolute top-[-6px] m-auto right-0 left-0 w-[11px] h-[11px] text-[20px]">&#8679;</div>
+                                </div>
+
+                                <div class="border-green-400 border-2 w-6 h-6 relative rounded-full mt-[2px] hidden indePercent" style="font-family: auto;">
+                                    <div class="text-green-400 absolute top-[-6px] m-auto right-0 left-0 w-[11px] h-[11px] text-[20px]">&#8679;</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white w-[13rem] h-24 p-[.5rem_1rem]">
+                        <div class="text-lg border-b-2 mb-2">Rentals This Year</div>
+                        <div id="year_rentals" class="text-3xl font-medium">0</div>
+                    </div>
+                    <div class="bg-white w-[13rem] h-24 p-[.5rem_1rem]">
+                        <div class="text-lg border-b-2 mb-2">Avg. Monthly Rentals </div>
+                        <div id="arm" class="text-3xl font-medium">0</div>
+                    </div>
+                    <div class="bg-white w-[13rem] h-24 p-[.5rem_1rem]">
+                        <div class="text-lg border-b-2 mb-2">Average Rental Time</div>
+                        <div id="avg_rent_time" class="text-3xl font-medium">0</div>
+                    </div>
+
+                    <div></div>
                 </div>
-                <div id="btns">
-                    <button>Details</button>
-                </div>
+            
             </div>
 
         </div>
@@ -276,56 +396,147 @@
 
 
     <script>
+        var license = null;
+        var rowNum = null;
+
+        let licenseRequest = null;
+
+        function searchLicense() {
+            let resultBox = document.querySelector("#searchContainer>div");
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "rentalIdsLike", params: {regex:`^${document.getElementById("searchBox").value}`}}),
+            }).then((res) => res.json())
+                .then((data) => {
+                    resultBox.innerHTML = "";
+                    for (value of data) {
+                        resultBox.innerHTML += `<button class="searchOpt" onclick="searchRental(event)">${value.vehicle_id}</button>`;
+                    }
+                })
+
+            console.log(document.getElementById("searchBox").value)
+        }
+
+        function searchRental(event) {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({func: "turnover_report", params : {vid:event.target.innerHTML,row: rowNum} }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    formatData(data);
+                })
+        }
+
         function init() {
 
             let params = (new URLSearchParams(window.location.search));
-
-                fetch('rentals', {
-                    method: 'POST',
-                    body: JSON.stringify({ func: "turnover_report", params: {} }),
-                }).then((res) => res.json())
-                    .then((data) => {
-                        let typeinfo = data.typeinfo;
-                        let monthly_rentals = data.monthly_rentals;
-                        let columns = document.querySelectorAll(".col");
-                        // grid-row: 10/ span 3;
-
-                        for(let i = 0; i < 12;i++){
-                            console.log(columns[i])
-                            console.log(monthly_rentals[i])
-                            if(monthly_rentals[i] !== 0){
-                                columns[i].style.gridRow=`${12-monthly_rentals[i]}/span ${monthly_rentals[i]+1}`
-                            }else{
-                                columns[i].style.alignSelf = "end";
-                                columns[i].style.height = "70%";
-                            }
-                            columns[i].title =monthly_rentals[i];
-                        }
-
-
-                        delete data.typeinfo
-                        delete data.monthly_rentals
-                        delete typeinfo.license_plate_number;
-                        delete typeinfo.vehicle_type;
-                        
-                        for(const [key,value] of Object.entries(data)){
-                            console.log(`${key}:${value}`)
-                            document.getElementById(key).innerHTML = value;
-                        }
-
-                        for(const [key,value] of Object.entries(typeinfo)){
-                            console.log(`${key}:${value}`)
-                            document.getElementById(key).innerHTML = value;
-                        }
-
-                        document.getElementById("rtm").innerHTML = monthly_rentals[new Date().getMonth()];
-                        document.getElementById("arm").innerHTML = Math.floor(monthly_rentals.reduce((sum, val) => sum + val, 0)/12);
-
-                    })
+            
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "turnover_report", params: {} }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    formatData(data);
+                })
 
 
         }
 
+
+        function prevNext(val) {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "turnoverFromRowNumber", params: {vid: license, row:rowNum+val} }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    formatData(data);
+                }).catch(err=>console.log(err))
+        }
+
+
+        function formatData(data) {
+            
+            console.log(`row: ${data.row}`);
+                    license = data.license;
+
+                    let typeinfo = data.typeinfo;
+                    let monthly_rentals = data.monthly_rentals;
+                    let columns = document.querySelectorAll(".col");
+                    // grid-row: 10/ span 3;
+                    
+                    for (let i = 0; i < 12; i++) {
+                        if (monthly_rentals[i] !== 0) {
+                            columns[i].style.gridRow = `${13 - monthly_rentals[i]}/span ${monthly_rentals[i]}`
+                        } else {
+                            columns[i].style.alignSelf = "end";
+                            columns[i].style.height = "10%";
+                        }
+                        // columns[i].style.zIndex = 1;
+                        columns[i].children[0].childNodes[1].innerHTML = monthly_rentals[i];
+                        // columns[i].childNodes[0]. = monthly_rentals[i];
+                    }
+
+                    let divs = document.querySelectorAll(".indePercent");
+                    
+                    let percentBox = document.getElementById("month_percentage")
+                    
+                    percentBox.innerHTML = `${data.inde}%`;
+
+                    console.log(data.inde);
+                    if(data.inde < 0){
+                        divs[0].style.display = "unset";
+                        divs[1].style.display = "none";
+                        percentBox.classList = ["text-red-500"];
+                    } else if (data.inde > 0){
+                        divs[1].style.display = "unset";
+                        divs[0].style.display = "none";
+                        percentBox.classList = ["text-green-400"];
+                    }else{
+                        divs[0].style.display = "none";
+                        divs[0].style.display = "none";
+                        percentBox.classList = [];
+                    }
+                    
+                    rowNum = data.row;
+
+                    delete data.row;
+                    delete data.inde;
+                    delete data.typeinfo
+                    delete data.monthly_rentals
+                    delete typeinfo.license_plate_number;
+                    delete typeinfo.vehicle_type;
+
+                    for (const [key, value] of Object.entries(data)) {
+                        document.getElementById(key).innerHTML = value;
+                    }
+
+                    for (const [key, value] of Object.entries(typeinfo)) {
+                        document.getElementById(key).innerHTML = value;
+                    }
+
+                    
+                    let curMonth = new Date().getMonth();
+                    if(curMonth !== 0){
+                        let thisMonth = monthly_rentals[curMonth]
+                        let prevMonth = monthly_rentals[curMonth-1]
+                    }
+
+
+                    document.getElementById("rtm").innerHTML = monthly_rentals[new Date().getMonth()];
+                    
+                    document.getElementById("arm").innerHTML = Math.floor(monthly_rentals.reduce((sum, val) => sum + val, 0) / 12);
+
+                    console.log(data.license)
+                    console.log(license)
+            console.log(`license: ${license}`);
+
+
+        }
+
+        function rentals() {
+            if(license)
+                window.location.href = `/rentals_reports?vid=${license}`
+        }
         function loadData(params) {
 
         }

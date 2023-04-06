@@ -20,6 +20,7 @@ function loadFile(req,res,url_) {
     let type;
     let filePath;
     //determine file type and path
+    console.log(url_.pathname)
     if(re.test(url_.pathname)){
         filePath = `..${url_.pathname}`;
         type = filePath.substring(filePath.lastIndexOf(".")+1);
@@ -33,7 +34,6 @@ function loadFile(req,res,url_) {
         res.writeHead(204);
         res.end();
     }else{
-        console.log(filePath)
         fs.readFile(filePath, (err,data)=>{
             if(err){//file doesn't exist
                 fs.readFile(INDEX_FILE, (err,data)=>{
