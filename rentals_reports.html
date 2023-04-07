@@ -147,14 +147,7 @@
 			<div id="title" class="flex items-center justify-center h-24 text-4xl text bg-[#e6ebf2]">
 				Rentals Report
 			</div>
-			<div class="bg-[#f4f6f8]">
-				all rentals made for a particular vehicle, including the rental dates,
-				customers who rented the vehicle, rental rates, and any additional
-				charges or fees. provides a summary of all rentals over a specific
-				time period, including the number of rentals, rental duration, rental
-				rates, and total revenue
-				<br /><br /><br />
-
+			<div class="bg-[#f4f6f8] pt-4">
 
 				<div class="">
 					<div class="rounded-lg justify-center m-auto p-4 flex flex-wrap bg-white min-w-[35rem] max-w-max">
@@ -162,7 +155,7 @@
 							<div class="col-span-2 w-full text-center pb-2 border-b-2 mb-4">
 								<div class="text-xl font-semibold">Vehicle Info</div>
 							</div>
-							<div class="grid grid-cols-[max-content,max-content] gap-x-4  px-4">
+							<div id="vInfoBox" class="grid grid-cols-[max-content,max-content] gap-x-4  px-4">
 								<div>Brand: <span id="brand"></span></div>
 								<div>License Number: <span id="license_plate_number"></span></div>
 								<div>Model: <span id="model"></span></div>
@@ -176,7 +169,7 @@
 						</div>
 
 						<div class="lg:pl-6 lg:border-l-2  pt-6 lg:pb-0 flex flex-col justify-evenly">
-							<div id="searchContainer" class="search relative mb-4">
+							<div id="searchContainer" class="search relative mb-6">
 								<button
 									class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
 									<div class="searchIconOuter">
@@ -189,25 +182,43 @@
 									class="rounded-tr-[3px] rounded-br-[3px] outline-none pl-2 border-2 border-l-0"
 									maxlength='10' onkeyup="searchLicense()">
 								</input>
-								<div class="absolute bg-white w-full h-max hidden border-2">
-									<button class="searchOpt">Option 1</button>
-									<button class="searchOpt">Option 2</button>
-									<button class="searchOpt">Option 3</button>
+								<div id="res" class="absolute bg-white w-full h-max hidden border-2">
 								</div>
 							</div>
-							<div class="border-2 grid grid-cols-[min-content,min-content,min-content] gap-x-2 pl-1 pr-2">
-							<input type="date" name="" id="">
-							
-							<input type="date" name="" id="">
+							<div class="text-xl text-gray-400 mb-2 pl-2">
+								Vehicle License: <span id="cv" class="text-xl text-gray-400 select-none" data-id="" >None Selected</span>
+							</div>
 
-							<button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2" >Search</button>
+							<div class="border-2 p-2 pt-4">
+
+								<div class="grid grid-cols-[1fr,1fr] gap-x-4">
+									<div class="grid grid-cols-[1fr,max-content] gap-3">
+										<label for="startDate" class="flex items-center">
+											Lent Date:
+										</label>
+										<input type="date" name="startDate" id="startDate" class="border-[2px] p-1">
+									</div>
+
+									<div class="grid grid-cols-[1fr,max-content] gap-3">
+										<label for="endDate" class="flex items-center">
+											Return Date:
+										</label>
+										<input type="date" name="endDate" id="endDate" class="border-[2px] p-1">
+									</div>
+
+
+								</div>
+								<div class="flex justify-end gap-8 mt-4">
+									<button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24" onclick="resetInputs()">Clear</button>
+									<button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24" onclick="searchRentals()">View</button>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="flex py-4 gap-4 text-[17px] font-semibold justify-center items-center">
-						<div class="bg-white p-4">Number of Rentals: <span id="nor"></span></div> 
-						<div class="bg-white p-4">Total Rental Days: <span id="rd"></span></div> 
-						<div class="bg-white p-4">Total Revenue: <span id="tr"></span></div> 
+					<div class="flex py-4 gap-4 text-[17px] font-semibold justify-center">
+						<div class="bg-white p-4">Number of Rentals: <span id="nor"></span></div>
+						<div class="bg-white p-4">Total Rental Days: <span id="rd"></span></div>
+						<div class="bg-white p-4">Total Revenue: <span id="tr"></span></div>
 						<div class="bg-white p-4">Average Daily Revenue: <span id="dr"></span></div>
 					</div>
 				</div>
@@ -253,30 +264,30 @@
 	<script>
 
 		function daysMonthsYears(days) {//returns a string converting the difference between the dates to months, days and years
-			if(!days)
+			if (!days)
 				return "<span style='color:rgb(244 63 94)'>Ongoing Rental</span>"
 
 			let res = "";
-			let temp = [[365,"year"],[31,"month"],[7,"week"],[1,"day"]]
-			
-			temp.forEach(grp =>{
-				let q = Math.floor(days/grp[0])
+			let temp = [[365, "year"], [31, "month"], [7, "week"], [1, "day"]]
+
+			temp.forEach(grp => {
+				let q = Math.floor(days / grp[0])
 				let r = days % grp[0]
 
-				if(q){
+				if (q) {
 					days = r;
-					res+= `${q} ${grp[1]}`
-					if(q > 1)
-						res+="s "
+					res += `${q} ${grp[1]}`
+					if (q > 1)
+						res += "s "
 					else
-						res+=" "
+						res += " "
 				}
 			})
-			
-			return(res);
+
+			return (res);
 
 		}
-				 
+
 		function searchLicense() {
 			let resultBox = document.querySelector("#searchContainer>div");
 			let searchBox = document.getElementById("searchBox");
@@ -290,25 +301,56 @@
 				.then((data) => {
 					resultBox.innerHTML = "";
 					for (value of data) {
-						resultBox.innerHTML += `<button class="searchOpt" onclick="searchRentals(event)">${value.vehicle_id}</button>`;
+						resultBox.innerHTML += `<button class="searchOpt" onclick="loadVehicle(${value.vehicle_id},${value.vehicle_id})">${value.vehicle_id}</button>`;
 					}
 				})
 		}
 
 
-		function searchRentals(event) {
+		function loadVehicle(id,attr) {
+			let curVehicle = document.getElementById("cv");
+			curVehicle.innerHTML = id;
+			curVehicle.dataset.id = attr;
+			document.getElementById("searchBox").value = "";
+			document.getElementById("res").style.display = "none";
+			setTimeout(() => {
+				document.getElementById("res").style.display = "";
+			}, 100);
+		}
 
-			fetch('rentals', {
-				method: 'POST',
-				body: JSON.stringify({ func: "getVehicleRentals", params: { vid: event.target.innerHTML } }),
-			}).then((res) => res.json())
-				.then((data) => {
-					console.log("Fetch Done!")
-					console.log(data);
-					// formatData(data);
-				}).catch(err => {
-					console.log(err);
-				})
+		function resetInputs() {
+			document.getElementById("startDate").value = ""
+			document.getElementById("endDate").value = ""
+			let curVehicleBox = document.getElementById("cv");
+			
+			curVehicleBox.innerHTML = "None Selected";
+			curVehicleBox.dataset.id = "";
+		}
+
+		function searchRentals() {
+			let params = {};
+			let check = 0;
+
+			params.vid = document.getElementById("cv").dataset.id;
+			params.lend_date = document.getElementById("startDate").value;
+			params.return_date = document.getElementById("endDate").value;
+
+			if(params.lend_date && params.return_date)
+				if(new Date(params.lend_date) < new Date(params.return_date)){
+					alert("Please Ensure That The Lent Date is Before The Return Date ")
+					return
+				}
+
+
+				fetch('rentals', {
+					method: 'POST',
+					body: JSON.stringify({ func: "getVehicleRentals", params: params }),
+				}).then((res) => res.json())
+					.then((data) => {
+						format(data)
+					}).catch(err => {
+						console.log(err);
+					})
 		}
 
 		function init() {
@@ -316,7 +358,7 @@
 			let searcParams = {};
 
 			if (params.get("vid"));
-				searcParams.vid = params.get("vid");
+			searcParams.vid = params.get("vid");
 
 			fetch("reports", {
 				method: "POST",
@@ -334,28 +376,31 @@
 
 		function formatExtraCharges(chargeString) {
 
-			return  [0];			
+			return [0];
 		}
 
 
 		function format(results) {
-			console.log(results.typeinfo)
-			if(Object.hasOwn(results,"typeinfo")){
+			document.querySelector("#rentals").innerHTML = "";
 
+			if (Object.hasOwn(results, "typeinfo")) {
 				delete results.typeinfo.vehicle_type
-
 				for (const [key, value] of Object.entries(results.typeinfo))
 					document.getElementById(key).innerHTML = value;
-				
-			}
-				
+			}else
+				document.querySelectorAll("#vInfoBox span").forEach(span => {
+					span.innerHTML = "";
+				})
+
+
 
 			let revenue = 0;
 			let totaldays = 0;
 
 			results.rentals.forEach(res => {
-				document.getElementById("rentals").innerHTML+= 
-				`<div class="infoBox">
+				
+				document.getElementById("rentals").innerHTML +=
+					`<div class="infoBox">
 						<div class="ctitle ibtitle">Customer Info</div>
 						<div class="rtitle ibtitle">Rental Info</div>
 
@@ -384,14 +429,14 @@
 							</div>
 						</div>
 					</div>`;
-;
+				;
 				let copy = document.querySelector("#rentals").lastElementChild;
 
-				let rental_fee = res.days*res.rental_Rate;
+				let rental_fee = res.days * res.rental_Rate;
 				res.extra_charges = JSON.parse(res.extra_charges);
 
-				for(key in res.extra_charges){
-					copy.querySelector(".extra_charges").innerHTML+=`
+				for (key in res.extra_charges) {
+					copy.querySelector(".extra_charges").innerHTML += `
 					<div>
 						<span>
 						${key}:
@@ -404,18 +449,18 @@
 					rental_fee += res.extra_charges[key];
 				}
 				copy.querySelector(".rental_fee").innerHTML = `$${rental_fee}`;
-				revenue+= rental_fee;
-				
+				revenue += rental_fee;
+
 				res.return_date = new Date(res.return_date);
 				res.lend_date = new Date(res.lend_date);
-				if(res.returned_date){
+				if (res.returned_date) {
 					res.returned_date = new Date(res.returned_date);
-					if(res.returned_date == res.lend_date){
+					if (res.returned_date == res.lend_date) {
 						res.days = 1;
 					}
 				}
 
-				totaldays+= res.days;
+				totaldays += res.days;
 
 				res.return_date = res.return_date.toDateString();
 				res.lend_date = res.lend_date.toDateString();
@@ -423,27 +468,27 @@
 
 				copy.querySelector(".duration").innerHTML = daysMonthsYears(res.days);
 
-				
+
 
 
 				copy.querySelector(".cinfo").dataset.id = res.customer_id;
-			
+
 				delete res.days
 				delete res.customer_id;
 				delete res.extra_charges;
-				
 
 
-				if(res.return_condition !== res.lend_condition)
+
+				if (res.return_condition !== res.lend_condition)
 					copy.querySelector(".return_condition").style.color = "rgb(244 63 94)";
-				
-				if(res.returned_date !== res.return_date)
+
+				if (res.returned_date !== res.return_date)
 					copy.querySelector(".returned_date").style.color = "rgb(244 63 94)";
-				
+
 				for (const [key, value] of Object.entries(res)) {
 					copy.querySelector(`.${key}`).innerHTML = value;
 				}
-				
+
 			});
 
 
@@ -451,15 +496,15 @@
 			console.log(revenue)
 
 			document.getElementById("nor").innerHTML = results.rentals.length
-			document.getElementById("rd").innerHTML = totaldays >  0 ? daysMonthsYears(totaldays) : totaldays;
+			document.getElementById("rd").innerHTML = totaldays > 0 ? daysMonthsYears(totaldays) : totaldays;
 			document.getElementById("tr").textContent = `$${revenue}`;
-			document.getElementById("dr").innerHTML = `$${totaldays > 0 ? revenue/totaldays : 0}`;
+			document.getElementById("dr").innerHTML = `$${totaldays > 0 ? revenue / totaldays : 0}`;
 
 			// text-emerald-500
 			// text-rose-500
 
 
-
+			resetInputs();
 		}
 
 

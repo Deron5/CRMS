@@ -237,7 +237,7 @@ class RequestHandler {
                     query_base+= " and vehicle_id = ?"
                     searchParams.push(params.vid)
                     getInfo = true;
-                }else if(Object.hasOwn(params,"lend_date") && params.lend_date ){
+                }else if(Object.hasOwn(params,"lend_date") && params.lend_date){
                     query_base+= " and lend_date >= ?"
                     searchParams.push(params.lend_date)
                 }else if(Object.hasOwn(params,"return_date") && params.return_date){
