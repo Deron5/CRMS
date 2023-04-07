@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                         </button>
-                        <input id="searchBox" type="text" placeholder="Search License Plate" class="rounded-tr-[3px] rounded-br-[3px] outline-none pl-2" maxlength='10' onkeyup="searchLicense()">
+                        <input id="searchBox" type="text" placeholder="Search License Plate" class="rounded-tr-[3px] rounded-br-[3px] outline-none pl-2 border-2 border-l-0" maxlength='10' onkeyup="searchLicense()">
                         </input>
                         <div class="absolute bg-white w-full h-max hidden border-2">
                             <button class="searchOpt">Option 1</button>
@@ -167,8 +167,11 @@
                             <button class="searchOpt">Option 3</button>
                         </div>
                     </div>
-                   
-                    <div class="grid grid-cols-[repeat(2_,_max-content)] bg-white gap-x-8 gap-y-4 p-4 rounded-md">
+
+                    <div class="col-span-2  bg-white rounded-t-md p-2">
+                        <div class="w-[97%] m-auto text-2xl text-center border-b-2 pb-1">Vehicle Info</div>
+                    </div>
+                    <div class="grid grid-cols-[repeat(2_,_max-content)] bg-white gap-x-8 gap-y-4 p-4 pt-2 rounded-md rounded-t-none">
                         <div>Brand: <span id="brand"></span></div>
                         <div>License Number: <span id="license"></span></div>
                         <div>Model: <span id="model"></span></div>
@@ -403,9 +406,13 @@
 
         function searchLicense() {
             let resultBox = document.querySelector("#searchContainer>div");
+            let searchBox = document.getElementById("searchBox");
+            if(!searchBox.value.trim())
+              return
+            
             fetch('rentals', {
                 method: 'POST',
-                body: JSON.stringify({ func: "rentalIdsLike", params: {regex:`^${document.getElementById("searchBox").value}`}}),
+                body: JSON.stringify({ func: "rentalIdsLike", params: {regex:`^${searchBox.value}`}}),
             }).then((res) => res.json())
                 .then((data) => {
                     resultBox.innerHTML = "";
@@ -413,8 +420,6 @@
                         resultBox.innerHTML += `<button class="searchOpt" onclick="searchRental(event)">${value.vehicle_id}</button>`;
                     }
                 })
-
-            console.log(document.getElementById("searchBox").value)
         }
 
         function searchRental(event) {

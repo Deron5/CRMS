@@ -1,149 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Customers</title>
-    <link rel="stylesheet" href="tailwind.css">
-    <link rel="stylesheet" href="main.css">
-  
+	<title>Customers</title>
+	<link rel="stylesheet" href="tailwind.css" />
+	<link rel="stylesheet" href="main.css" />
 </head>
+
 <body class="" onload="init()">
+	<div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
+		<details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
+			<summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4 border-blue-400 border-b-2">
+				CRMS
+			</summary>
+			<div class="flex flex-col w-40 gap-6">
+				<button
+					class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+					onclick="window.location.href='http://localhost:8080/index.html'">
+					Home Page
+					<div class="absolute right-0 top-[.45rem]">
+						<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+							<path d="M0 0h24v24H0z" fill="none"></path>
+							<path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+						</svg>
+					</div>
+				</button>
+				<button
+					class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+					onclick="window.location.href='http://localhost:8080/customers.html'">
+					Customer Page
+					<div class="absolute right-0 top-[.45rem]">
+						<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+							<path d="M0 0h24v24H0z" fill="none"></path>
+							<path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+						</svg>
+					</div>
+				</button>
 
-    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
-        <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
-            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-blue-400 border-b-2">
-                CRMS
-            </summary>
-            <div class="flex flex-col w-40 gap-6">
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/index.html'">Home Page
-                    <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
-                    </div>
-                </button>
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/customers.html'">Customer Page
-                    <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
-                    </div>
-                </button>
-               
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/vehicles.html'">Vehicles Page
-                    <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
-                    </div>
-                </button>
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/rentals.html'">Rentals Page
+				<button
+					class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+					onclick="window.location.href='http://localhost:8080/vehicles.html'">
+					Vehicles Page
+					<div class="absolute right-0 top-[.45rem]">
+						<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+							<path d="M0 0h24v24H0z" fill="none"></path>
+							<path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+						</svg>
+					</div>
+				</button>
+				<button
+					class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative"
+					onclick="window.location.href='http://localhost:8080/rentals.html'">
+					Rentals Page
 
-                    <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
-                    </div>
-               </button>
+					<div class="absolute right-0 top-[.45rem]">
+						<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+							<path d="M0 0h24v24H0z" fill="none"></path>
+							<path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+						</svg>
+					</div>
+				</button>
 
-               <details open class="leftArw opts">
-                <summary
-                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
-                    Reports</summary>
-                <div class="flex flex-col bg-slate-100">
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
-                        onclick="window.location.href='http://localhost:8080/rentals_reports'">
-                        Vehicle Rentals
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/customer_reports'">
-                        Customer Rentals
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/rentals_reports'">
-                        Rental History
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/availability_reports'">
-                        Vehicle Availability
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/late_return_reports'">
-                        Late Returns
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/turnover_reports'">
-                        Vehicle Turnover
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-            </details>
-
-
-                
-            </div>
-        </details>
-        <div class="bg-white w-full h-full PageContents">
-            <div id="title" class="flex items-center justify-center h-24 text-4xl text bg-slate-100">
-                Rentals Report
-            </div>
-            <div class="bg-slate-50">
-                all rentals made for a
-                particular vehicle, including the rental dates, customers who rented the vehicle, rental
-                rates, and any additional charges or fees.
-                provides a summary of all rentals over a specific
-                time period, including the number of rentals, rental duration, rental rates, and total
-                revenue
-
-            </div>
-        </div>
-    </div>
+				<details open class="leftArw opts">
+					<summary
+						class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
+						Reports
+					</summary>
+					<div class="flex flex-col bg-slate-100">
+						<button
+							class="p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
+							onclick="window.location.href='http://localhost:8080/rentals_reports'">
+							Vehicle Rentals
+							<div class="absolute right-[-5px] top-[.35rem]">
+								<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+									<path d="M0 0h24v24H0z" fill="none"></path>
+									<path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+									</path>
+								</svg>
+							</div>
+						</button>
+						<button
+							class="p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+							onclick="window.location.href='http://localhost:8080/customer_reports'">
+							Customer Rentals
+							<div class="absolute right-[-5px] top-[.35rem]">
+								<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+									<path d="M0 0h24v24H0z" fill="none"></path>
+									<path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+									</path>
+								</svg>
+							</div>
+						</button>
+						<button
+							class="p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+							onclick="window.location.href='http://localhost:8080/rentals_reports'">
+							Rental History
+							<div class="absolute right-[-5px] top-[.35rem]">
+								<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+									<path d="M0 0h24v24H0z" fill="none"></path>
+									<path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+									</path>
+								</svg>
+							</div>
+						</button>
+						<button
+							class="p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+							onclick="window.location.href='http://localhost:8080/availability_reports'">
+							Vehicle Availability
+							<div class="absolute right-[-5px] top-[.35rem]">
+								<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+									<path d="M0 0h24v24H0z" fill="none"></path>
+									<path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+									</path>
+								</svg>
+							</div>
+						</button>
+						<button
+							class="p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+							onclick="window.location.href='http://localhost:8080/late_return_reports'">
+							Late Returns
+							<div class="absolute right-[-5px] top-[.35rem]">
+								<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+									<path d="M0 0h24v24H0z" fill="none"></path>
+									<path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+									</path>
+								</svg>
+							</div>
+						</button>
+						<button
+							class="p-2 bg-[#fbfcff] text-[#404355] text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+							onclick="window.location.href='http://localhost:8080/turnover_reports'">
+							Vehicle Turnover
+							<div class="absolute right-[-5px] top-[.35rem]">
+								<svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+									<path d="M0 0h24v24H0z" fill="none"></path>
+									<path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+									</path>
+								</svg>
+							</div>
+						</button>
+					</div>
+				</details>
+			</div>
+		</details>
+		<div class="w-full h-full PageContents overflow-y-auto ">
+			<div id="title" class="flex items-center justify-center h-24 text-4xl text bg-[#e6ebf2]">
+				Rentals Report
+			</div>
+			<div class="bg-[#f4f6f8]">
+				all rentals made for a particular vehicle, including the rental dates,
+				customers who rented the vehicle, rental rates, and any additional
+				charges or fees. provides a summary of all rentals over a specific
+				time period, including the number of rentals, rental duration, rental
+				rates, and total revenue
+				<br /><br /><br />
 
 
-    <script>
-        function init() {
-            var params = (new URLSearchParams(window.location.search));
-        }
-    </script>
+				<div class="">
+					<div class="rounded-lg justify-center m-auto p-4 flex flex-wrap bg-white min-w-[35rem] max-w-max">
+						<div class=" pb-6 lg:pb-0  w-min text-xl lg:pr-6">
+							<div class="col-span-2 w-full text-center pb-2 border-b-2 mb-4">
+								<div class="text-xl font-semibold">Vehicle Info</div>
+							</div>
+							<div class="grid grid-cols-[max-content,max-content] gap-x-4  px-4">
+								<div>Brand: <span id="brand"></span></div>
+								<div>License Number: <span id="license_plate_number"></span></div>
+								<div>Model: <span id="model"></span></div>
+								<div>Interior Colour: <span id="interior_colour"></span></div>
+								<div>VIN: <span id="vin"></span></div>
+								<div>Exterior Colour: <span id="exterior_colour"></span></div>
+								<div>Manufactured Year: <span id="manufactured_year"></span></div>
+								<div>Odometer Reading: <span id="odometer_reading"></span></div>
+								<div class="col-span-2"></div>
+							</div>
+						</div>
+
+						<div class="lg:pl-6 lg:border-l-2  pt-6 lg:pb-0 flex flex-col justify-evenly">
+							<div id="searchContainer" class="search relative mb-4">
+								<button
+									class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
+									<div class="searchIconOuter">
+										<div class="searchIconInner">
+											&#10991;
+										</div>
+									</div>
+								</button>
+								<input id="searchBox" type="text" placeholder="Search License Plate"
+									class="rounded-tr-[3px] rounded-br-[3px] outline-none pl-2 border-2 border-l-0"
+									maxlength='10' onkeyup="searchLicense()">
+								</input>
+								<div class="absolute bg-white w-full h-max hidden border-2">
+									<button class="searchOpt">Option 1</button>
+									<button class="searchOpt">Option 2</button>
+									<button class="searchOpt">Option 3</button>
+								</div>
+							</div>
+							<div class="border-2 grid grid-cols-[min-content,min-content,min-content] gap-x-2 pl-1 pr-2">
+							<input type="date" name="" id="">
+							
+							<input type="date" name="" id="">
+
+							<button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2" >Search</button>
+							</div>
+						</div>
+					</div>
+					<div class="flex py-4 gap-4 text-[17px] font-semibold justify-center items-center">
+						<div class="bg-white p-4">Number of Rentals: <span id="nor"></span></div> 
+						<div class="bg-white p-4">Total Rental Days: <span id="rd"></span></div> 
+						<div class="bg-white p-4">Total Revenue: <span id="tr"></span></div> 
+						<div class="bg-white p-4">Average Daily Revenue: <span id="dr"></span></div>
+					</div>
+				</div>
+
+				<div id="rentals">
+					<!-- <div class="text-lg grid-cols-[max-content,1fr] grid min-w-[35rem] max-w-max rounded-sm bg-white border-[#d5d7df] border-2">
+						<div class="border-[#d5d7df] border-b-2 text-[1.35rem] pl-4">Customer Info</div>
+						<div class="pl-4 border-[#d5d7df] border-b-2 border-l-2 text-[1.35rem]">Rental Info</div>
+
+						<div class="flex flex-col gap-2 pl-4 pr-8 ">
+							<div>First Name: <span class="fname">Steven</span></div>
+							<div>Surname: <span class="lname">Lee</span></div>
+							<div>Email: <span class="email">abc@gmail.com</span></div>
+							<div>Phone Number: <span class="phone">123-456-7890</span></div>
+							<div>License No: <span class="license">1234567890</span></div>
+							<div>Payment_method: <span class="mthd">Credit Card</span></div>
+						</div>
+						<div class="border-[#d5d7df] border-l-2 pt-2 pb-2 flex flex-wrap gap-x-2 gap-y-6">
+							<div class="flex flex-col gap-2 pl-4 pr-8">
+								<div>Vehicle License Plate: <span class="plate">1234567890</span></div>
+								<div>Lent Date: <span class="ld">2022-01-10</span></div>
+								<div>Return Date: <span class="rd">2022-01-15</span></div>
+								<div>Returned Date: <span class="rdd">2022-01-15</span></div>
+								<div>Lent Condition: <span class="lc">Good</span></div>
+								<div>Return Condition: <span class="rc">Bad</span></div>
+							</div>
+							<div class="flex flex-col gap-2 pl-4 pr-4">
+								<div>Rental Rate: <span class="rate">$25</span></div>
+								<div>Additional Charges: <span class="add">$50 late fee</span></div>
+								<div>Rental Fee: <span class="fee">$1250</span></div>
+							</div>
+						</div>
+					</div> -->
+				</div>
 
 
+
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		function daysMonthsYears(days) {//returns a string converting the difference between the dates to months, days and years
+			if(!days)
+				return "<span style='color:rgb(244 63 94)'>Ongoing Rental</span>"
+
+			let res = "";
+			let temp = [[365,"year"],[31,"month"],[7,"week"],[1,"day"]]
+			
+			temp.forEach(grp =>{
+				let q = Math.floor(days/grp[0])
+				let r = days % grp[0]
+
+				if(q){
+					days = r;
+					res+= `${q} ${grp[1]}`
+					if(q > 1)
+						res+="s "
+					else
+						res+=" "
+				}
+			})
+			
+			return(res);
+
+		}
+				 
+		function searchLicense() {
+			let resultBox = document.querySelector("#searchContainer>div");
+			let searchBox = document.getElementById("searchBox");
+			if (!searchBox.value.trim())
+				return
+
+			fetch('rentals', {
+				method: 'POST',
+				body: JSON.stringify({ func: "rentalIdsLike", params: { regex: `^${searchBox.value}` } }),
+			}).then((res) => res.json())
+				.then((data) => {
+					resultBox.innerHTML = "";
+					for (value of data) {
+						resultBox.innerHTML += `<button class="searchOpt" onclick="searchRentals(event)">${value.vehicle_id}</button>`;
+					}
+				})
+		}
+
+
+		function searchRentals(event) {
+
+			fetch('rentals', {
+				method: 'POST',
+				body: JSON.stringify({ func: "getVehicleRentals", params: { vid: event.target.innerHTML } }),
+			}).then((res) => res.json())
+				.then((data) => {
+					console.log("Fetch Done!")
+					console.log(data);
+					// formatData(data);
+				}).catch(err => {
+					console.log(err);
+				})
+		}
+
+		function init() {
+			var params = new URLSearchParams(window.location.search);
+			let searcParams = {};
+
+			if (params.get("vid"));
+				searcParams.vid = params.get("vid");
+
+			fetch("reports", {
+				method: "POST",
+				body: JSON.stringify({
+					func: "getVehicleRentals",
+					params: searcParams,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					format(data)
+				});
+		}
+
+
+		function formatExtraCharges(chargeString) {
+
+			return  [0];			
+		}
+
+
+		function format(results) {
+			console.log(results.typeinfo)
+			if(Object.hasOwn(results,"typeinfo")){
+
+				delete results.typeinfo.vehicle_type
+
+				for (const [key, value] of Object.entries(results.typeinfo))
+					document.getElementById(key).innerHTML = value;
+				
+			}
+				
+
+			let revenue = 0;
+			let totaldays = 0;
+
+			results.rentals.forEach(res => {
+				document.getElementById("rentals").innerHTML+= 
+				`<div class="infoBox">
+						<div class="ctitle ibtitle">Customer Info</div>
+						<div class="rtitle ibtitle">Rental Info</div>
+
+						<div class="cinfo" data-id=''>
+							<div>First Name: <span class="first_name"></span></div>
+							<div>Surname: <span class="surname"></span></div>
+							<div>Email: <span class="email"></span></div>
+							<div>Phone Number: <span class="phone_number"></span></div>
+							<div>License No: <span class="drivers_license"></span></div>
+							<div>Payment_method: <span class="payment_method"></span></div>
+						</div>
+						<div class="rinfo">
+							<div class="finfo">
+								<div>Vehicle License Plate: <span class="vehicle_id"></span></div>
+								<div>Lent Date: <span class="lend_date"></span></div>
+								<div>Return Date: <span class="return_date"></span></div>
+								<div>Returned Date: <span class="returned_date"></span></div>
+								<div>Rental Duration: <span class='duration'></span></div>
+							</div>
+							<div class="finfo">
+								<div>Lent Condition: <span class="lent_condition"></span></div>
+								<div>Return Condition: <span class="return_condition"></span></div>
+								<div>Rental Rate: <span class="rental_Rate"></span></div>
+								<div>Additional Charges: <div class="extra_charges"></span></div></div>
+								<div>Rental Fee: <span class="rental_fee"></span></div>
+							</div>
+						</div>
+					</div>`;
+;
+				let copy = document.querySelector("#rentals").lastElementChild;
+
+				let rental_fee = res.days*res.rental_Rate;
+				res.extra_charges = JSON.parse(res.extra_charges);
+
+				for(key in res.extra_charges){
+					copy.querySelector(".extra_charges").innerHTML+=`
+					<div>
+						<span>
+						${key}:
+						</span>
+						<span>
+						$${res.extra_charges[key]},
+						</span>	
+					</div>
+					`
+					rental_fee += res.extra_charges[key];
+				}
+				copy.querySelector(".rental_fee").innerHTML = `$${rental_fee}`;
+				revenue+= rental_fee;
+				
+				res.return_date = new Date(res.return_date);
+				res.lend_date = new Date(res.lend_date);
+				if(res.returned_date){
+					res.returned_date = new Date(res.returned_date);
+					if(res.returned_date == res.lend_date){
+						res.days = 1;
+					}
+				}
+
+				totaldays+= res.days;
+
+				res.return_date = res.return_date.toDateString();
+				res.lend_date = res.lend_date.toDateString();
+
+
+				copy.querySelector(".duration").innerHTML = daysMonthsYears(res.days);
+
+				
+
+
+				copy.querySelector(".cinfo").dataset.id = res.customer_id;
+			
+				delete res.days
+				delete res.customer_id;
+				delete res.extra_charges;
+				
+
+
+				if(res.return_condition !== res.lend_condition)
+					copy.querySelector(".return_condition").style.color = "rgb(244 63 94)";
+				
+				if(res.returned_date !== res.return_date)
+					copy.querySelector(".returned_date").style.color = "rgb(244 63 94)";
+				
+				for (const [key, value] of Object.entries(res)) {
+					copy.querySelector(`.${key}`).innerHTML = value;
+				}
+				
+			});
+
+
+
+			console.log(revenue)
+
+			document.getElementById("nor").innerHTML = results.rentals.length
+			document.getElementById("rd").innerHTML = totaldays >  0 ? daysMonthsYears(totaldays) : totaldays;
+			document.getElementById("tr").textContent = `$${revenue}`;
+			document.getElementById("dr").innerHTML = `$${totaldays > 0 ? revenue/totaldays : 0}`;
+
+			// text-emerald-500
+			// text-rose-500
+
+
+
+		}
+
+
+	</script>
 </body>
+
 </html>

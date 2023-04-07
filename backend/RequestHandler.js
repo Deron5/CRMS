@@ -225,43 +225,52 @@ class RequestHandler {
     //returns an object with the data and the vehicle info
     async getVehicleRentals(params) {
         const res = await new Promise((resolve, reject) => {
-            let query_base = "select first_name, surname, rentals.* from rentals, customers where rentals.customer_id = customers.customer_id";
-            let query_end = "order by lend_date desc";
+            let query_base = "select first_name, surname,email, phone_number,drivers_license, datediff(lend_date,returned_date) as days, rentals.* from rentals, customers where rentals.customer_id = customers.customer_id";
+            let query_end = " order by lend_date desc";
             
             let searchParams = [];
+            let getInfo = false;
 
             if(params){
-                switch (params) {
-                    case params.vid:
-                        query_base+= "and vehicle_id = ?"
-                        searchParams.push(params.vid)
-                    case params.lend_date:
-                        query_base+= "and lend_date >= ?"
-                        searchParams.push(params.lend_date)
-
-                    case params.return_date:
-                        query_base+= "and return_date <= ?"
-                        searchParams.push(params.return_date)
-                }    
+                
+                if(Object.hasOwn(params,"vid") && params.vid){
+                    query_base+= " and vehicle_id = ?"
+                    searchParams.push(params.vid)
+                    getInfo = true;
+                }else if(Object.hasOwn(params,"lend_date") && params.lend_date ){
+                    query_base+= " and lend_date >= ?"
+                    searchParams.push(params.lend_date)
+                }else if(Object.hasOwn(params,"return_date") && params.return_date){
+                    query_base+= " and return_date <= ?"
+                    searchParams.push(params.return_date)
+                }
+                    
             }
-
+            
             conn.query(query_base+query_end, searchParams, (err, results) => {
                 if (err) {
+                    console.log(err)
                     reject(new Error(err.message))
                 }
                 else if (!results.length) {
                     reject(NO_RESULTS);
                 }
                 else {//do something with data
-                    this.vehicleType(params.vid).then(res => {
-                        let data = { rentals: results, typeinfo: res }
+                    
+                    let data = { rentals: results}
 
+                    if(getInfo)
+                        this.vehicleType(params.vid).then(res => {
+                            data.typeinfo = res;
+                            resolve(JSON.stringify(data))
+                        }).catch(err => {
+                            console.log("getVehicleRentals from call to vehicleType")
+                            reject(err)
+                        })
+                    else
                         resolve(JSON.stringify(data))
 
-                    }).catch(err => {
-                        console.log("getVehicleRentals from call to vehicleType")
-                        reject(err)
-                    })
+                   
                 }
             })
 
