@@ -15,14 +15,70 @@ const customerRentalsQuery = `select * from rentals, customers, vehicle_types, v
 
 const FIRST_RENTAL_VID = "select count(vehicle_id) as count,vehicle_id from rentals group by vehicle_id order by count desc, vehicle_id asc limit 1"
 
+const defaultQueries = {
+    "vehicle_types": "select * from vehicle_types where vin in (select distinct(vehicle_type) from vehicles)"
+}
+
+function empty(res) {
+    return !res.length
+}
+
+function notEmpty(res) {
+    return res.length
+}
+
+
+/*
+ * Used in inserts
+ */
+const insertChecks = {
+    "customers":[
+                {
+                    query:'select customer_id from customers where email = ?',
+                    paramNames:["email"],
+                    failString: JSON.stringify('Customer With The Same Email Already Exists'),
+                    bool: empty
+                },
+                {
+                    query:'select customer_id from customers where phone_number = ?',
+                    paramNames:["phone_number"],
+                    failString: JSON.stringify('Customer With The Same Phone Number Already Exists'),
+                    bool: empty
+                },
+                {
+                    query:'select store_id from stores where store_id = ?',
+                    paramNames:["preferred_pickup"],
+                    failString: JSON.stringify('Preferred Pickup Location Does Not Exist'),
+                    bool: notEmpty
+                },
+                {
+                    query:'select store_id from stores where store_id = ?',
+                    paramNames:["preferred_dropoff"],
+                    failString: JSON.stringify('Preferred Dropoff Location Does Not Exist'),
+                    bool: notEmpty
+                },
+                {
+                    query:'select vin from vehicle_types where vin = ? and vin in (select distinct(vehicle_type) from vehicles)',
+                    paramNames:["preferred_vehicle"],
+                    failString: JSON.stringify('No Cars Of The Specified Type Exist'),
+                    bool: notEmpty
+                },
+                {
+                    query:'select customer_id from customers where drivers_license = ? ',
+                    paramNames:["drivers_license"],
+                    failString: JSON.stringify(`User with the same driver's license exits`),
+                    bool: notEmpty
+                }
+            ]
+}
+
+
 conn.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
 });
 
-const NO_RESULTS = 'NO_RESULTS';
-
-const RENTALS_YEAR_MONTH_QUERY = "select * from rentals where vehicle_id = ? and YEAR(lend_date) = ? and MONTH(date) = ?"
+const NO_RESULTS = JSON.stringify('NO_RESULTS');
 
 const RENTAL_DAYS = "select sum(datediff(lend_date,return_date)) as days, count(lend_date) as count from rentals where vehicle_id = ?";
 
@@ -32,83 +88,107 @@ const RENTAL_DAYS_YEAR_MONTH = "select sum(datediff(lend_date,return_date)) as d
 
 const RENTAL_MONTH_COUNTS = "select count(lend_date) as count, MONTH(lend_date) as month from rentals group by month(lend_date) where vehicle_id = ? and year = ?";
 
-const SPECIFIC_YEAR_RENTALS_QUERY = "select * from rentals where vehicle_id = ? and Year(lend_date)> ? order by lend_date"
-
 const FIRST_LAST_RENTAL_VID = "(select count(vehicle_id) as count, vehicle_id from rentals group by vehicle_id order by count desc, vehicle_id asc limit 1) union (select count(vehicle_id) as count, vehicle_id from rentals group by vehicle_id order by count asc, vehicle_id desc limit 1)";
-
-// const NEXT_RENTAL_VID = "select min(vehicle_id) from rentals where vehicle_id > ?";
-// const PREV_RENTAL_VID = "select max(vehicle_id) from rentals where vehicle_id < ?";
-
-// const LAST_RENTAL_VID = "select max(vehicle_id) from rentals"
 
 const RENTAL_FROM_ROW = "select count(vehicle_id) as count,vehicle_id from rentals group by vehicle_id order by count desc, vehicle_id asc limit ?, 1"
 
 const CAR_TYPE_QUERY = "select * from vehicles, vehicle_types where vehicles.license_plate_number = ? and vehicles.vehicle_type = vehicle_types.vin"
 
-/** Queries //just didn't bother making them variables yet
- customer rentals history;
-select * from rentals, customers, vehicle_types, vehicles where rentals.customer_id = ? and rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin; 
-select * from customers where customer_id = ?
-
-rental history report;
-select * from rentals, vehicle_types, vehicles where rentals.vehicle_id = ? and rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin; 
-
-late return report;
-select * from rentals, customers where rentals.customer_id = customers.customer_id and rentals.return_condition is null;
-
-
-vehicle turnover report
-1) get unique vehicles
-    select distinct vehicle_id from rentals;
-2) send that back to the user with the turnover rate for the first vehicle
-3) user clicks next and searches for the remaining  
-select * from rentals,vehicles, vehicle_types where rentals.vehicle_id = ? and rentals.vehicle_id = vehicles.license_plate_number and vehicles.vehicle_type = vehicle_types.vin;
-
-
-
-vehicle availability report (how would i do this?)
-
-
-default rental query
-select * from rentals,vehicles, vehicle_types where rentals.vehicle_id = ? and vehicles.vehicle_type = vehicle_types.vin;
-
-
-default customer_rental query
- */
-
-/* Query Template
-
-        const res = await new Promise((resolve,reject)=>{
-            conn.query(UNIQUE_RENTALS_QUERY, (err,results)=>{
-                    if(err) {
-                        reject(new Error(err.message))
-                    }
-                    else if(!results.length) {
-                        reject(NO_RESULTS);
-                    }
-                    else{//do something with data
-
-                    }
-                })
-            });
-        return res;
-*/
-
 const NONE_ = "No Data!";
 
 class RequestHandler {
 
-    //handles all search queries by constructing the query string based on the parameters sent.
     async Query(params) {
-        $format = true;
+        const res = await new Promise((resolve,reject)=>{
+            if (!params)
+              resolve(NO_RESULTS);
 
-        if (get_object_vars(params) < 1)
-            return NO_RESULTS;
+            if (!Object.hasOwn(params, "table") || !params.table)
+                resolve(JSON.stringify({ "error": " TABLE NOT SPECIFIED" }));
 
-        if (!property_exists(params, "table"))
-            return json_encode({ "error": " TABLE NOT SPECIFIED" });
+            let query = `select * from ${params.table}`;
 
+            if(Object.hasOwn(defaultQueries,params.table))
+                query = defaultQueries[params.table];
+
+            conn.query(query,(err,results)=>{
+                if(err)
+                    reject(err)
+                    resolve(JSON.stringify(results))
+            })
+        })
+        return res;
     }
+
+    //general function for adding to all columns;
+    async insertQuery(params){
+
+        const res = await new Promise((resolve,reject)=>{
+            if (!params)
+                resolve("No Data");
+
+            if (!Object.hasOwn(params, "table") || !params.table)
+                resolve(JSON.stringify({ error: " TABLE NOT SPECIFIED" }));
+
+            let checks = []
+
+            if(Object.hasOwn(insertChecks,params.table)){
+                insertChecks[params.table].forEach(check=>{
+                    checks.push(new Promise((resolve_,reject_)=>{
+                                let data = [];
+                                check.paramNames.forEach(key=>{
+                                    if(!Object.hasOwn(params,key) && params[key])
+                                        reject_(`Missing ${key} parameter can't validate query`);
+                                    data.push(params[key])
+                                })
+                                conn.query(check.query,data,(err,res)=>{
+                                    if(err)
+                                        reject_(err)
+                                    if(res == undefined)
+                                        console.log(`res: ${res}\nquery: ${check.query}\ndata:${data}`)
+                                    if(check.bool(res))
+                                        resolve_("");
+                                    else//send error back to client
+                                        resolve({error:check.failString})    
+                                })
+
+                        }))
+                })
+            }
+
+            //after all checks construct and execute query
+            Promise.all(checks).then(pass=>{
+
+                let base = `insert into ${params.table}(`
+        
+                delete params.table;
+    
+                let values = [];
+                let hatena = "Values(";
+
+
+                for (const [key, value] of Object.entries(params)) {
+                    base += `${key},`
+                    hatena += "?,";
+                    values.push(value)
+                  }
+
+                console.log(base);
+                conn.query(`${base.substring(0,base.length-1)}) ${hatena.substring(0,hatena.length-1)})`,values,(err,result)=>{
+                    if(err)
+                        reject(err)
+                    resolve("''");
+                })
+    
+            }).catch(err=>{
+                reject(err)
+            })
+
+        })
+
+        return res;
+    }
+
 
     async rental_exists(vid){
         const res = await new Promise((resolve,reject)=>{
@@ -148,7 +228,7 @@ class RequestHandler {
                     if(err){
                         reject(err);
                     }else if(!results){
-                        reject(NO_RESULTS )
+                        resolve(NO_RESULTS )
                     }else{
                         let query = "select count(*) as count from (select count(vehicle_id) as count,vehicle_id from rentals group by vehicle_id order by count desc, vehicle_id asc) as x";
                         console.log("here...");
@@ -170,7 +250,7 @@ class RequestHandler {
                                 if(err){
                                     reject(err);
                                 }else if(!results){
-                                    reject(NO_RESULTS )
+                                    resolve(NO_RESULTS )
                                 }else{
                                     resolve(this.turnover_report({row:0,vid:res[0].vehicle_id}));
                                 }
@@ -211,7 +291,7 @@ class RequestHandler {
                     reject(new Error(err.message))
                 }
                 else if (!results.length) {
-                    reject(NO_RESULTS);
+                    resolve(NO_RESULTS);
                 }
                 else {//do something with data
                     resolve(results[0])
@@ -253,7 +333,7 @@ class RequestHandler {
                     reject(new Error(err.message))
                 }
                 else if (!results.length) {
-                    reject(NO_RESULTS);
+                    resolve(NO_RESULTS);
                 }
                 else {//do something with data
                     
@@ -407,7 +487,7 @@ class RequestHandler {
                         reject(new Error(err.message))
                     }
                     else if (!results.length) {
-                        reject(NO_RESULTS);
+                        resolve(NO_RESULTS);
                     }
                     else {//do something with data
                         this.turnoverHelper({vid:results[0].vehicle_id,row: 0}).then((data)=>{

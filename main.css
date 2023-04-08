@@ -220,3 +220,7 @@ details>summary{
 input[type="date"]{
   width: 8rem;
 }
+
+#custInfo input{
+  padding-left: .25rem;
+}

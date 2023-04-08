@@ -10,7 +10,7 @@
 
 <body class="" onload="init()">
 
-    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
+    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100 relative">
         <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
             <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-blue-400 border-b-2">
                 CRMS
@@ -125,144 +125,252 @@
         <div class="bg-[#f4f6f8] w-full h-full PageContents  overflow-y-auto"">
             <div id=" title" class="flex items-center justify-center h-24 text-4xl text bg-slate-100">
             Customer Information
+            </div>
+        
+            <div class="bg-slate-50 ">
+                <form id="custInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveCustInfo(event)">
+
+                    <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                        Contact Information
+                    </div>
+                    <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                        <label class="grid">
+                            First Name:
+                            <input required type="text" name="first_name" id="first_name" maxlength="50" class="border-2  lg:w-72">
+                        </label>
+                        <label class="grid">
+                            Surname:
+                            <input required type="text" name="surname" id="surname" maxlength="50" class="border-2 ">
+                        </label>
+                        <label class="grid">
+                            Phone Number:
+                            <input required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="border-2 ">
+                        </label>
+                        <label class="grid">
+                            Email:
+                            <input placeholder="name@example.com" required type="email" name="email" id="email" class="border-2 ">
+                        </label>
+                        <label class="grid col-span-2">
+                            Address:
+                            <input required type="text" name="address" id="address" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
+                        </label>
+                    </div>
+
+                    <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
+                        License Information
+                    </div>
+                    <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                        <label for="" class="grid">
+                            License Number:
+                            <input placeholder=" xxxx xxxx xxxx xx" required type="text" name="drivers_license" id="drivers_license" maxlength="14" minlength="14" class="border-2 ">
+                        </label>
+
+                        <label for="" class="grid">
+                            Issue State/Province:
+                            <input placeholder="License Issue State" required type="text" name="license_issue_location" id="license_issue_location" class="border-2 ">
+                        </label>
+
+                        <label for="" class="col-span-2">
+                            Expiration Date:
+                            <input required type="date" name="license_expiration_date" id="license_expiration_date" class="border-2" style="font-size: initial;">
+                        </label>
+                    </div>
+
+                    <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
+                        Rental Preferences
+                    </div>
+                    <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                        <label for="" class="relative grid">
+                            Preferred Vehicle: 
+                            <input placeholder="VIN" type="text" name="preferred_vehicle" minlength="17" maxlength="17" id="preferred_vehicle" class="border-2 ">
+                        </label>
+                        <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
+                            <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
+                            <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showStores()">View Locations</button>
+                        </div>
+
+
+                        <label for="" class="grid">
+                            Preferred Pickup Location:
+                            <input  type="text" placeholder="Store ID" name="preferred_pickup" id="preferred_pickup" class="border-2 ">
+                        </label>
+                        <label for="" class="grid">
+                            Preferred Dropoff Location:
+                            <input type="text" placeholder="Store ID" name="preferred_dropoff" id="preferred_dropoff" class="border-2 ">
+                        </label>
+                        
+                        
+                        
+                    </div>
+                    <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
+                        Payment Details
+                    </div>
+                    <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                        <label for="" class="grid">
+                            Name:
+                            <input required type="text" name="credit_card_name" id="credit_card_name" class="border-2">
+                        </label>
+                        <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName()">
+                            Use name from above?
+                        </button>
+                        <label for="ccn" class="grid">
+                            Credit Card Number:
+                            <input required class="border-2" name="credit_card_number" id="credit_card_number" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                        </label>
+                        <label for="cvn" class="grid">
+                            Card Verification Number:
+                            <input required class="border-2 w-14 text-center" name="cvn" id="cvn" type="tel" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
+                        </label>
+
+                        <label for="ccExpiration" class="col-span-2">
+                            Expiration Date:
+                            <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date" class="border-2" style="font-size: initial;">
+                        </label>
+                    </div>
+
+
+                    <div class="flex justify-end gap-4 my-8">
+                        <input type="reset" class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24"></input>
+                        <input type="submit" class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24"></input>
+                    </div>
+                </form>
+
+              
+            </div>
+
+
         </div>
-        <div class="bg-slate-50">
-            <form id="custInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveCustInfo(event)">
-
-                <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
-                    Contact Information
-                </div>
-                <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-
-                    <label class="grid">
-                        First Name:
-                        <input required type="text" name="first_name" id="first_name" maxlength="50" class="border-2 max-w-[18rem]">
-                    </label>
-                    <label class="grid">
-                        Surname:
-                        <input required type="text" name="surname" id="surname" maxlength="50" class="border-2 max-w-[18rem]">
-                    </label>
-                    <label class="grid">
-                        Phone Number:
-                        <input required type="tel" name="phone_number" id="phone_number" pattern="(([0-9]-){0,1}[0-9]{3}-[0-9]{0,3}-[0-9]{4})|([0-9]{10,11})" maxlength="14" class="border-2 max-w-[18rem]">
-                    </label>
-                    <label class="grid">
-                        Email:
-                        <input required type="email" name="email" id="email" class="border-2 max-w-[18rem]">
-                    </label>
-                    <label class="grid col-span-2">
-                        Address:
-                        <input required type="text" name="address" id="address" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
-                    </label>
-                </div>
-
-                <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
-                    License Information
-                </div>
-                <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                    <label for="" class="">
-                        License Number:
-                        <input required type="text" name="drivers_license" id="drivers_license" class="border-2 max-w-[18rem]">
-                    </label>
-
-                    <label for="" class="">
-                        Issue State/Province:
-                        <input required type="text" name="license_issue_location" id="license_issue_location" class="border-2">
-                    </label>
-
-                    <label for="" class="col-span-2">
-                        Expiration Date:
-                        <input required type="date" name="license_expiration_date" id="license_expiration_date" class="border-2" style="font-size: initial;">
-                    </label>
-                </div>
-
-                <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
-                    Rental Preferences
-                </div>
-                <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                    <label for="" class="relative">
-                        Preferred Vehicle VIN: 
-                        <input type="text" name="prefered_vehicle" minlength="17" maxlength="17" id="prefered_vehicle" class="border-2">
-                    </label>
-                    <button type="button" class=" grid items-end pb-2 text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700">View Vehicle Catalogue</button>
-
-                    <label for="" class="ignore col-span-2">
-                        <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700">View Locations</button>
-                        Use The Same Location For Pickups & Dropoffs.
-                        <input type="checkbox" class="">
-                    </label>
-                    <label for="" class="">
-                        Preferred Pickup Location:
-                        <input  type="text" name="preferred_pickup" id="prefered_pickup" class="border-2">
-                    </label>
-                    <label for="" class="">
-                        Preferred Dropoff Location:
-                        <input type="text" name="prefered_dropoff" id="prefered_dropoff" class="border-2">
-                    </label>
-                </div>
-                <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
-                    Payment Details
-                </div>
-                <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                    <label for="" class="grid">
-                        Name:
-                        <input required type="text" name="credit_card_name" id="credit_card_name" class="border-2">
-                    </label>
-                    <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName()">
-                        Use name from above?
+        <div id="popup" class="hidden absolute z-20 top-0  h-full w-full backdrop-blur-sm bg-white/10">
+            <div class="bg-white overflow-hidden rounded-lg absolute top-0 bottom-0 right-0 left-0 m-auto w-80 max-w-[25rem] h-[55vh] grid grid-rows-[min-content,1fr] border-2">
+                <div class="text-2xl relative pb-1 p-3 pl-4">
+                    <span id="mtitle" class="text-3xl">Offerred Vehicles</span>
+                    <button title="Close Modal" onclick="document.getElementById('popup').style.display = ''" class="absolute text-base font-medium right-3 top-3">
+                        &#x26CC;
                     </button>
-                    <label for="ccn" class="grid">
-                        Credit Card Number:
-                        <input required class="border-2" name="credit_card_number" id="credit_card_number" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
-                    </label>
-                    <label for="cvn" class="grid">
-                        Card Verification Number:
-                        <input required class="border-2 w-14 text-center" name="cvn" id="cvn" type="password" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
-                    </label>
-
-                    <label for="ccExpiration" class="col-span-2">
-                        Expiration Date:
-                        <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date" class="border-2" style="font-size: initial;">
-                    </label>
                 </div>
-
-
-                <div class="flex justify-end gap-4 my-8">
-                    <input type="reset" class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24"></input>
-                    <input type="submit" class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24"></input>
+                <div id="mcontents" class="m-3 mt-0 border-2 overflow-y-auto">
+                    stuff
                 </div>
-            </form>
-
+             
+            </div>
         </div>
-
-
-    </div>
     </div>
 
     <script>
+        
+        function popup(title,innerhtml,error){
+            let modal = document.getElementById("popup");
+            modal.querySelector("#mtitle").innerHTML = title;
+            modal.querySelector("#mcontents").innerHTML = innerhtml;
+            document.getElementById("popup").style.display = "block";
+            if(error)
+                modal.querySelector("#mtitle").style.color = "rgb(244 63 94)";
+            else
+                modal.querySelector("#mtitle").style.color = "";
+
+        }
+
+        function showVehicles() {
+            fetch('rentals', {
+				method: 'POST',
+				body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types' } }),
+			}).then((res) => res.json())
+				.then((data) => {
+                    if(!data.length){
+                        popup("Error",`<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Vehicle Data Found</div>`,true)
+                        return
+                    }
+
+                    let temp = `<table style='width:100%; text-align:center'> 
+                                    <tr>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Manufacture Year</th>
+                                        <th>VIN</th>
+                                    </tr>`
+                    data.forEach(vehicle=>{
+                        temp+=`<tr>
+                                <td><button onclick="document.getElementById('preferred_vehicle').value = ${vehicle.vin};document.getElementById('popup').style.display = ''">${vehicle.vin}</button></td>
+                                <td>${vehicle.brand}</td>
+                                <td>${vehicle.model}</td>
+                                <td>${vehicle.manufactured_year}</td>
+                               </tr>`
+                    })
+                    temp+= `</table>`
+                    popup("Available Vehicles",temp);
+				})
+        }
+
+        function showStores() {
+            fetch('rentals', {
+				method: 'POST',
+				body: JSON.stringify({ func: "Query", params: { table: 'stores' } }),
+			}).then((res) => res.json())
+				.then((data) => {
+                    
+                    if(!data.length){
+                        popup("Error",`<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Store Data Found</div>`,true)
+                        return
+                    }
+
+                    let temp = `<table style='width:100%; text-align:center'> 
+                                    <tr>
+                                        <th>Store ID</th>
+                                        <th>Address</th>
+                                    </tr>`
+                    data.forEach(store=>{
+                        temp+=`<tr>
+                                <td>${store.store_id}</td>
+                                <td>${store.address}</td>
+                               </tr>`
+                    })
+                    temp+= `</table>`
+                    popup("Store Locations",temp);
+				})
+
+        }
+
 
         function saveCustInfo(event) {
-           let inputs =  document.querySelectorAll("#custInfo label:not(.ignore) input");
-           let params = {}
-           
-           inputs.forEach(input =>{
-                params[input.name] = input.value;
-           })
+            event.preventDefault()
 
-           console.log(params)
+            let inputs =  document.querySelectorAll("#custInfo label:not(.ignore) input");
+            let params = {table:"customers"}
+           
+            inputs.forEach(input =>{
+                params[input.name] = input.value;
+            })
+
+            params.phone_number = params.phone_number.replaceAll(" ","-")
+            params.table = "customers";
+
+            fetch('rentals', {
+				method: 'POST',
+				body: JSON.stringify({ func: "insertQuery", params: params }),
+			}).then((res) => res.json())
+				.then((data) => {
+                    if(Object.hasOwn(data,"error"))
+                        popup("Error",`<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>${data.error}</div>`,true)
+				})
+
             return false;
         }
 
 
         function useName() {
-            document.getElementById("name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`
+            document.getElementById("credit_card_name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`
         }
         function init() {
             let temp = new Date();
-            temp = new Date(temp.setMonth(temp.getMonth+1)); //user card can't be expired
+            temp = new Date(temp.setMonth(temp.getMonth()+1)); //user card can't be expired
+            console.log(temp)
             temp = temp.toISOString().slice(0, 7);
-            document.getElementById("cexp").setAttribute("min", temp);
-            document.getElementById("cexp").value = temp;
+            console.log(temp)
+            
+            document.getElementById("credit_card_expiration_date").setAttribute("min", temp);
+            document.getElementById("credit_card_expiration_date").value = temp;
+            
         }
 
     </script>

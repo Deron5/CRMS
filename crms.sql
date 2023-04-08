@@ -19,64 +19,6 @@
 -- Table structure for table `customers`
 --
 
-DROP TABLE IF EXISTS `customers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customers` (
-  `customer_id` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(50) DEFAULT NULL,
-  `surname` varchar(50) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(14) DEFAULT NULL,
-  `drivers_license` varchar(15) DEFAULT NULL,
-  `license_issue_location` varchar(255) DEFAULT NULL,
-  `license_expiration_date` date DEFAULT NULL,
-  `preferred_vehicle` varchar(17) DEFAULT NULL,
-  `address` varchar(255) default null,
-  `preferred_dropoff` int DEFAULT NULL,
-  `preferred_pickup` int DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `role` tinyint unsigned DEFAULT NULL,
-  `credit_card_number` varchar(19) DEFAULT NULL,
-  `credit_card_name` varchar(100) DEFAULT null,
-  `cvn` varchar(4) DEFAULT null,
-  `credit_card_expiration_date` date DEFAULT null,
-  PRIMARY KEY (`customer_id`),
-  FOREIGN KEY `preferred_vehicle` references vehicle_types(`vin`),
-  FOREIGN KEY `preferred_pickup` references stores(`store_id`),
-  FOREIGN KEY `preferred_dropoff` references stores(`store_id`),
-) ;
-
---
--- Table structure for table `rentals`
---
-
-DROP TABLE IF EXISTS `rentals`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rentals` (
-  `rental_id` int NOT NULL,
-  `customer_id` int NOT NULL,
-  `vehicle_id` varchar(10) NOT NULL,
-  `rental_Rate` varchar(255) DEFAULT not NULL,
-  `lend_date` date DEFAULT not NULL,
-  `return_date` date DEFAULT not NULL,
-  `returned_date` date DEFAULT NULL,
-  `lent_condition` varchar(255) DEFAULT not NULL,
-  `return_condition` varchar(255) DEFAULT NULL,
-  `rental_fee` float DEFAULT NULL,
-  `payment_method` varchar(10) DEFAULT NULL,
-  `extra_charges` varchar(255) DEFAULT null
-  PRIMARY KEY (`rental_id`), /*users can have multiple rentals and possibly rent multiple things on the same day*/
-  FOREIGN KEY `vehicle_id` references vehicles(`license_plate_numbe`)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rentals`
---
-
-
 --
 -- Table structure for table `stores`
 --
@@ -87,16 +29,10 @@ DROP TABLE IF EXISTS `stores`;
 CREATE TABLE `stores` (
   `store_id` int NOT NULL AUTO_INCREMENT,
   `location` varchar(255) not null,
-  PRIMARY KEY (`location`)
+  PRIMARY KEY (`store_id`)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `stores`
---
-
--- Table structure for table `vehicle_types`
---
 
 DROP TABLE IF EXISTS `vehicle_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -108,10 +44,82 @@ CREATE TABLE `vehicle_types` (
   `vin` varchar(17) NOT NULL,
   PRIMARY KEY (`vin`)
 ) ;
+
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customers` (
+  `customer_id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(50) not NULL,
+  `surname` varchar(50) not NULL,
+  `email` varchar(255) not NULL,
+  `phone_number` varchar(14) not NULL,
+  `drivers_license` varchar(14) not NULL,
+  `license_issue_location` varchar(255) not NULL,
+  `license_expiration_date` date not NULL,
+  `preferred_vehicle` varchar(17) DEFAULT NULL,
+  `address` varchar(255) not null,
+  `preferred_dropoff` int default NULL,
+  `preferred_pickup` int default NULL,
+  `credit_card_number` varchar(19) not NULL,
+  `credit_card_name` varchar(100) not null,
+  `cvn` varchar(4) not null,
+  `credit_card_expiration_date` date not null,
+  PRIMARY KEY (`customer_id`),
+  FOREIGN KEY (`preferred_vehicle`) references vehicle_types(`vin`),
+  FOREIGN KEY (`preferred_pickup`) references stores(`store_id`),
+  FOREIGN KEY (`preferred_dropoff`) references stores(`store_id`)
+) ;
+
+
+DROP TABLE IF EXISTS `vehicles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `vehicles` (
+  `interior_colour` varchar(10) not NULL,
+  `exterior_colour` varchar(10) not NULL,
+  `license_plate_number` varchar(10) NOT NULL,
+  `odometer_reading` int  not null,
+  `vehicle_type` varchar(17) NOT NULL,
+  `condition` varchar(255) not null,
+  PRIMARY KEY (`license_plate_number`),
+  FOREIGN KEY (`vehicle_type`) references vehicles(`vin`)
+) ;
+
+
+DROP TABLE IF EXISTS `rentals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rentals` (
+  `rental_id` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
+  `vehicle_id` varchar(10) NOT NULL,
+  `rental_rate` varchar(255) not NULL,
+  `lend_date` date not NULL,
+  `return_date` date  not NULL,
+  `returned_date` date default NULL,
+  `lent_condition` varchar(255)  not NULL,
+  `return_condition` varchar(255) default NULL,
+  `rental_fee` float not NULL,
+  `payment_method` varchar(10) not NULL,
+  `extra_charges` varchar(255) default  null,
+  PRIMARY KEY (`rental_id`),
+  FOREIGN KEY (`vehicle_id`) references vehicles(`license_plate_number`),
+  FOREIGN KEY (`customer_id`) references customers(`customer_id`)
+) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vehicle_types`
+-- Dumping data for table `rentals`
+--
+
+
+
+-- Dumping data for table `stores`
+--
+
+-- Table structure for table `vehicle_types`
 --
 
 
@@ -120,16 +128,19 @@ CREATE TABLE `vehicle_types` (
 -- Table structure for table `vehicles`
 --
 
-DROP TABLE IF EXISTS `vehicles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vehicles` (
-  `interior_colour` varchar(10) DEFAULT not NULL,
-  `exterior_colour` varchar(10) DEFAULT not NULL,
-  `license_plate_number` varchar(10) NOT NULL,
-  `odometer_reading` int DEFAULT not null,
-  `vehicle_type` varchar(17) NOT NULL,
-  `condition` varchar(255) not null,
-  PRIMARY KEY (`license_plate_number`),
-  FOREIGN KEY `vehicle_type` references vehicles(`vin`)
-) ;
+
+
+
+-- LOCK TABLES `customers` WRITE;
+-- UNLOCK TABLES;
+
+-- LOCK TABLES `vehicle_types` WRITE;
+-- UNLOCK TABLES;
+
+
+-- LOCK TABLES `rentals` WRITE;
+-- UNLOCK TABLES;
+
+
+-- LOCK TABLES `vehicles` WRITE;
+-- UNLOCK TABLES;

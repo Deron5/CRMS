@@ -65,7 +65,6 @@ http.createServer((req, res) => {
 
             data = JSON.parse(data)
             try{
-                switch (data["func"]) {
                     // case "login":
                     //     query["login"](data["params"]).then(data=>{
                     //         res.writeHead(200,{
@@ -78,14 +77,11 @@ http.createServer((req, res) => {
                     //     })
                     //     break;
                 
-                    default:
-                        res.setHeader('Content-Type','application/json');
-                        let returndata = query[data["func"]](data["params"]);
-                        returndata.then(data=>{
-                            res.end(data)
-                        })
-                        break;
-                }
+                res.setHeader('Content-Type','application/json');
+                let returndata = query[data.func](data.params);
+                returndata.then(data=>{
+                    res.end(data)
+                })
             } catch (error) {
                 console.log(error)
                 res.end(JSON.stringify({error:"Unknown Function"}));

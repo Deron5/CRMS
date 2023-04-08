@@ -370,6 +370,8 @@
 				.then((res) => res.json())
 				.then((data) => {
 					format(data)
+				}).catch(err=>{
+					console.log(err)
 				});
 		}
 
@@ -423,7 +425,7 @@
 							<div class="finfo">
 								<div>Lent Condition: <span class="lent_condition"></span></div>
 								<div>Return Condition: <span class="return_condition"></span></div>
-								<div>Rental Rate: <span class="rental_Rate"></span></div>
+								<div>Rental Rate: <span class="rental_rate"></span></div>
 								<div>Additional Charges: <div class="extra_charges"></span></div></div>
 								<div>Rental Fee: <span class="rental_fee"></span></div>
 							</div>
@@ -432,7 +434,7 @@
 				;
 				let copy = document.querySelector("#rentals").lastElementChild;
 
-				let rental_fee = res.days * res.rental_Rate;
+				let rental_fee = res.days * res.rental_rate;
 				res.extra_charges = JSON.parse(res.extra_charges);
 
 				for (key in res.extra_charges) {
