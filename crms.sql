@@ -23,25 +23,28 @@ DROP TABLE IF EXISTS `customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customers` (
-  `customer_id` int NOT NULL,
+  `customer_id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(15) DEFAULT NULL,
+  `phone_number` varchar(14) DEFAULT NULL,
   `drivers_license` varchar(15) DEFAULT NULL,
-  `issue_location` varchar(255) DEFAULT NULL,
-  `expiration_date` date DEFAULT NULL,
-  `prefered_vehicle` varchar(10) DEFAULT NULL,
-  `rental_duration` varchar(5) DEFAULT NULL,
-  `prefered_dropoff` int DEFAULT NULL,
+  `license_issue_location` varchar(255) DEFAULT NULL,
+  `license_expiration_date` date DEFAULT NULL,
+  `preferred_vehicle` varchar(17) DEFAULT NULL,
+  `address` varchar(255) default null,
+  `preferred_dropoff` int DEFAULT NULL,
   `preferred_pickup` int DEFAULT NULL,
   `password` varchar(25) DEFAULT NULL,
   `role` tinyint unsigned DEFAULT NULL,
   `credit_card_number` varchar(19) DEFAULT NULL,
+  `credit_card_name` varchar(100) DEFAULT null,
+  `cvn` varchar(4) DEFAULT null,
+  `credit_card_expiration_date` date DEFAULT null,
   PRIMARY KEY (`customer_id`),
-  FOREIGN KEY `prefered_vehicle` references vehicle_types(`vin`),
+  FOREIGN KEY `preferred_vehicle` references vehicle_types(`vin`),
   FOREIGN KEY `preferred_pickup` references stores(`store_id`),
-  FOREIGN KEY `prefered_dropoff` references stores(`store_id`),
+  FOREIGN KEY `preferred_dropoff` references stores(`store_id`),
 ) ;
 
 --
