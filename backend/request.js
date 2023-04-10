@@ -20,7 +20,6 @@ function loadFile(req,res,url_) {
     let type;
     let filePath;
     //determine file type and path
-    console.log(url_.pathname)
     if(re.test(url_.pathname)){
         filePath = `..${url_.pathname}`;
         type = filePath.substring(filePath.lastIndexOf(".")+1);

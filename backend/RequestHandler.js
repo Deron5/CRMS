@@ -4,6 +4,7 @@ const conn = mysql.createConnection({
     user: "root", //username
     password: "", //password for the user
     database: "crms", //database name
+    dateStrings: true,
 });
 
 const loginQuery = `select role from customers where email = ? and password = ?`;
@@ -15,10 +16,6 @@ const customerRentalsQuery = `select * from rentals, customers, vehicle_types, v
 
 const FIRST_RENTAL_VID = "select count(vehicle_id) as count,vehicle_id from rentals group by vehicle_id order by count desc, vehicle_id asc limit 1"
 
-const defaultQueries = {
-    "vehicle_types": "select * from vehicle_types where vin in (select distinct(vehicle_type) from vehicles)"
-}
-
 function empty(res) {
     return !res.length
 }
@@ -27,6 +24,11 @@ function notEmpty(res) {
     return res.length
 }
 
+const defaultQueries = {
+    "vehicle_types": "select * from vehicle_types where vin in (select distinct(vehicle_type) from vehicles)",
+    "customers": "select * from vehicle_types right join (select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) as count from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id) as y on y.preferred_vehicle = vin"
+    // "customers": "select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id"
+}
 
 /*
  * Used in inserts
@@ -36,38 +38,38 @@ const insertChecks = {
                 {
                     query:'select customer_id from customers where email = ?',
                     paramNames:["email"],
-                    failString: JSON.stringify('Customer With The Same Email Already Exists'),
+                    failString: 'Customer With The Same Email Already Exists',
                     bool: empty
                 },
                 {
                     query:'select customer_id from customers where phone_number = ?',
                     paramNames:["phone_number"],
-                    failString: JSON.stringify('Customer With The Same Phone Number Already Exists'),
+                    failString:'Customer With The Same Phone Number Already Exists',
                     bool: empty
                 },
                 {
                     query:'select store_id from stores where store_id = ?',
                     paramNames:["preferred_pickup"],
-                    failString: JSON.stringify('Preferred Pickup Location Does Not Exist'),
+                    failString:'Preferred Pickup Location Does Not Exist',
                     bool: notEmpty
                 },
                 {
                     query:'select store_id from stores where store_id = ?',
                     paramNames:["preferred_dropoff"],
-                    failString: JSON.stringify('Preferred Dropoff Location Does Not Exist'),
+                    failString:'Preferred Dropoff Location Does Not Exist',
                     bool: notEmpty
                 },
                 {
                     query:'select vin from vehicle_types where vin = ? and vin in (select distinct(vehicle_type) from vehicles)',
                     paramNames:["preferred_vehicle"],
-                    failString: JSON.stringify('No Cars Of The Specified Type Exist'),
+                    failString: 'No Cars Of The Specified Type Exist',
                     bool: notEmpty
                 },
                 {
                     query:'select customer_id from customers where drivers_license = ? ',
                     paramNames:["drivers_license"],
-                    failString: JSON.stringify(`User with the same driver's license exits`),
-                    bool: notEmpty
+                    failString: `User with the same driver's license exits`,
+                    bool: empty
                 }
             ]
 }
@@ -149,7 +151,7 @@ class RequestHandler {
                                     if(check.bool(res))
                                         resolve_("");
                                     else//send error back to client
-                                        resolve({error:check.failString})    
+                                        resolve(JSON.stringify({error:check.failString}))    
                                 })
 
                         }))
@@ -173,7 +175,6 @@ class RequestHandler {
                     values.push(value)
                   }
 
-                console.log(base);
                 conn.query(`${base.substring(0,base.length-1)}) ${hatena.substring(0,hatena.length-1)})`,values,(err,result)=>{
                     if(err)
                         reject(err)

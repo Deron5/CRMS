@@ -60,6 +60,7 @@ CREATE TABLE `customers` (
   `license_expiration_date` date not NULL,
   `preferred_vehicle` varchar(17) DEFAULT NULL,
   `address` varchar(255) not null,
+  `billing_address` varchar(255) not null,
   `preferred_dropoff` int default NULL,
   `preferred_pickup` int default NULL,
   `credit_card_number` varchar(19) not NULL,

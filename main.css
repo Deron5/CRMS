@@ -224,3 +224,54 @@ input[type="date"]{
 #custInfo input{
   padding-left: .25rem;
 }
+
+#table{
+  display: grid;
+  grid-template-columns: repeat(4,minmax(max-content,auto));
+  border-bottom: none;
+}
+
+#table summary{
+  display: grid;
+  align-items: center;
+  height: 3rem;
+  font-size: 1.25rem;
+  padding: 0 .25rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+#table>details{
+}
+
+#table:not(:has(details[open])) summary{
+  border-bottom: none;
+}
+
+#table>details[open]>summary{
+ padding: 0 2.25rem;
+}
+
+td,th{
+  text-align: center;
+  border-right: 2px solid #e5e7eb;
+  padding: .5rem;
+}
+
+#cDetails td:nth-child(6n){
+  border-right: none;
+}
+
+#lDetails td:nth-child(3n){
+  border-right: none;
+}
+
+#pDetails td:nth-child(3n){
+  border-right: none;
+}
+
+#rPref td:nth-child(6n){
+  border-right: none;
+}
+
+tr{
+  
+}
