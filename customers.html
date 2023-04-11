@@ -140,410 +140,570 @@
             <div class=" w-full h-full">
 
                 <div id="screens" class="h-full">
-
-
                     <div id="Scrn1" class="overflow-x-auto h-full">
-                        <!-- <div>
-                            <div class="w-48">
-                                <div id="searchContainer" class="search relative">
-                                    <button class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
+                        <div class="w-full flex my-2 ml-20">
+                            <div class="w-max">
+                                <div id="" class="searchContainer search relative">
+                                    <button onclick="search()" class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
                                         <div class="searchIconOuter">
                                             <div class="searchIconInner">
                                                 &#10991;
                                             </div>
                                         </div>
                                     </button>
-                                    <input id="searchBox" type="text" placeholder="Search Customer Name" class="rounded-tr-[3px] rounded-br-[3px] outline-none pl-2 border-2 border-l-0" maxlength='10' onkeyup="searchLicense()">
+                                    <input id="namesearch" type="text" placeholder="Search Customer Name" class="searchBox outline-none pl-2 border-y-2" maxlength='100'">
                                     </input>
-                                    <div class="absolute bg-white w-full h-max hidden border-2">
-                                    </div>
+                                    <div class=" absolute bg-white w-full h-max hidden border-2">
                                 </div>
                             </div>
-                        </div> -->
-
-
-                        <!-- #ab79d6 border text #351d4a -->
-
-                        <div id="table" class="relative">
-
-                            <div id="selects" class="mt-[90px] relative">
-                                
-                                
-                                
-                            </div>
-                            <details open class="relative border-x-2 border-y-2">
-                                <summary class="hover:bg-[#f7f4f8]">
-                                    Customer Details
+                        </div>
+                        <div class="relative bg-white w-[80px]">
+                            <details id="filterOptions" class="absolute w-max z-40">
+                                <summary class="bg-white h-[30px] w-20 border-2">
+                                    <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="16" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                                    </svg>
+                                    Filter
                                 </summary>
-                                <div>
-                                    <table>
-                                        <thead style="color: #a78bfa;">
-                                            <tr>
-                                                <th>First Name</th>
-                                                <th>Surname</th>
-                                                <th>Phone Number</th>
-                                                <th>Email</th>
-                                                <th>Rentals</th>
-                                                <th class="border-r-0">Address</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="cDetails">
+                                <form id="filters" onsubmit="event.preventDefault();" class="bg-white grid grid-cols-[10rem,1fr] w-96 gap-2 p-4 border-2">
+                                    <div class="text-xl pl-2">Column Name</div>
+                                    <div class="text-xl pl-2">Search Value</div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 flex gap-2">
+                                        <input type="submit" onclick="filterData()" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Apply Filters"></input>
+                                        <input onclick="document.getElementById('filterOptions').removeAttribute('open')" type="button" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Cancel"></input>
+                                    </div>
+                                </form>
+                                <script>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </details>
+                                    function filterData() {
 
-                            <details class="border-y-2">
-                                <summary class="hover:bg-[#f7f4f8]">Drivers License Details</summary>
-                                <div>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Drivers License</th>
-                                                <th>Expiration Date</th>
-                                                <th class="border-r-0">Issue Location</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="lDetails">
+                                        let params = {
+                                            table: "customers",
+                                            default: null,
+                                            options: {}
+                                        }
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </details>
+                                        document.querySelectorAll("#filters select").forEach(filter => {
+                                            let index = null;
+                                            let inputs = filter.parentElement.querySelectorAll("input");
 
-                            <details class="border-l-2 border-y-2">
-                                <summary class="hover:bg-[#f7f4f8]">Payment Details</summary>
-                                <div>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Credit/Debit Card Number</th>
-                                                <th>Expiration Date</th>
-                                                <th class="border-r-0">Billing Address</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="pDetails">
+                                            if (filter.value == "first_name")
+                                                index = 1
+                                            else if (filter.value == "surname")
+                                                index = 2
+                                            else if (filter.value == "email")
+                                                index = 4
+                                            else if (filter.value == "phone_number")
+                                                index = 3
+                                            else
+                                                index = null;
+                                            console.log()
+                                            if (index)
+                                                params.options[filter.value] = inputs[index].value
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </details>
+                                        })
 
-                            <details class="border-x-2 border-y-2">
-                                <summary class="hover:bg-[#f7f4f8]">Rental Preferences</summary>
-                                <div>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Brand</th>
-                                                <th>Model</th>
-                                                <th>Year Manufactured</th>
-                                                <th>VIN</th>
-                                                <th>Pickup Location</th>
-                                                <th class="border-r-0">Dropoff Location</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="rPref">
+                                        if (Object.hasOwn(params.options, "phone_number"))
+                                            params.options.phone_number = params.options.phone_number.replaceAll(" ", "-")
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        if (Object.keys(params.options).length == 0)
+                                            return false;
+
+                                        fetch('rentals', {
+                                            method: 'POST',
+                                            body: JSON.stringify({ func: "Query", params: params }),
+                                        }).then((res) => res.json())
+                                            .then((results) => loadData(results))
+
+
+
+                                        document.getElementById('filterOptions').removeAttribute('open')
+
+                                        return false;
+                                    }
+
+                                    document.querySelectorAll("#filters select").forEach(opt => {
+                                        opt.addEventListener('change', (event) => {
+                                            let index = null;
+
+                                            if (event.srcElement.value == "")
+                                                index = 0
+                                            else if (event.srcElement.value == "first_name")
+                                                index = 1
+                                            else if (event.srcElement.value == "surname")
+                                                index = 2
+                                            else if (event.srcElement.value == "email")
+                                                index = 4
+                                            else if (event.srcElement.value == "phone_number")
+                                                index = 3
+
+                                            let inputs = event.srcElement.parentElement.querySelector("div")
+                                            inputs = inputs.querySelectorAll("input")
+                                            inputs.forEach(input => {
+                                                input.style.display = "none";
+                                                input.disabled = true
+                                            })
+
+                                            inputs[index].style.display = "unset"
+                                            inputs[index].disabled = false
+
+                                        })
+                                    })
+                                </script>
                             </details>
                         </div>
+                        <button onclick="getCustomers()" class="ml-12 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2 h-[30px]">
+                            View All
+                        </button>
                     </div>
 
-                    <div id="Scrn2" class="hidden">
-                        <form id="custInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveCustInfo(event)">
-                            <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
-                                New Customer Form
+
+                    <!-- #ab79d6 border text #351d4a -->
+
+                    <div id="table" class="relative">
+
+                        <div id="selects" class="mt-[90px] relative">
+
+
+
+                        </div>
+                        <details open class="relative border-x-2 border-y-2">
+                            <summary class="hover:bg-[#f7f4f8]">
+                                Customer Details
+                            </summary>
+                            <div>
+                                <table>
+                                    <thead style="color: #a78bfa;">
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Surname</th>
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                            <th>Rentals</th>
+                                            <th class="border-r-0">Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cDetails">
+
+                                    </tbody>
+                                </table>
                             </div>
+                        </details>
 
-                            <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
-                                Contact Information
+                        <details class="border-y-2">
+                            <summary class="hover:bg-[#f7f4f8]">Drivers License Details</summary>
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Drivers License</th>
+                                            <th>Expiration Date</th>
+                                            <th class="border-r-0">Issue Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="lDetails">
+
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                        </details>
 
-                                <label class="grid">
-                                    First Name:
-                                    <input required type="text" name="first_name" id="first_name" maxlength="50" class="border-2  lg:w-72">
-                                </label>
-                                <label class="grid">
-                                    Surname:
-                                    <input required type="text" name="surname" id="surname" maxlength="50" class="border-2 ">
-                                </label>
-                                <label class="grid">
-                                    Phone Number:
-                                    <input required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="border-2 ">
-                                </label>
-                                <label class="grid">
-                                    Email:
-                                    <input placeholder="name@example.com" required type="email" name="email" id="email" class="border-2 ">
-                                </label>
-                                <label class="grid col-span-2">
-                                    Address:
-                                    <input required type="text" maxlength="255" name="address" id="address" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
-                                </label>
+                        <details class="border-l-2 border-y-2">
+                            <summary class="hover:bg-[#f7f4f8]">Payment Details</summary>
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Credit/Debit Card Number</th>
+                                            <th>Expiration Date</th>
+                                            <th class="border-r-0">Billing Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pDetails">
+
+                                    </tbody>
+                                </table>
                             </div>
+                        </details>
 
-                            <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
-                                License Information
+                        <details class="border-x-2 border-y-2">
+                            <summary class="hover:bg-[#f7f4f8]">Rental Preferences</summary>
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Brand</th>
+                                            <th>Model</th>
+                                            <th>Year Manufactured</th>
+                                            <th>VIN</th>
+                                            <th>Pickup Location</th>
+                                            <th class="border-r-0">Dropoff Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="rPref">
+
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                                <label for="" class="grid">
-                                    License Number:
-                                    <input placeholder=" xxxx xxxx xxxx xx" required type="text" name="drivers_license" id="drivers_license" maxlength="14" pattern="[0-9]{14}" minlength="14" class="border-2 ">
-                                </label>
-
-                                <label for="" class="grid">
-                                    Issue State/Province:
-                                    <input placeholder="License Issue State" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location" class="border-2 ">
-                                </label>
-                                
-                                <label for="" class="grid col-span-2">
-                                    Billing Address:
-                                    <input placeholder="Billing Address" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="billing_address" id="billing_address" maxlength="255" class="border-2" style="max-width: 42.4rem;">
-                                </label>
-                                
-
-                                <label for="" class="col-span-2">
-                                    Expiration Date:
-                                    <input required type="date" name="license_expiration_date" id="license_expiration_date" class="border-2" style="font-size: initial;">
-                                </label>
-                              
-
-                            </div>
-
-                            <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
-                                Rental Preferences
-                            </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                                <label for="" class="relative grid">
-                                    Preferred Vehicle:
-                                    <input placeholder="VIN" type="text" name="preferred_vehicle" minlength="17" maxlength="17" id="preferred_vehicle" class="border-2 ">
-                                </label>
-                                <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
-                                    <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
-                                    <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showStores()">View Locations</button>
-                                </div>
-
-
-                                <label for="" class="grid">
-                                    Preferred Pickup Location:
-                                    <input type="text" placeholder="Store ID" name="preferred_pickup" id="preferred_pickup" class="border-2 ">
-                                </label>
-                                <label for="" class="grid">
-                                    Preferred Dropoff Location:
-                                    <input type="text" placeholder="Store ID" name="preferred_dropoff" id="preferred_dropoff" class="border-2 ">
-                                </label>
-
-
-
-                            </div>
-                            <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
-                                Payment Details
-                            </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                                <label for="" class="grid">
-                                    Name:
-                                    <input required type="text" maxlength="100" name="credit_card_name" id="credit_card_name" class="border-2">
-                                </label>
-                                <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName()">
-                                    Use name from above?
-                                </button>
-                                <label for="ccn" class="grid">
-                                    Credit Card Number:
-                                    <input required class="border-2" name="credit_card_number" id="credit_card_number" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
-                                </label>
-                                <label for="cvn" class="grid">
-                                    Card Verification Number:
-                                    <input required class="border-2 w-14 text-center" name="cvn" id="cvn" type="tel" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
-                                </label>
-
-                                <label for="ccExpiration" class="col-span-2">
-                                    Expiration Date:
-                                    <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date" class="border-2" style="font-size: initial;">
-                                </label>
-                            </div>
-
-
-                            <div class="flex justify-end gap-8 my-8 mr-4">
-                                <input id="resetBtn" type="reset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
-                                <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
-                            </div>
-                        </form>
+                        </details>
                     </div>
+                </div>
 
-                    <div id="Scrn3" class="hidden">
-                        
+                <div id="Scrn2" class="hidden">
+                    <form id="custInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveCustInfo(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            New Customer Form
+                        </div>
 
-                        <form id="editInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return editCustInfo(event)">
-                            <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
-                                Customer Edit Form
-                            </div>
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            Contact Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
 
-                            <input hidden id="customer_id" value='0' name="customer_id">
+                            <label class="grid">
+                                First Name:
+                                <input required type="text" name="first_name" id="first_name" maxlength="50" class="border-2  lg:w-72">
+                            </label>
+                            <label class="grid">
+                                Surname:
+                                <input required type="text" name="surname" id="surname" maxlength="50" class="border-2 ">
+                            </label>
+                            <label class="grid">
+                                Phone Number:
+                                <input required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="border-2 ">
+                            </label>
+                            <label class="grid">
+                                Email:
+                                <input placeholder="name@example.com" required type="email" name="email" id="email" class="border-2 ">
+                            </label>
+                            <label class="grid col-span-2">
+                                Address:
+                                <input required type="text" maxlength="255" name="address" id="address" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
+                            </label>
+                        </div>
 
-                            <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
-                                Contact Information
-                            </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            License Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="grid">
+                                License Number:
+                                <input placeholder=" xxxx xxxx xxxx xx" required type="text" name="drivers_license" id="drivers_license" maxlength="14" pattern="[0-9]{14}" minlength="14" class="border-2 ">
+                            </label>
 
-                                <label class="grid">
-                                    First Name:
-                                    <input required type="text" name="first_name" id="first_name2" maxlength="50" class="border-2  lg:w-72">
-                                </label>
-                                <label class="grid">
-                                    Surname:
-                                    <input required type="text" name="surname" id="surname2" maxlength="50" class="border-2 ">
-                                </label>
-                                <label class="grid">
-                                    Phone Number:
-                                    <input required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number2" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="border-2 ">
-                                </label>
-                                <label class="grid">
-                                    Email:
-                                    <input placeholder="name@example.com" required type="email" name="email" id="email2" class="border-2 ">
-                                </label>
-                                <label class="grid col-span-2">
-                                    Address:
-                                    <input required type="text" maxlength="255" name="address" id="address2" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
-                                </label>
-                            </div>
+                            <label for="" class="grid">
+                                Issue State/Province:
+                                <input placeholder="License Issue State" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location" class="border-2 ">
+                            </label>
 
-                            <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
-                                License Information
-                            </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                                <label for="" class="grid">
-                                    License Number:
-                                    <input placeholder=" xxxx xxxx xxxx xx" required type="text" name="drivers_license" id="drivers_license2" maxlength="14" pattern="[0-9]{14}" minlength="14" class="border-2 ">
-                                </label>
-
-                                <label for="" class="grid">
-                                    Issue State/Province:
-                                    <input placeholder="License Issue State" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location2" class="border-2 ">
-                                </label>
-                                
-                                <label for="" class="grid col-span-2">
-                                    Billing Address:
-                                    <input placeholder="Billing Address" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="billing_address" id="billing_address2" maxlength="255" class="border-2" style="max-width: 42.4rem;">
-                                </label>
-                                
-
-                                <label for="" class="col-span-2">
-                                    Expiration Date:
-                                    <input required type="date" name="license_expiration_date" id="license_expiration_date2" class="border-2" style="font-size: initial;">
-                                </label>
-                              
-
-                            </div>
-
-                            <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
-                                Rental Preferences
-                            </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                                <label for="" class="relative grid">
-                                    Preferred Vehicle:
-                                    <input placeholder="VIN" type="text" name="preferred_vehicle" minlength="17" maxlength="17" id="preferred_vehicle2" class="border-2 ">
-                                </label>
-                                <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
-                                    <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
-                                    <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showStores()">View Locations</button>
-                                </div>
+                            <label for="" class="grid col-span-2">
+                                Billing Address:
+                                <input placeholder="Billing Address" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="billing_address" id="billing_address" maxlength="255" class="border-2" style="max-width: 42.4rem;">
+                            </label>
 
 
-                                <label for="" class="grid">
-                                    Preferred Pickup Location:
-                                    <input type="text" placeholder="Store ID" name="preferred_pickup" id="preferred_pickup2" class="border-2 ">
-                                </label>
-                                <label for="" class="grid">
-                                    Preferred Dropoff Location:
-                                    <input type="text" placeholder="Store ID" name="preferred_dropoff" id="preferred_dropoff2" class="border-2 ">
-                                </label>
+                            <label for="" class="col-span-2">
+                                Expiration Date:
+                                <input required type="date" name="license_expiration_date" id="license_expiration_date" class="border-2" style="font-size: initial;">
+                            </label>
 
 
+                        </div>
 
-                            </div>
-                            <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
-                                Payment Details
-                            </div>
-                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
-                                <label for="" class="grid">
-                                    Name:
-                                    <input required type="text" maxlength="100" name="credit_card_name" id="credit_card_name2" class="border-2">
-                                </label>
-                                <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName(true)">
-                                    Use name from above?
-                                </button>
-                                <label for="ccn" class="grid">
-                                    Credit Card Number:
-                                    <input required class="border-2" name="credit_card_number" id="credit_card_number2" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
-                                </label>
-                                <label for="cvn" class="grid">
-                                    Card Verification Number:
-                                    <input required class="border-2 w-14 text-center" name="cvn" id="cvn2" type="tel" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
-                                </label>
-
-                                <label for="ccExpiration" class="col-span-2">
-                                    Expiration Date:
-                                    <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date2" class="border-2" style="font-size: initial;">
-                                </label>
+                        <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Rental Preferences
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="relative grid">
+                                Preferred Vehicle:
+                                <input placeholder="VIN" type="text" name="preferred_vehicle" minlength="17" maxlength="17" id="preferred_vehicle" class="border-2 ">
+                            </label>
+                            <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showStores()">View Locations</button>
                             </div>
 
 
-                            <div class="flex justify-end gap-8 my-8 mr-4">
-                                <input type="button" onclick="editReset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
-                                <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
-                            </div>
-                        </form>
-                    </div>
+                            <label for="" class="grid">
+                                Preferred Pickup Location:
+                                <input type="text" placeholder="Store ID" name="preferred_pickup" id="preferred_pickup" class="border-2 ">
+                            </label>
+                            <label for="" class="grid">
+                                Preferred Dropoff Location:
+                                <input type="text" placeholder="Store ID" name="preferred_dropoff" id="preferred_dropoff" class="border-2 ">
+                            </label>
 
+
+
+                        </div>
+                        <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Payment Details
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="grid">
+                                Name:
+                                <input required type="text" maxlength="100" name="credit_card_name" id="credit_card_name" class="border-2">
+                            </label>
+                            <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName()">
+                                Use name from above?
+                            </button>
+                            <label for="ccn" class="grid">
+                                Credit Card Number:
+                                <input required class="border-2" name="credit_card_number" id="credit_card_number" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                            </label>
+                            <label for="cvn" class="grid">
+                                Card Verification Number:
+                                <input required class="border-2 w-14 text-center" name="cvn" id="cvn" type="tel" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
+                            </label>
+
+                            <label for="ccExpiration" class="col-span-2">
+                                Expiration Date:
+                                <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date" class="border-2" style="font-size: initial;">
+                            </label>
+                        </div>
+
+
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input id="resetBtn" type="reset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="Scrn3" class="hidden">
+
+
+                    <form id="editInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return editCustInfo(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            Customer Edit Form
+                        </div>
+
+                        <input hidden id="customer_id" value='0' name="customer_id">
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            Contact Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                First Name:
+                                <input required type="text" name="first_name" id="first_name2" maxlength="50" class="border-2  lg:w-72">
+                            </label>
+                            <label class="grid">
+                                Surname:
+                                <input required type="text" name="surname" id="surname2" maxlength="50" class="border-2 ">
+                            </label>
+                            <label class="grid">
+                                Phone Number:
+                                <input required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number2" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="border-2 ">
+                            </label>
+                            <label class="grid">
+                                Email:
+                                <input placeholder="name@example.com" required type="email" name="email" id="email2" class="border-2 ">
+                            </label>
+                            <label class="grid col-span-2">
+                                Address:
+                                <input required type="text" maxlength="255" name="address" id="address2" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
+                            </label>
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            License Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="grid">
+                                License Number:
+                                <input placeholder=" xxxx xxxx xxxx xx" required type="text" name="drivers_license" id="drivers_license2" maxlength="14" pattern="[0-9]{14}" minlength="14" class="border-2 ">
+                            </label>
+
+                            <label for="" class="grid">
+                                Issue State/Province:
+                                <input placeholder="License Issue State" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location2" class="border-2 ">
+                            </label>
+
+                            <label for="" class="grid col-span-2">
+                                Billing Address:
+                                <input placeholder="Billing Address" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="billing_address" id="billing_address2" maxlength="255" class="border-2" style="max-width: 42.4rem;">
+                            </label>
+
+
+                            <label for="" class="col-span-2">
+                                Expiration Date:
+                                <input required type="date" name="license_expiration_date" id="license_expiration_date2" class="border-2" style="font-size: initial;">
+                            </label>
+
+
+                        </div>
+
+                        <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Rental Preferences
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="relative grid">
+                                Preferred Vehicle:
+                                <input placeholder="VIN" type="text" name="preferred_vehicle" minlength="17" maxlength="17" id="preferred_vehicle2" class="border-2 ">
+                            </label>
+                            <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showStores()">View Locations</button>
+                            </div>
+
+
+                            <label for="" class="grid">
+                                Preferred Pickup Location:
+                                <input type="text" placeholder="Store ID" name="preferred_pickup" id="preferred_pickup2" class="border-2 ">
+                            </label>
+                            <label for="" class="grid">
+                                Preferred Dropoff Location:
+                                <input type="text" placeholder="Store ID" name="preferred_dropoff" id="preferred_dropoff2" class="border-2 ">
+                            </label>
+
+
+
+                        </div>
+                        <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Payment Details
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="grid">
+                                Name:
+                                <input required type="text" maxlength="100" name="credit_card_name" id="credit_card_name2" class="border-2">
+                            </label>
+                            <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName(true)">
+                                Use name from above?
+                            </button>
+                            <label for="ccn" class="grid">
+                                Credit Card Number:
+                                <input required class="border-2" name="credit_card_number" id="credit_card_number2" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                            </label>
+                            <label for="cvn" class="grid">
+                                Card Verification Number:
+                                <input required class="border-2 w-14 text-center" name="cvn" id="cvn2" type="tel" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
+                            </label>
+
+                            <label for="ccExpiration" class="col-span-2">
+                                Expiration Date:
+                                <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date2" class="border-2" style="font-size: initial;">
+                            </label>
+                        </div>
+
+
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input type="button" onclick="editReset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+                    </form>
                 </div>
 
             </div>
 
         </div>
-        <div id="popup" class="hidden absolute z-20 top-0  h-full w-full backdrop-blur-sm bg-white/10">
-            <div class="bg-white overflow-hidden rounded-lg absolute top-0 bottom-0 right-0 left-0 m-auto w-80 max-w-[25rem] h-max max-h-[55vh] grid grid-rows-[min-content,1fr,min-content] border-2">
-                <div class="text-2xl text-center relative pb-1 p-3 pl-4">
-                    <span id="mtitle" class="text-2xl">Offerred Vehicles</span>
-                    <button title="Close Modal" onclick="document.getElementById('popup').style.display = ''" class="absolute text-base font-medium right-3 top-3">
-                        &#x26CC;
-                    </button>
-                </div>
-                <div id="mcontents" class="mx-3 mt-1 border-t-2 p-1 pb-4 overflow-y-auto">
-                    stuff
-                </div>
-                <div class="flex justify-end pr-4">
-                    <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24" onclick="document.getElementById('popup').style.display = ''">Dismiss</button>
-                </div>
+
+    </div>
+    <div id="popup" class="hidden absolute z-20 top-0  h-full w-full backdrop-blur-sm bg-white/10">
+        <div class="bg-white overflow-hidden rounded-lg absolute top-0 bottom-0 right-0 left-0 m-auto w-80 max-w-[25rem] h-max max-h-[55vh] grid grid-rows-[min-content,1fr,min-content] border-2">
+            <div class="text-2xl text-center relative pb-1 p-3 pl-4">
+                <span id="mtitle" class="text-2xl">Offerred Vehicles</span>
+                <button title="Close Modal" onclick="document.getElementById('popup').style.display = ''" class="absolute text-base font-medium right-3 top-3">
+                    &#x26CC;
+                </button>
+            </div>
+            <div id="mcontents" class="mx-3 mt-1 border-t-2 p-1 pb-4 overflow-y-auto">
+                stuff
+            </div>
+            <div class="flex justify-end pr-4">
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24" onclick="document.getElementById('popup').style.display = ''">Dismiss</button>
             </div>
         </div>
+    </div>
     </div>
 
     <script>
 
-        function edit(){
+        function edit() {
 
             let id = document.querySelector("#selects input:checked");
-            if(!id){
-                popup("No Record Selected","Please Select A Record To Edit By Selecting The Adjacent Checkbox",true)
+            if (!id) {
+                popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
                 return
             }
 
             document.getElementById("customer_id").value = id.value;
-            switchScrn(null,3)
+            switchScrn(null, 3)
         }
 
         let prev = -1;
 
         function setRow(event) {
-            document.querySelectorAll(`tbody>tr:nth-of-type(${prev})`).forEach(row=>{
+            document.querySelectorAll(`tbody>tr:nth-of-type(${prev})`).forEach(row => {
                 row.style.color = "";
             })
 
-            document.querySelectorAll(`tbody>tr:nth-of-type(${event.target.dataset.row})`).forEach(row=>{
+            document.querySelectorAll(`tbody>tr:nth-of-type(${event.target.dataset.row})`).forEach(row => {
                 row.style.color = "#845bff";
             })
             prev = event.target.dataset.row;
@@ -552,37 +712,42 @@
         function getCustomers() {
             fetch('rentals', {
                 method: 'POST',
-                body: JSON.stringify({ func: "Query", params: { table: 'customers' } }),
+                body: JSON.stringify({ func: "Query", params: { table: 'customers', default: null } }),
             }).then((res) => res.json())
-                .then((results) => {
-                    if (!results.length) {
-                        popup("Error No Customer Data", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer Data Found</div>`, true)
-                        return
-                    }
+                .then((results) => loadData(results))
+        }
 
-                    let cDetails = document.getElementById("cDetails")
-                    let lDetails = document.getElementById("lDetails")
-                    let pDetails = document.getElementById("pDetails")
-                    let rPref = document.getElementById("rPref")
-                    let selects = document.getElementById("selects");
 
-                    cDetails.innerHTML = "";
-                    lDetails.innerHTML = "";
-                    pDetails.innerHTML = "";
-                    rPref.innerHTML = "";
-                    selects.innerHTML = "";
 
-                    let count_ = 0
+        function loadData(results) {
+            if (!results.length) {
+                popup("Error No Customer Data", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer Data Found</div>`, true)
+                return
+            }
 
-                    results.forEach(res => {
-                        count_+=1;
-                        selects.innerHTML+= `<div style='height:40px' class=" grid items-center relative">
+            let cDetails = document.getElementById("cDetails")
+            let lDetails = document.getElementById("lDetails")
+            let pDetails = document.getElementById("pDetails")
+            let rPref = document.getElementById("rPref")
+            let selects = document.getElementById("selects");
+
+            cDetails.innerHTML = "";
+            lDetails.innerHTML = "";
+            pDetails.innerHTML = "";
+            rPref.innerHTML = "";
+            selects.innerHTML = "";
+
+            let count_ = 0
+
+            results.forEach(res => {
+                count_ += 1;
+                selects.innerHTML += `<div style='height:40px' class=" grid items-center relative">
                                                 <input title='Select This Row' type="radio" name="cust" data-row=${count_} onchange="setRow(event)" id="" value="${res.customer_id}">
                                                 <div></div>
                                             </div>`
-                        
 
-                        cDetails.innerHTML += `<tr>
+
+                cDetails.innerHTML += `<tr>
                                                 <td>${res.first_name}</td>
                                                 <td>${res.surname}</td>
                                                 <td>${res.phone_number}</td>
@@ -591,19 +756,19 @@
                                                 <td>${res.address}</td>
                                             </tr>`
 
-                        lDetails.innerHTML += `<tr>
+                lDetails.innerHTML += `<tr>
                                                 <td>${res.drivers_license}</td>
                                                 <td>${res.license_expiration_date}</td>
                                                 <td>${res.license_issue_location}</td>
                                             </tr>`
 
-                        pDetails.innerHTML += `<tr>
+                pDetails.innerHTML += `<tr>
                                                 <td>${res.credit_card_number}</td>
                                                 <td>${res.credit_card_expiration_date}</td>
                                                 <td>${res.billing_address}</td>
                                             </tr>`
 
-                        rPref.innerHTML += `<tr>
+                rPref.innerHTML += `<tr>
                                             <td>${res.brand}</td>
                                             <td>${res.model}</td>
                                             <td>${res.manufactured_year}</td>
@@ -614,11 +779,39 @@
 
 
 
-                    })
-                
-                })
+            })
+
         }
 
+
+        function search() {
+            let params = {
+                table: "customers",
+                default: null,
+                options: {}
+            }
+
+            let names = document.getElementById("namesearch").value.trim().split(" ", 2)
+
+            if (names.length > 1) {
+                params.options.first_name = names[0]
+                params.options.surname = names[1]
+            } else if (names.length == 1 && names[0]) {
+                params.options.first_name = names[0]
+            }
+
+            if (Object.keys(params.options).length == 0)
+                return false;
+
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: params }),
+            }).then((res) => res.json())
+                .then((results) => loadData(results))
+
+
+
+        }
 
         function switchScrn(event, num) {
             document.querySelectorAll("#screens>*:not(#tabs)").forEach(scrn => {
@@ -630,11 +823,11 @@
             document.querySelectorAll("#tabs>*").forEach(tab => {
                 tab.style.borderBottom = "none"
             })
-            
-            if(event)
+
+            if (event)
                 event.srcElement.style.borderBottom = "2px solid"
-            
-            if(num != 1)
+
+            if (num != 1)
                 document.getElementById("editBtn").style.display = "none"
             else
                 document.getElementById("editBtn").style.display = ""
@@ -656,7 +849,7 @@
         function showVehicles() {
             fetch('rentals', {
                 method: 'POST',
-                body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types' } }),
+                body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types', default: null } }),
             }).then((res) => res.json())
                 .then((data) => {
                     if (!data.length) {

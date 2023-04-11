@@ -135,6 +135,21 @@ details>summary{
 }
 
 
+.searchContainer>.searchBox:focus + div{
+  display: flex;
+  flex-direction: column;
+  top: 1.71rem;
+} 
+
+
+.searchContainer> div:hover{
+  display: flex;
+  flex-direction: column;
+  top: 1.71rem;
+}
+
+
+
 .searchOpt{
   width: 65%;
   margin: auto;
@@ -334,4 +349,12 @@ thead>tr{
 
 td{
   color: inherit;
+}
+
+#filterOptions[open]>summary{
+  border-bottom: none;
+}
+#filterOptions>summary{
+  display:flex;
+  padding-left: .5rem;
 }

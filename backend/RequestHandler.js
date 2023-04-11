@@ -24,11 +24,22 @@ function notEmpty(res) {
     return res.length
 }
 
+
+const queryOptions = {
+    "customers": {"customer_id":null,
+                  "email":null,
+                  "first_name":null,
+                  "surname":null,
+                  "phone_number":null}
+}
+
+
 const defaultQueries = {
     "vehicle_types": "select * from vehicle_types where vin in (select distinct(vehicle_type) from vehicles)",
-    "customers": "select * from vehicle_types right join (select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) as count from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id) as y on y.preferred_vehicle = vin"
-    // "customers": "select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id"
+    "customers":  "select * from vehicle_types right join (select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) as count from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id) as y on y.preferred_vehicle = vin"
 }
+
+
 
 /*
  * Used in inserts
@@ -109,11 +120,31 @@ class RequestHandler {
                 resolve(JSON.stringify({ "error": " TABLE NOT SPECIFIED" }));
 
             let query = `select * from ${params.table}`;
+            let data = [];
 
-            if(Object.hasOwn(defaultQueries,params.table))
+            if(Object.hasOwn(params,"default") && Object.hasOwn(defaultQueries,params.table))
                 query = defaultQueries[params.table];
+            
+            if(Object.hasOwn(params,"options") && Object.keys(params.options).length){
+                query+= " where"
+                
+                for(let opt in params.options){
+                    if(!params.options[opt])
+                        continue;
 
-            conn.query(query,(err,results)=>{
+                    if(Object.hasOwn(queryOptions[params.table],opt)){
+                        query+= ` ${opt} = ? and`
+                        data.push(params.options[opt])
+                    }
+                }
+
+                if(query.slice(-3) == "and")
+                    query = query.slice(0,query.length-3)
+                else if(query.slice(-5) == "where")
+                    query = query.slice(0,query.length-3)
+            }
+            console.log(query)
+            conn.query(query,data,(err,results)=>{
                 if(err)
                     reject(err)
                     resolve(JSON.stringify(results))
