@@ -11,6 +11,8 @@
 <body class="" onload="init()">
 
     <div class="h-screen grid grid-rows-1 main border-2 border-stone-100 relative">
+        <button id="editBtn" class="z-50 absolute bg-white bottom-12 right-12 hover:bg-gray-100 text-gray-800 p-2 font-semibold border border-gray-400 rounded shadow" onclick="edit()">Edit Record</button>
+
         <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
             <summary class="list-none min-w-[5.75rem] mb-5 text-violet-400 text-3xl pb-4  border-[#767b99] border-b-2">
                 CRMS
@@ -136,6 +138,7 @@
             </div>
 
             <div class=" w-full h-full">
+
                 <div id="screens" class="h-full">
 
 
@@ -157,14 +160,24 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div id="table" class="">
+
+
+                        <!-- #ab79d6 border text #351d4a -->
+
+                        <div id="table" class="relative">
+
+                            <div id="selects" class="mt-[90px] relative">
+                                
+                                
+                                
+                            </div>
                             <details open class="relative border-x-2 border-y-2">
                                 <summary class="hover:bg-[#f7f4f8]">
                                     Customer Details
                                 </summary>
                                 <div>
                                     <table>
-                                        <thead>
+                                        <thead style="color: #a78bfa;">
                                             <tr>
                                                 <th>First Name</th>
                                                 <th>Surname</th>
@@ -242,6 +255,9 @@
 
                     <div id="Scrn2" class="hidden">
                         <form id="custInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveCustInfo(event)">
+                            <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                                New Customer Form
+                            </div>
 
                             <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
                                 Contact Information
@@ -266,7 +282,7 @@
                                 </label>
                                 <label class="grid col-span-2">
                                     Address:
-                                    <input required type="text" name="address" id="address" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
+                                    <input required type="text" maxlength="255" name="address" id="address" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
                                 </label>
                             </div>
 
@@ -281,13 +297,21 @@
 
                                 <label for="" class="grid">
                                     Issue State/Province:
-                                    <input placeholder="License Issue State" required type="text" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location" class="border-2 ">
+                                    <input placeholder="License Issue State" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location" class="border-2 ">
                                 </label>
+                                
+                                <label for="" class="grid col-span-2">
+                                    Billing Address:
+                                    <input placeholder="Billing Address" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="billing_address" id="billing_address" maxlength="255" class="border-2" style="max-width: 42.4rem;">
+                                </label>
+                                
 
                                 <label for="" class="col-span-2">
                                     Expiration Date:
                                     <input required type="date" name="license_expiration_date" id="license_expiration_date" class="border-2" style="font-size: initial;">
                                 </label>
+                              
+
                             </div>
 
                             <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
@@ -322,7 +346,7 @@
                             <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
                                 <label for="" class="grid">
                                     Name:
-                                    <input required type="text" name="credit_card_name" id="credit_card_name" class="border-2">
+                                    <input required type="text" maxlength="100" name="credit_card_name" id="credit_card_name" class="border-2">
                                 </label>
                                 <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName()">
                                     Use name from above?
@@ -349,16 +373,141 @@
                             </div>
                         </form>
                     </div>
+
+                    <div id="Scrn3" class="hidden">
+                        
+
+                        <form id="editInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return editCustInfo(event)">
+                            <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                                Customer Edit Form
+                            </div>
+
+                            <input hidden id="customer_id" value='0' name="customer_id">
+
+                            <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                                Contact Information
+                            </div>
+                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                                <label class="grid">
+                                    First Name:
+                                    <input required type="text" name="first_name" id="first_name2" maxlength="50" class="border-2  lg:w-72">
+                                </label>
+                                <label class="grid">
+                                    Surname:
+                                    <input required type="text" name="surname" id="surname2" maxlength="50" class="border-2 ">
+                                </label>
+                                <label class="grid">
+                                    Phone Number:
+                                    <input required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number2" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="border-2 ">
+                                </label>
+                                <label class="grid">
+                                    Email:
+                                    <input placeholder="name@example.com" required type="email" name="email" id="email2" class="border-2 ">
+                                </label>
+                                <label class="grid col-span-2">
+                                    Address:
+                                    <input required type="text" maxlength="255" name="address" id="address2" class="border-2" pattern="[a-zA-Z]*?[^0-9-].*" maxlength="255" style="max-width: 42.4rem;">
+                                </label>
+                            </div>
+
+                            <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
+                                License Information
+                            </div>
+                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                                <label for="" class="grid">
+                                    License Number:
+                                    <input placeholder=" xxxx xxxx xxxx xx" required type="text" name="drivers_license" id="drivers_license2" maxlength="14" pattern="[0-9]{14}" minlength="14" class="border-2 ">
+                                </label>
+
+                                <label for="" class="grid">
+                                    Issue State/Province:
+                                    <input placeholder="License Issue State" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="license_issue_location" id="license_issue_location2" class="border-2 ">
+                                </label>
+                                
+                                <label for="" class="grid col-span-2">
+                                    Billing Address:
+                                    <input placeholder="Billing Address" required type="text" maxlength="255" pattern="[a-zA-Z]*?[^0-9-].*" name="billing_address" id="billing_address2" maxlength="255" class="border-2" style="max-width: 42.4rem;">
+                                </label>
+                                
+
+                                <label for="" class="col-span-2">
+                                    Expiration Date:
+                                    <input required type="date" name="license_expiration_date" id="license_expiration_date2" class="border-2" style="font-size: initial;">
+                                </label>
+                              
+
+                            </div>
+
+                            <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
+                                Rental Preferences
+                            </div>
+                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                                <label for="" class="relative grid">
+                                    Preferred Vehicle:
+                                    <input placeholder="VIN" type="text" name="preferred_vehicle" minlength="17" maxlength="17" id="preferred_vehicle2" class="border-2 ">
+                                </label>
+                                <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
+                                    <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
+                                    <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showStores()">View Locations</button>
+                                </div>
+
+
+                                <label for="" class="grid">
+                                    Preferred Pickup Location:
+                                    <input type="text" placeholder="Store ID" name="preferred_pickup" id="preferred_pickup2" class="border-2 ">
+                                </label>
+                                <label for="" class="grid">
+                                    Preferred Dropoff Location:
+                                    <input type="text" placeholder="Store ID" name="preferred_dropoff" id="preferred_dropoff2" class="border-2 ">
+                                </label>
+
+
+
+                            </div>
+                            <div class=" text-xl font-bold h-10 px-4 mb-2 mt-8">
+                                Payment Details
+                            </div>
+                            <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                                <label for="" class="grid">
+                                    Name:
+                                    <input required type="text" maxlength="100" name="credit_card_name" id="credit_card_name2" class="border-2">
+                                </label>
+                                <button type="button" class="grid items-end text-gray-400 text-base text-left hover:text-indigo-500 active:text-indigo-700 pb-1" onclick="useName(true)">
+                                    Use name from above?
+                                </button>
+                                <label for="ccn" class="grid">
+                                    Credit Card Number:
+                                    <input required class="border-2" name="credit_card_number" id="credit_card_number2" type="tel" input pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                                </label>
+                                <label for="cvn" class="grid">
+                                    Card Verification Number:
+                                    <input required class="border-2 w-14 text-center" name="cvn" id="cvn2" type="tel" input pattern="[0-9]{3,4}" maxlength="4" placeholder="---">
+                                </label>
+
+                                <label for="ccExpiration" class="col-span-2">
+                                    Expiration Date:
+                                    <input required type="month" name="credit_card_expiration_date" id="credit_card_expiration_date2" class="border-2" style="font-size: initial;">
+                                </label>
+                            </div>
+
+
+                            <div class="flex justify-end gap-8 my-8 mr-4">
+                                <input type="button" onclick="editReset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                                <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
 
             </div>
-
 
         </div>
         <div id="popup" class="hidden absolute z-20 top-0  h-full w-full backdrop-blur-sm bg-white/10">
             <div class="bg-white overflow-hidden rounded-lg absolute top-0 bottom-0 right-0 left-0 m-auto w-80 max-w-[25rem] h-max max-h-[55vh] grid grid-rows-[min-content,1fr,min-content] border-2">
                 <div class="text-2xl text-center relative pb-1 p-3 pl-4">
-                    <span id="mtitle" class="text-3xl">Offerred Vehicles</span>
+                    <span id="mtitle" class="text-2xl">Offerred Vehicles</span>
                     <button title="Close Modal" onclick="document.getElementById('popup').style.display = ''" class="absolute text-base font-medium right-3 top-3">
                         &#x26CC;
                     </button>
@@ -375,6 +524,31 @@
 
     <script>
 
+        function edit(){
+
+            let id = document.querySelector("#selects input:checked");
+            if(!id){
+                popup("No Record Selected","Please Select A Record To Edit By Selecting The Adjacent Checkbox",true)
+                return
+            }
+
+            document.getElementById("customer_id").value = id.value;
+            switchScrn(null,3)
+        }
+
+        let prev = -1;
+
+        function setRow(event) {
+            document.querySelectorAll(`tbody>tr:nth-of-type(${prev})`).forEach(row=>{
+                row.style.color = "";
+            })
+
+            document.querySelectorAll(`tbody>tr:nth-of-type(${event.target.dataset.row})`).forEach(row=>{
+                row.style.color = "#845bff";
+            })
+            prev = event.target.dataset.row;
+        }
+
         function getCustomers() {
             fetch('rentals', {
                 method: 'POST',
@@ -390,13 +564,24 @@
                     let lDetails = document.getElementById("lDetails")
                     let pDetails = document.getElementById("pDetails")
                     let rPref = document.getElementById("rPref")
+                    let selects = document.getElementById("selects");
 
                     cDetails.innerHTML = "";
                     lDetails.innerHTML = "";
                     pDetails.innerHTML = "";
                     rPref.innerHTML = "";
+                    selects.innerHTML = "";
+
+                    let count_ = 0
 
                     results.forEach(res => {
+                        count_+=1;
+                        selects.innerHTML+= `<div style='height:40px' class=" grid items-center relative">
+                                                <input title='Select This Row' type="radio" name="cust" data-row=${count_} onchange="setRow(event)" id="" value="${res.customer_id}">
+                                                <div></div>
+                                            </div>`
+                        
+
                         cDetails.innerHTML += `<tr>
                                                 <td>${res.first_name}</td>
                                                 <td>${res.surname}</td>
@@ -430,12 +615,12 @@
 
 
                     })
+                
                 })
         }
 
 
         function switchScrn(event, num) {
-            console.log(event)
             document.querySelectorAll("#screens>*:not(#tabs)").forEach(scrn => {
                 scrn.style.display = "none"
             })
@@ -445,7 +630,14 @@
             document.querySelectorAll("#tabs>*").forEach(tab => {
                 tab.style.borderBottom = "none"
             })
-            event.srcElement.style.borderBottom = "2px solid"
+            
+            if(event)
+                event.srcElement.style.borderBottom = "2px solid"
+            
+            if(num != 1)
+                document.getElementById("editBtn").style.display = "none"
+            else
+                document.getElementById("editBtn").style.display = ""
         }
 
         function popup(title, innerhtml, error) {
@@ -455,9 +647,9 @@
             document.getElementById("popup").style.display = "block";
 
             if (error)
-                documnet.querySelector("#mcontents").style.borderColor = "rgb(244 63 94)"
+                document.querySelector("#mcontents").style.borderColor = "rgb(244 63 94)"
             else
-                documnet.querySelector("#mcontents").style.borderColor = ""
+                document.querySelector("#mcontents").style.borderColor = ""
 
         }
 

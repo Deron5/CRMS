@@ -227,7 +227,7 @@ input[type="date"]{
 
 #table{
   display: grid;
-  grid-template-columns: repeat(4,minmax(max-content,auto));
+  grid-template-columns: min-content repeat(4,minmax(max-content,auto));
   border-bottom: none;
 }
 
@@ -273,5 +273,65 @@ td,th{
 }
 
 tr{
+}
+
+#selects input{
+box-sizing: border-box;
+ appearance: none;
+ height: 1rem;
+ width: 1rem; 
+ border: #a78bfa  2px solid;
+ /* border: #4b4e5f  2px solid; */
+ margin: 0 1rem;
+ z-index: 2;
+}
+
+#selects input:checked{
+}
+#selects>div>div{
+  height: 0.65rem;
+  width: 0.65rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 1;
+}
+#selects input:checked + div{
+  /* background-color: #4b4e5f; */
+  background-color: #a78bfa ;
+
+  z-index: 2;
+}
+
+#selects input:checked + div::before{
+  content: "\2713";
+    color: white;
+    line-height: 1px;
+    position: absolute;
+    top: 4px;
+    left: 1px;
+    font-size: 11px;
+    font-weight: 900;
+    transition: rotate(90deg);
+    transform: rotate(20deg);
   
+}
+
+thead  *{
+  color: #a78bfa;
+}
+
+tr:nth-of-type(2n+1){
+  background-color: #f5f4fc;
+}
+thead>tr{
+  background-color: white !important;
+  border-bottom: 2px solid;
+}
+
+td{
+  color: inherit;
 }

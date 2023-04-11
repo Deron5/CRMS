@@ -4,7 +4,9 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        content: "#fefaff"
+        content: "#fefaff",
+        hoverBg: "#351d4a",
+        hoverBd: "#ab79d6"
       }
     },
   },
