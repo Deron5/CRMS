@@ -1,0 +1,27 @@
+{
+  "name": "crms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/RequestHandler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev1": "npx tailwind -i ../css/input.css -o ../css/tailwind.css --watch",
+    "dev2": "node ./request.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deron5/CRMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Deron5/CRMS/issues"
+  },
+  "homepage": "https://github.com/Deron5/CRMS#readme",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "mysql": "^2.18.1",
+    "tailwindcss": "^3.3.1"
+  }
+}
