@@ -1,45 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Customers</title>
+    <title>CRMS</title>
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/main.css">
-  
-</head>
-<body class="">
 
-    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
+</head>
+
+<body class="" onload="init()">
+
+    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100 relative">
+        <button id="editBtn" class="z-50 absolute bg-white bottom-12 right-12 hover:bg-gray-100 text-gray-800 p-2 font-semibold border border-gray-400 rounded shadow" onclick="edit()">Edit Record</button>
+
         <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
-            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-[#767b99] border-b-2">
+            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-400 text-3xl pb-4  border-[#767b99] border-b-2">
                 CRMS
             </summary>
             <div class="flex flex-col w-40 gap-6">
                 <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8081/index.html'">Home Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
                 <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8081/customers.html'">Customer Page
                     <div class="absolute right-0 top-[.45rem]">
                         <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
                     </div>
-                </button>
-               
-                <button class="bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative selectedPage">Vehicles Page
-                    <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
-                    </div>
-                </button>
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8081/rentals.html'">Rentals Page
+            </button>
 
-                    <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
-                    </div>
-               </button>
+            <button class=" bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative selectedPage">Vehicles Page
+                <div class="absolute right-0 top-[.45rem]">
+                    <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                    </svg>
+                </div>
+            </button>
+            <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8081/rentals.html'">Rentals Page
 
-               <details open class="leftArw opts">
-                <summary
-                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
+                <div class="absolute right-0 top-[.45rem]">
+                    <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                    </svg>
+                </div>
+            </button>
+
+            <details open class="leftArw opts">
+                <summary class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
                     Reports</summary>
                 <div class="flex flex-col bg-[#f2f2f8]">
                     <button
@@ -118,19 +130,896 @@
             </details>
 
 
-                
+    </div>
+    </details>
+    <div class="bg-content w-full h-full PageContents  overflow-y-auto">
+        <div id=" title" class="pl-12 grid grid-cols-[max-content,1fr] items-center h-24 text-4xl text bg-[#f2f2f8]">
+            <div>
+                Vehicle Information
             </div>
-        </details>
-        <div class="bg-white w-full h-full PageContents">
-            <div id="title" class="flex items-center justify-center h-24 text-4xl text bg-[#f2f2f8]">
-                Title
+            <div class="flex">
+                <div id="tabs" class="text-lg justify-end grid grid-cols-[repeat(auto-fit,10rem)] h-12 gap-2 pl-2 w-full">
+                    <button class="hover:bg-[#babaed26] hover:border-b-2 active:bg-[#9194cb2b] border-b-2 border-black" onclick="switchScrn(event,1);getVehicles()">View Vehicles</button>
+                    <button class="hover:bg-[#babaed26] hover:border-b-2 active:bg-[#9194cb2b]" onclick="switchScrn(event,2)">Add New Vehicle</button>
+                </div>
+                <div id="tabs" class="text-lg justify-start grid grid-cols-[repeat(auto-fit,12rem)] h-12 gap-2 pl-2 w-full">
+                    <button class="hover:bg-[#babaed26] hover:border-b-2 active:bg-[#9194cb2b]" onclick="switchScrn(event,4);getModels()">View Vehicle Models</button>
+                    <button class="hover:bg-[#babaed26] hover:border-b-2 active:bg-[#9194cb2b]" onclick="switchScrn(event,5)">Add New Vehicle Model </button>
+                </div>
             </div>
-            <div class="bg-slate-50"></div>
+        </div>
+
+        <div class=" w-full h-full">
+
+            <div id="screens" class="h-full">
+                <div id="Scrn1" class="h-full">
+                    <div class=" flex my-2 ml-20">
+                        <div class="w-max">
+                            <form id="" class="searchContainer search relative" onsubmit="event.preventDefault()">
+                                <button onclick="search(event)" class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
+                                    <div class="searchIconOuter">
+                                        <div class="searchIconInner">
+                                            &#10991;
+                                        </div>
+                                    </div>
+                                </button>
+                                <input required data-table="vehicles" id="vehicleSearch" name="license_plate_number" type="text" placeholder="Search License Plate" class="searchBox outline-none pl-2 border-y-2 border-r-2" maxlength='10' minlength="10" pattern="[a-zA-Z\d]{10}">
+                                </input>
+                                <div class=" absolute bg-white w-full h-max hidden border-2">
+                                </div>
+                            </form>
+                        </div>
+
+                        <button onclick="getVehicles()" class="ml-12 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2 h-[30px]">
+                            View All
+                        </button>
+                    </div>
+
+
+                    <!-- #ab79d6 border text #351d4a -->
+
+                    <div id="table" class="relative " style="grid-template-columns: min-content repeat(2,minmax(max-content,auto));">
+
+                        <div id="selects" class="selects mt-[90px] relative">
+
+
+
+                        </div>
+                        <details open class="relative border-x-2 border-y-2">
+                            <summary class="hover:bg-[#f7f4f8]">
+                                Vehicle Details
+                            </summary>
+                            <div>
+                                <table class="w-full">
+                                    <thead style="color: #a78bfa;">
+                                        <tr>
+                                            <th>License Plate</th>
+                                            <th>Odometer Reading</th>
+                                            <th>Exterior Colour</th>
+                                            <th>Interior Colour</th>
+                                            <th class="border-r-0">Condtion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vDetails">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+
+                        <details class="border-y-2 border-r-2">
+                            <summary class="hover:bg-[#f7f4f8]">Model Details</summary>
+                            <div>
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th>VIN</th>
+                                            <th>Brand</th>
+                                            <th>Model</th>
+                                            <th class="border-r-0">Manufactured Year</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mDetails">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+
+                <div id="Scrn2" class="hidden">
+                    <form id="vehicleInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveVehicleInfo(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            New Vehicle Form
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            General Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                License Plate Number:
+                                <input required type="text" name="license_plate_number" id="license_plate_number" maxlength="10" minlength="10" pattern="[a-zA-Z\d]{10}" class="border-2">
+                            </label>
+                            <label class="grid">
+                                Odometer Reading:
+                                <input required type="text" name="odometer_reading" id="odometer_reading" pattern="[\d]+" class="border-2 ">
+                            </label>
+                            <label class="grid col-span-2">
+                                Condition:
+                                <textarea class="border-2" name="condition_" id="condition_" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
+                            </label>
+
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Vehicle Colour
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="grid">
+                                Interior Colour:
+                                <input placeholder="" required type="text" name="interior_colour" id="interior_colour" maxlength="10" pattern="[a-zA-Z\s]+" class="border-2 ">
+                            </label>
+
+                            <label for="" class="grid">
+                                Exterior Colour:
+                                <input placeholder="" required type="text" name="exterior_colour" id="exterior_colour" maxlength="10" pattern="[a-zA-Z\s]+" class="border-2">
+                            </label>
+
+                        </div>
+
+                        <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Vehicle Type
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="relative grid">
+                                Vehicle VIN:
+                                <input placeholder="VIN" type="text" name="vehicle_type" minlength="17" maxlength="17" id="vehicle_type" class="border-2 ">
+                            </label>
+                            <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
+                            </div>
+                        </div>
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input id="resetBtn" type="reset" value="Reset Form" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="Scrn3" class="hidden">
+                    <form id="editInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveEdits(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            Edit Vehicle Form
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            General Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                License Plate Number:
+                                <input required type="text" name="license_plate_number" id="license_plate_number2" maxlength="10" minlength="10" pattern="[a-zA-Z\d]{10}" class="border-2">
+                            </label>
+                            <label class="grid">
+                                Odometer Reading:
+                                <input required type="text" name="odometer_reading" id="odometer_reading2" pattern="[\d]+" class="border-2 ">
+                            </label>
+                            <label class="grid col-span-2">
+                                Condition:
+                                <textarea class="border-2" name="condition_" id="condition_2" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
+                            </label>
+
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Vehicle Colour
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="grid">
+                                Interior Colour:
+                                <input placeholder="" required type="text" name="interior_colour" id="interior_colour2" maxlength="10" pattern="[a-zA-Z\s]+" class="border-2 ">
+                            </label>
+
+                            <label for="" class="grid">
+                                Exterior Colour:
+                                <input placeholder="" required type="text" name="exterior_colour" id="exterior_colour2" maxlength="10" pattern="[a-zA-Z\s]+" class="border-2">
+                            </label>
+
+                        </div>
+
+                        <div class="  text-xl font-bold h-10 px-4 mb-2 mt-8">
+                            Vehicle Type
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+                            <label for="" class="relative grid">
+                                Vehicle VIN:
+                                <input placeholder="VIN" type="text" name="vehicle_type" minlength="17" maxlength="17" id="vehicle_type2" class="border-2 ">
+                            </label>
+                            <div class="flex flex-wrap gap-4 justify-around items-end mb-1">
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles()">View Vehicles</button>
+                            </div>
+                        </div>
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input id="resetBtn" onclick="editReset()" value="Undo Changes" type="button" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="Scrn4" class="h-full">
+                    <div class=" flex my-2 ml-20">
+                        <div class="w-max">
+                            <form id="" class="searchContainer search relative" onsubmit="event.preventDefault()">
+                                <button onclick="search(event)" class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
+                                    <div class="searchIconOuter">
+                                        <div class="searchIconInner">
+                                            &#10991;
+                                        </div>
+                                    </div>
+                                </button>
+                                <input required data-table="vehicle_types" id="vinSearch" name="vin" type="text" placeholder="Search VIN" class="searchBox outline-none pl-2 border-y-2 border-r-2" maxlength='17' minlength="17">
+                                </input>
+                                <div class=" absolute bg-white w-full h-max hidden border-2">
+                                </div>
+                            </form>
+                        </div>
+
+                        <button onclick="getModels()" class="ml-12 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2 h-[30px]">
+                            View All
+                        </button>
+                    </div>
+
+
+                    <!-- #ab79d6 border text #351d4a -->
+
+                    <div id="modelTable" class="relative">
+
+                        <div id="selects2" class="selects mt-[2.7rem] relative">
+
+
+
+                        </div>
+                        <table class="border-2">
+                            <thead style="color: #a78bfa;">
+                                <tr>
+                                    <th>Brand</th>
+                                    <th>Model</th>
+                                    <th>Year Manufactured</th>
+                                    <th>VIN</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modelInfo">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="Scrn5" class="hidden">
+                    <form id="modelForm" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveModelInfo(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            New Vehicle Model Form
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            General Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Brand:
+                                <input required type="text" name="brand" id="brand" maxlength="25" class="border-2 pl-1">
+                            </label>
+
+                            <label class="grid">
+                                Model:
+                                <input required type="text" name="model" id="model" maxlength="255" class="border-2 pl-1">
+                            </label>
+
+                            <label class="flex">
+                                Year Manufactured:
+                                <input required type="number" name="manufactured_year" id="manufactured_year" maxlength="17" min="1900" max="" step="1" class="border-2 w-16 text-center">
+                            </label>
+
+                            <label class="flex">
+                                VIN:
+                                <input required type="text" name="vin" id="vin" maxlength="17" minlength="17" pattern="[\da-zA-Z]{17}" class="border-2 w-48 ml-2 pl-1">
+                            </label>
+
+                        </div>
+
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input id="resetBtn" type="reset" value="Reset Form" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="Scrn6" class="hidden">
+                    <form id="editModelForm" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return editModel(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            Edit Model Form
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            General Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Brand:
+                                <input required type="text" name="brand" id="brand2" maxlength="25" class="border-2 pl-1">
+                            </label>
+
+                            <label class="grid">
+                                Model:
+                                <input required type="text" name="model" id="model2" maxlength="255" class="border-2 pl-1">
+                            </label>
+
+                            <label class="flex">
+                                Year Manufactured:
+                                <input required type="number" name="manufactured_year" id="manufactured_year2" maxlength="17" min="1900" max="" step="1" class="border-2 w-16 text-center">
+                            </label>
+
+                            <label class="flex">
+                                VIN:
+                                <input required type="text" name="vin" id="vin2" maxlength="17" minlength="17" pattern="[\da-zA-Z]{17}" class="border-2 w-48 ml-2 pl-1">
+                            </label>
+
+                        </div>
+
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input id="resetBtn" type="button" onclick="editReset()" value="Reset Form" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="popup" class="hidden absolute z-20 top-0  h-full w-full backdrop-blur-sm bg-white/10">
+        <div class="bg-white overflow-hidden rounded-lg absolute top-0 bottom-0 right-0 left-0 m-auto w-80 max-w-[25rem] h-max max-h-[55vh] grid grid-rows-[min-content,1fr,min-content] border-2">
+            <div class="text-2xl text-center relative pb-1 p-3 pl-4">
+                <span id="mtitle" class="text-2xl">Offerred Vehicles</span>
+                <button title="Close Modal" onclick="document.getElementById('popup').style.display = ''" class="absolute text-base font-medium right-3 top-3">
+                    &#x26CC;
+                </button>
+            </div>
+            <div id="mcontents" class="mx-3 mt-1 border-t-2 p-1 pb-4 overflow-y-auto">
+                stuff
+            </div>
+            <div class="flex justify-end pr-4">
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24" onclick="document.getElementById('popup').style.display = ''">Dismiss</button>
+            </div>
         </div>
     </div>
+    </div>
+
+    <script>
+        var currentEditInfo = null;
+
+        function saveEdits(event) {
+            event.preventDefault()
+
+            let inputs = document.querySelectorAll("#editInfo label:not(.ignore) input");
+            let params = { table: "vehicles" }
+
+
+            inputs.forEach(input => {
+                if (input.value != currentEditInfo[input.name])
+                    params[input.name] = input.value;
+            })
+
+            if (document.getElementById("condition_2").value != currentEditInfo.condition_)
+                params.condition_ = document.getElementById("condition_2").value
+
+            if (Object.keys(params).length < 2) {
+                popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Make Changes Before Clicking Apply Edits</div>`, true)
+                return;
+            }
+
+            if (Object.hasOwn(params, "license_plate_number")) {//license plate number changed
+                fetch('rentals', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "Query", params: { table: 'vehicles', options: { license_plate_number: params.license_plate_number } } }),
+                }).then((res) => res.json())
+                    .then(res => {
+                        if (res.length)
+                            popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'> Vehicle With The Specified License Plate Number Already Exists</div>`, true)
+                        else {
+                            params.editId = currentEditInfo.license_plate_number;
+                            fetch('customers', {
+                                method: 'POST',
+                                body: JSON.stringify({ func: "updateQuery", params: params }),
+                            }).then((res) => res.json())
+                                .then((data) => {
+                                    if (Object.hasOwn(data, "error"))
+                                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                                    else {
+                                        document.location.reload()
+                                    }
+                                })
+                        }
+                    })
+            } else {
+
+                params.license_plate_number = currentEditInfo.license_plate_number
+                fetch('customers', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "updateQuery", params: params }),
+                }).then((res) => res.json())
+                    .then((data) => {
+                        if (Object.hasOwn(data, "error"))
+                            popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                        else {
+                            document.location.reload()
+                        }
+                    })
+
+            }
+
+            // "license_plate_number":{
+            //         query:'select license_plate_number from license_plate_number = ?',
+            //         failString: 'Different Vehicle With The Same License Plate Number Already Exists',
+            //         otherParams: [],
+            //         bool: empty
+            //     },
 
 
 
+
+        }
+
+        function editReset() {
+            for (key in currentEditInfo) {
+                document.querySelector(`#${key}2`).value = currentEditInfo[key]
+            }
+        }
+
+        function edit() {
+
+            if (curScrn == 4) {
+                let id = document.querySelector("#selects2 input:checked");
+                if (!id) {
+                    popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
+                    return
+                }
+
+                id = id.value
+
+                fetch('rentals', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types', options: { vin: id } } }),
+                }).then((res) => res.json())
+                    .then(res => {
+                        info = res[0];
+                        currentEditInfo = JSON.parse(JSON.stringify(info));
+                        for (key in info) {
+                            console.log(key)
+                            document.querySelector(`#${key}2`).value = info[key]
+                        }
+                    })
+
+                switchScrn(null, 6)
+
+            } else {
+                let id = document.querySelector("#selects input:checked");
+                if (!id) {
+                    popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
+                    return
+                }
+
+                id = id.value
+
+                fetch('rentals', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "Query", params: { table: 'vehicles', options: { license_plate_number: id } } }),
+                }).then((res) => res.json())
+                    .then(res => {
+                        info = res[0];
+
+                        console.log(currentEditInfo)
+                        currentEditInfo = JSON.parse(JSON.stringify(info));
+                        console.log(currentEditInfo)
+                        for (key in info) {
+                            document.querySelector(`#${key}2`).value = info[key]
+                        }
+
+                    })
+
+                switchScrn(null, 3)
+            }
+        }
+
+        let prev = -1;
+
+        let modelPrev = -1;
+
+        function setRow(event) {
+            document.querySelectorAll(`tbody>tr:nth-of-type(${prev})`).forEach(row => {
+                row.style.color = "";
+            })
+
+            document.querySelectorAll(`tbody>tr:nth-of-type(${event.target.dataset.row})`).forEach(row => {
+                row.style.color = "#845bff";
+            })
+            prev = event.target.dataset.row;
+        }
+
+
+        function setModelRow(event) {
+
+            let row = document.querySelector(`#modelInfo>tr:nth-of-type(${event.target.dataset.row})`)
+            console.log(row)
+            row.style.color = "#845bff";
+            if (modelPrev != -1) {
+                row = document.querySelector(`#modelInfo>tr:nth-of-type(${modelPrev})`)
+                row.style.color = "";
+            }
+
+
+
+            modelPrev = event.target.dataset.row
+        }
+
+        function getVehicles() {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'vehicles', default: null } }),
+            }).then((res) => res.json())
+                .then((results) => loadData(results))
+        }
+
+        function loadData(results) {
+            if (!results.length) {
+                popup("Error No Customer Data", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer Data Found</div>`, true)
+                return
+            }
+
+            let vDetails = document.getElementById("vDetails")
+            let mDetails = document.getElementById("mDetails")
+            let selects = document.getElementById("selects");
+
+            vDetails.innerHTML = "";
+            mDetails.innerHTML = "";
+            selects.innerHTML = "";
+
+            let count_ = 0
+
+            results.forEach(res => {
+                count_ += 1;
+                selects.innerHTML += `<div style='height:40px' class=" grid items-center relative">
+                                            <input title='Select This Row' type="radio" name="vehicle" data-row=${count_} onchange="setRow(event)" id="" value="${res.license_plate_number}">
+                                            <div></div>
+                                        </div>`
+
+
+                vDetails.innerHTML += `<tr>
+                                            <td>${res.license_plate_number}</td>
+                                            <td>${res.odometer_reading}</td>
+                                            <td>${res.interior_colour}</td>
+                                            <td>${res.exterior_colour}</td>
+                                            <td style="border-right:none">${res.condition_}</td>
+                                        </tr>`
+
+                mDetails.innerHTML += `<tr>
+                                            <td>${res.vin}</td>
+                                            <td>${res.brand}</td>
+                                            <td>${res.model}</td>
+                                            <td>${res.manufactured_year}</td>
+                                        </tr>`
+            })
+
+        }
+
+        function search(event) {
+            let input = event.srcElement.parentElement.parentElement.parentElement.querySelector("input")
+            let temp = input.name
+            let params = {
+                table: input.dataset.table,
+                default: null,
+                options: { }
+            }
+            
+            let check = false
+
+            if(params.table == "vehicle_types"){
+                delete params.default
+                check = true
+            }
+
+            params.options[input.name] = input.value
+
+            input.value = ""
+
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: params }),
+            }).then((res) => res.json())
+                .then((results) =>{
+                    if(check) 
+                        loadModelData(results) 
+                    else
+                        loadData(results)
+                })
+
+        }
+
+        var curScrn = null;
+
+        function switchScrn(event, num) {
+            document.querySelectorAll("#screens>*:not(#tabs)").forEach(scrn => {
+                scrn.style.display = "none"
+            })
+
+            document.getElementById(`Scrn${num}`).style.display = "unset";
+
+            document.querySelectorAll("#tabs>*").forEach(tab => {
+                tab.style.borderBottom = "none"
+            })
+
+            if (event)
+                event.srcElement.style.borderBottom = "2px solid"
+
+            if (num == 1 || num == 4)
+                document.getElementById("editBtn").style.display = ""
+            else
+                document.getElementById("editBtn").style.display = "none"
+
+            curScrn = num
+        }
+
+        function popup(title, innerhtml, error) {
+            let modal = document.getElementById("popup");
+            modal.querySelector("#mtitle").innerHTML = title;
+            modal.querySelector("#mcontents").innerHTML = innerhtml;
+            document.getElementById("popup").style.display = "block";
+
+            if (error)
+                document.querySelector("#mcontents").style.borderColor = "rgb(244 63 94)"
+            else
+                document.querySelector("#mcontents").style.borderColor = ""
+
+        }
+
+        function showVehicles() {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types', default: null } }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    if (!data.length) {
+                        popup("Error - No Data Found", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Vehicle Data Found</div>`, true)
+                        return
+                    }
+
+                    let temp = `<table style='width:100%; text-align:center'> 
+                                    <tr>
+                                        <th>VIN</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Manufacture Year</th>
+                                    </tr>`
+                    data.forEach(vehicle => {
+                        temp += `<tr>
+                                <td style='padding:0' class="hover:bg-[#f7f4f8]"><button onclick="document.getElementById('vehicle_type').value = ${vehicle.vin};document.getElementById('popup').style.display = ''">${vehicle.vin}</button></td>
+                                <td>${vehicle.brand}</td>
+                                <td>${vehicle.model}</td>
+                                <td>${vehicle.manufactured_year}</td>
+                               </tr>`
+                    })
+                    temp += `</table>`
+                    popup("Available Vehicles", temp);
+                })
+        }
+
+        function showStores() {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'stores' } }),
+            }).then((res) => res.json())
+                .then((data) => {
+
+                    if (!data.length) {
+                        popup("Error Inserting Record", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Store Data Found</div>`, true)
+                        return
+                    }
+
+                    let temp = `<table style='width:100%; text-align:center'> 
+                                    <tr>
+                                        <th>Store ID</th>
+                                        <th>Address</th>
+                                    </tr>`
+                    data.forEach(store => {
+                        temp += `<tr>
+                                <td>${store.store_id}</td>
+                                <td>${store.address}</td>
+                               </tr>`
+                    })
+                    temp += `</table>`
+                    popup("Store Locations", temp);
+                })
+
+        }
+
+        function saveVehicleInfo(event) {
+            event.preventDefault()
+
+            let inputs = document.querySelectorAll("#vehicleInfo label:not(.ignore) input");
+
+            let params = { table: "vehicles" }
+
+            inputs.forEach(input => {
+                params[input.name] = input.value;
+            })
+
+            params.condition_ = document.querySelector("#condition_").value
+            params.odometer_reading = +params.odometer_reading;
+            console.log(params);
+
+            fetch('vehicles', {
+                method: 'POST',
+                body: JSON.stringify({ func: "insertQuery", params: params }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    if (Object.hasOwn(data, "error"))
+                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                    else {
+                        document.location.reload()
+                    }
+                })
+
+            return false;
+        }
+
+        function useName() {
+            document.getElementById("credit_card_name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`
+        }
+
+        function init() {
+            getVehicles();
+
+            let year = new Date().getFullYear()
+            let mYear = document.getElementById("manufactured_year");
+            mYear.value = year;
+            mYear.setAttribute("max", year + 1)
+        }
+
+        function getModels() {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types' } }),
+            }).then((res) => res.json())
+                .then((results) => loadModelData(results))
+        }
+
+        function loadModelData(data) {
+            let rows = document.getElementById("modelInfo")
+            let selects = document.getElementById("selects2")
+            rows.innerHTML = ""
+            selects.innerHTML = ""
+            let count_ = 0;
+
+            data.forEach(model => {
+                count_ += 1;
+                selects.innerHTML += `<div style='height:40px' class=" grid items-center relative">
+                                            <input title='Select This Row' type="radio" name="vehicle" data-row=${count_} onchange="setModelRow(event)" id="" value="${model.vin}">
+                                            <div></div>
+                                      </div>`
+
+                rows.innerHTML += `
+                        <tr>
+                            <td>${model.brand}</td>
+                            <td>${model.model}</td>
+                            <td>${model.manufactured_year}</td>
+                            <td>${model.vin}</td>
+                        </tr>`
+            })
+        }
+
+        function saveModelInfo(event) {
+            event.preventDefault()
+
+            let inputs = document.querySelectorAll("#modelForm label:not(.ignore) input");
+
+            let params = { table: "vehicle_types" }
+
+            inputs.forEach(input => {
+                params[input.name] = input.value;
+            })
+
+            fetch('vehicles', {
+                method: 'POST',
+                body: JSON.stringify({ func: "insertQuery", params: params }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    if (Object.hasOwn(data, "error"))
+                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                    else {
+                        document.location.reload()
+                    }
+                })
+
+            return false;
+
+
+        }
+
+
+
+
+        function editModel(event) {
+            event.preventDefault()
+
+            let inputs = document.querySelectorAll("#editModelForm label:not(.ignore) input");
+            let params = { table: "vehicle_types" }
+
+
+            inputs.forEach(input => {
+                if (input.value != currentEditInfo[input.name])
+                    params[input.name] = input.value;
+            })
+
+            if (Object.keys(params).length < 2) {
+                popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Make Changes Before Clicking Apply Edits</div>`, true)
+                return;
+            }
+
+            if (Object.hasOwn(params, "vin")) {//license plate number changed
+                fetch('vehicles', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "Query", params: { table: 'vehicle_types', options: { vin: params.vin } } }),
+                }).then((res) => res.json())
+                    .then(res => {
+                        if (res.length)
+                            popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'> Model With The Specified VIN Already Exists</div>`, true)
+                        else {
+                            params.editId = currentEditInfo.vin;
+                            console.log(params)
+                            fetch('vehicles', {
+                                method: 'POST',
+                                body: JSON.stringify({ func: "updateQuery", params: params }),
+                            }).then((res) => res.json())
+                                .then((data) => {
+                                    if (Object.hasOwn(data, "error"))
+                                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                                    else {
+                                        document.location.reload()
+                                    }
+                                })
+                        }
+                    })
+            }
+            else {
+
+                params.vin = currentEditInfo.vin
+                fetch('customers', {
+                    method: 'POST',
+                    body: JSON.stringify({ func: "updateQuery", params: params }),
+                }).then((res) => res.json())
+                    .then((data) => {
+                        if (Object.hasOwn(data, "error"))
+                            popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                        else {
+                            document.location.reload()
+                        }
+                    })
+
+            }
+
+        }
+
+
+
+    </script>
 
 </body>
+
 </html>

@@ -246,6 +246,11 @@ input[type="date"]{
   border-bottom: none;
 }
 
+#modelTable{
+  display: grid;
+  grid-template-columns: min-content 1fr;
+}
+
 #table summary{
   display: grid;
   align-items: center;
@@ -290,7 +295,7 @@ td,th{
 tr{
 }
 
-#selects input{
+.selects input{
 box-sizing: border-box;
  appearance: none;
  height: 1rem;
@@ -301,9 +306,10 @@ box-sizing: border-box;
  z-index: 2;
 }
 
-#selects input:checked{
+.selects input:checked{
 }
-#selects>div>div{
+
+.selects>div>div{
   height: 0.65rem;
   width: 0.65rem;
   position: absolute;
@@ -314,14 +320,15 @@ box-sizing: border-box;
   margin: auto;
   z-index: 1;
 }
-#selects input:checked + div{
+
+.selects input:checked + div{
   /* background-color: #4b4e5f; */
   background-color: #a78bfa ;
 
   z-index: 2;
 }
 
-#selects input:checked + div::before{
+.selects input:checked + div::before{
   content: "\2713";
     color: white;
     line-height: 1px;

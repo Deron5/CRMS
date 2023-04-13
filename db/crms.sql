@@ -83,7 +83,7 @@ CREATE TABLE `vehicles` (
   `license_plate_number` varchar(10) NOT NULL,
   `odometer_reading` int  not null,
   `vehicle_type` varchar(17) NOT NULL,
-  `condition` varchar(255) not null,
+  `condition_` varchar(255) not null,
   PRIMARY KEY (`license_plate_number`),
   FOREIGN KEY (`vehicle_type`) references vehicles(`vin`)
 ) ;

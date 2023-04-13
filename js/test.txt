@@ -1,6 +1,10 @@
-
-
-select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id
-
-
-vehicle_types.* from customers,vehicle_types where preferred_vehicle = vin
+insert into vehicles(license_plate_number,
+odometer_reading,interior_colour,
+exterior_colour,vehicle_type,
+condition) 
+Values("134567890",
+100,
+"blue",
+"baby blue", 
+"3", 
+"We Good");
