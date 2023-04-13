@@ -25,22 +25,95 @@ function notEmpty(res) {
 }
 
 
+const tableIds = {
+    "customers": "customer_id",
+    "vehicles": "license_plate_number",
+    "vehicle_types": "vin",
+    "rentals": "rental_id"
+}
+
 const queryOptions = {
     "customers": {"customer_id":null,
                   "email":null,
                   "first_name":null,
                   "surname":null,
-                  "phone_number":null}
+                  "phone_number":null},
+    "vehicles":{
+                "license_plate_number":null,
+                "vehicle_type":null,
+            },
+    "vehicle_types":{
+        "brand":null,
+        "model":null,
+        "manufactured_year":null,
+        "vin":null,
+    },
+    "rentals":{
+        "lend_date":null,
+        "return_date":null,
+    }
+
 }
+
+
 
 
 const defaultQueries = {
     "vehicle_types": "select * from vehicle_types where vin in (select distinct(vehicle_type) from vehicles)",
-    "customers":  "select * from vehicle_types right join (select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) as count from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id) as y on y.preferred_vehicle = vin"
+    "customers":  "select * from vehicle_types right join (select customers.customer_id,first_name,surname,email,phone_number,license_issue_location,drivers_license,license_expiration_date,preferred_vehicle,address,preferred_dropoff,preferred_pickup,credit_card_expiration_date,billing_address, concat(substr(credit_card_number,1,4),'-xxxx-xxxx-xxxx') as credit_card_number, coalesce(count,0) as count from customers left join (select count(*) as count,customer_id from rentals group by customer_id) as x on x.customer_id = customers.customer_id) as y on y.preferred_vehicle = vin",
+    "vehicles": "select * from vehicles,vehicle_types where vehicles.vehicle_type = vehicle_types.vin",
+    "rentals": "select first_name,surname,drivers_license,phone_number,email,address,rentals.* from customers,rentals where customers.customer_id = rentals.customer_id"
 }
 
+const updateChecks = {
+    "customers":{
+        "email":{
+                    query:'select customer_id from customers where email = ? and customer_id != ?',
+                    failString: 'Different Customer With The Same Email Already Exists',
+                    otherParams: ["__id"],
+                    bool: empty
+                },
+        "phone_number":{
+                    query:'select customer_id from customers where phone_number = ? and customer_id != ?',
+                    failString:'Different Customer With The Same Phone Number Already Exists',
+                    otherParams: ["__id"],
+                    bool: empty
+                },
+        "preferred_pickup":{
+                    query:'select store_id from stores where store_id = ?',
+                    failString:'Preferred Pickup Location Does Not Exist',
+                    otherParams: ["__id"],
+                    bool: notEmpty
+                },
+        "preferred_dropoff":{
+                    query:'select store_id from stores where store_id = ?',
+                    failString:'Preferred Dropoff Location Does Not Exist',
+                    otherParams: ["__id"],
+                    bool: notEmpty
+                },
+        "preferred_vehicle":{
+                    query:'select vin from vehicle_types where vin = ? and vin in (select distinct(vehicle_type) from vehicles)',
+                    failString: 'No Cars Of The Specified Type Exist',
+                    otherParams: ["id"],
+                    bool: notEmpty
+                },
+        "drivers_license":{
+                    query:'select customer_id from customers where drivers_license = ? and customer_id != ?',
+                    failString: `Different Customer with the same driver's license exits`,
+                    otherParams: ["__id"],
+                    bool: empty
+                }
+    },
 
-
+    "vehicles":{
+        "vehicle_type":{
+            query:'select vin from vehicle_types where vin = ?',
+            failString: 'No Vehicle Model WIth The Specified VIN Exists',
+            otherParams: [],
+            bool: notEmpty
+        }
+    }
+}
 /*
  * Used in inserts
  */
@@ -82,7 +155,43 @@ const insertChecks = {
                     failString: `User with the same driver's license exits`,
                     bool: empty
                 }
-            ]
+            ],
+    "vehicles":[
+                {
+                    query:'select license_plate_number from vehicles where license_plate_number = ?',
+                    paramNames:["license_plate_number"],
+                    failString: 'Vehicle With The Same License Plate Already In The Fleet',
+                    bool: empty
+                },
+                {
+                    query:'select vin from vehicle_types where vin = ?',
+                    paramNames:["vehicle_type"],
+                    failString: 'Specified VIN Does Not Exist! ',
+                    bool: notEmpty
+                },
+            ],
+    "vehicle_types":[
+                {
+                    query:'select vin from vehicle_types where vin = ?',
+                    paramNames:["vin"],
+                    failString: 'Model With The Same VIN Already In The Fleet',
+                    bool: empty
+                }
+            ],
+    "rentals":[
+        {
+            query:'select license_plate_number from vehicles where license_plate_number = ?',
+            paramNames:["vehicle_id"],
+            failString: 'The Specified Vehicle Does Not Exist',
+            bool: notEmpty
+        },
+        {
+            query:'select rental_id from rentals where returned_date is null and customer_id = ?',
+            paramNames:["customer_id"],
+            failString: 'Customer Has An Outstanding Rental',
+            bool: empty
+        }
+    ]
 }
 
 
@@ -107,9 +216,118 @@ const RENTAL_FROM_ROW = "select count(vehicle_id) as count,vehicle_id from renta
 
 const CAR_TYPE_QUERY = "select * from vehicles, vehicle_types where vehicles.license_plate_number = ? and vehicles.vehicle_type = vehicle_types.vin"
 
+const AVAILABLE_VEHICLES = "select * from vehicles where vehicles.license_plate_number not in (select distinct(vehicle_id) from rentals where returned_date is not null)"
+
 const NONE_ = "No Data!";
 
+const queryRegex = new RegExp(".+where.+[^)]$|.+where.+\(.+\)")
+
 class RequestHandler {
+
+    async CustNoOutRental(params){
+        const res = await new Promise((resolve, reject) => {
+            conn.query("select customer_id, first_name, surname, drivers_license from customers where customer_id not in (select customer_id from rentals where returned_date is null); ", (err, results) => {
+                if (err) {
+                    reject(new Error(err.message))
+                }
+                resolve(JSON.stringify(results))
+            })
+    });
+    return res;
+    }
+
+    async availableVehicles(params){
+        const res = await new Promise((resolve, reject) => {
+                conn.query(AVAILABLE_VEHICLES, (err, results) => {
+                    if (err) {
+                        reject(new Error(err.message))
+                    }
+                    resolve(JSON.stringify(results))
+                })
+        });
+        return res;
+    }
+
+    async updateQuery(params){
+
+        const res = await new Promise((resolve,reject)=>{
+            if (!params)
+                resolve("No Data");
+
+            if (!Object.hasOwn(params, "table") || !params.table)
+                resolve(JSON.stringify({ error: " TABLE NOT SPECIFIED" }));
+            
+            let id = null
+
+            if(Object.hasOwn(params,"editId")){
+                id = params.editId
+            }
+            else 
+                id = params[tableIds[params.table]];
+            
+            let checks = []
+            if(Object.hasOwn(updateChecks,params.table)){
+                let check = updateChecks[params.table] 
+                for(let key in check){
+                    if(Object.hasOwn(params,key)){
+                        checks.push(new Promise((resolve_,reject_)=>{
+                            let data = [params[key]];
+                            
+                            for(let opt of updateChecks[params.table][key].otherParams)
+                                if(opt == "__id")//use prev id
+                                    data.push(id) 
+                                else
+                                    data.push(params[opt])
+
+                            conn.query(check[key].query,data,(err,res)=>{
+                                if(err)
+                                    reject_(err)
+                                if(res == undefined)
+                                    console.log(`res: ${res}\nquery: ${check[key].query}\ndata:${data}`)
+                                if(check[key].bool(res))
+                                    resolve_("");
+                                else//send error back to client
+                                    resolve(JSON.stringify({error:check[key].failString}))    
+                            })
+                    }))
+                    }
+                }
+            }
+
+            //after all checks construct and execute query
+            Promise.all(checks).then(pass=>{
+                let base = `update ${params.table} set `
+                let end =  ` where ${tableIds[params.table]} = ?`
+                let values = [];
+
+                if(!Object.hasOwn(params,"editId"))
+                    delete params[tableIds[params.table]]
+                delete params.editId
+                delete params.table;
+
+                for (const [key, value] of Object.entries(params)) {
+                    base += ` ${key} = ?,`
+                    values.push(value)
+                  }
+                
+                base = base.slice(0,-1)//get rid of trailing ','
+
+                values.push(id)
+
+                conn.query(base + end,values,(err,result)=>{
+                    if(err)
+                        reject(err)
+                    resolve(JSON.stringify({null:null}));
+                })
+    
+            }).catch(err=>{
+                reject(err)
+            })
+
+        })
+
+        return res;
+    }
 
     async Query(params) {
         const res = await new Promise((resolve,reject)=>{
@@ -126,28 +344,65 @@ class RequestHandler {
                 query = defaultQueries[params.table];
             
             if(Object.hasOwn(params,"options") && Object.keys(params.options).length){
-                query+= " where"
-                
-                for(let opt in params.options){
-                    if(!params.options[opt])
-                        continue;
+               if(queryRegex.test(query)){
+                    for(let opt in params.options){
+                        if(!params.options[opt])
+                            continue;
 
-                    if(Object.hasOwn(queryOptions[params.table],opt)){
-                        query+= ` ${opt} = ? and`
-                        data.push(params.options[opt])
+                        if(Object.hasOwn(queryOptions[params.table],opt)){
+                            query+= ` and ${opt} = ?`
+                            data.push(params.options[opt])
+                        }
+
+
                     }
-                }
+               }else{
+                    query+= " where"
+                    
+                    if(Object.hasOwn(params,"operators"))
+                        for(let opt in params.options){
+                            if(!params.options[opt])
+                                continue;
 
+                            if(Object.hasOwn(queryOptions[params.table],opt)){
+                                if(Object.hasOwn(params.operators,opt))
+                                    query+= ` ${opt} ${params.operators[opt]} ? and`
+                                else
+                                    query+= ` ${opt} = ? and`
+                                data.push(params.options[opt])
+                            }
+
+                        }
+                    else
+                        for(let opt in params.options){
+                            if(!params.options[opt])
+                                continue;
+
+
+                                
+                            if(Object.hasOwn(queryOptions[params.table],opt)){
+                            
+                                query+= ` ${opt} = ? and`
+                                data.push(params.options[opt])
+                            }
+
+
+                        }
+               }
+               
                 if(query.slice(-3) == "and")
                     query = query.slice(0,query.length-3)
                 else if(query.slice(-5) == "where")
                     query = query.slice(0,query.length-3)
             }
+
             console.log(query)
+            console.log(data)
+
             conn.query(query,data,(err,results)=>{
                 if(err)
                     reject(err)
-                    resolve(JSON.stringify(results))
+                resolve(JSON.stringify(results))
             })
         })
         return res;
@@ -209,7 +464,7 @@ class RequestHandler {
                 conn.query(`${base.substring(0,base.length-1)}) ${hatena.substring(0,hatena.length-1)})`,values,(err,result)=>{
                     if(err)
                         reject(err)
-                    resolve("''");
+                    resolve(JSON.stringify({null:null}));
                 })
     
             }).catch(err=>{
@@ -253,8 +508,6 @@ class RequestHandler {
 
     async turnoverFromRowNumber(params){
         const res = await new Promise((resolve,reject)=>{
-            console.log(params.row)
-
             if(params.row < 0)
                 conn.query(FIRST_LAST_RENTAL_VID,(err,results)=>{
                     if(err){
@@ -263,7 +516,6 @@ class RequestHandler {
                         resolve(NO_RESULTS )
                     }else{
                         let query = "select count(*) as count from (select count(vehicle_id) as count,vehicle_id from rentals group by vehicle_id order by count desc, vehicle_id asc) as x";
-                        console.log("here...");
                         conn.query(query,(err,res)=>{
                             if(err)
                                 reject(err);

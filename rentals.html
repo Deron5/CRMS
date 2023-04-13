@@ -1,134 +1,904 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Customers</title>
+    <title>CRMS</title>
     <link rel="stylesheet" href="tailwind.css">
     <link rel="stylesheet" href="main.css">
-  
-</head>
-<body class="">
 
-    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
+    <style>
+        *{
+            outline: currentColor 1px;
+            
+        }
+        input{
+            padding-left: .25rem;
+        }
+    </style>
+</head>
+
+<body class="" onload="init()">
+
+    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100 relative">
+        <button id="editBtn" class="z-50 absolute bg-white bottom-12 right-12 hover:bg-gray-100 text-gray-800 p-2 font-semibold border border-gray-400 rounded shadow" onclick="edit()">Edit Record</button>
+
         <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
-            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-[#767b99] border-b-2">
+            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-400 text-3xl pb-4  border-[#767b99] border-b-2">
                 CRMS
             </summary>
             <div class="flex flex-col w-40 gap-6">
                 <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/index.html'">Home Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
-                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/customers.html'">Customer Page
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/customers.html'">Customer
+                    Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
-               
+
                 <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/vehicles.html'">Vehicles Page
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
                 </button>
                 <button class="bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative selectedPage">Rentals Page
 
                     <div class="absolute right-0 top-[.45rem]">
-                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path>
+                        </svg>
                     </div>
-               </button>
+                </button>
 
-               <details open class="leftArw opts">
-                <summary
-                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
-                    Reports</summary>
-                <div class="flex flex-col bg-[#f2f2f8]">
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
-                        onclick="window.location.href='http://localhost:8080/rentals_reports'">
-                        Vehicle Rentals
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/customer_reports'">
-                        Customer Rentals
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/rentals_reports'">
-                        Rental History
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/availability_reports'">
-                        Vehicle Availability
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/late_return_reports'">
-                        Late Returns
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative"
-                        onclick="window.location.href='http://localhost:8080/turnover_reports'">
-                        Vehicle Turnover
-                        <div class="absolute right-[-5px] top-[.35rem]">
-                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
-                                </path>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-            </details>
-                
+                <details open class="leftArw opts">
+                    <summary class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
+                        Reports</summary>
+                    <div class="flex flex-col bg-[#f2f2f8]">
+                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative" onclick="window.location.href='http://localhost:8080/rentals_reports'">
+                            Vehicle Rentals
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/customer_reports'">
+                            Customer Rentals
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/rentals_reports'">
+                            Rental History
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/availability_reports'">
+                            Vehicle Availability
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/late_return_reports'">
+                            Late Returns
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative" onclick="window.location.href='http://localhost:8080/turnover_reports'">
+                            Vehicle Turnover
+                            <div class="absolute right-[-5px] top-[.35rem]">
+                                <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </details>
+
+
             </div>
         </details>
-        <div class="bg-white w-full h-full PageContents">
-            <div id="title" class="flex items-center justify-center h-24 text-4xl text bg-[#f2f2f8]">
-                
+        <div class="bg-content w-full h-full PageContents  overflow-y-auto">
+            <div id=" title" class="pl-12 grid grid-cols-[max-content,1fr] items-center h-24 text-4xl text bg-[#f2f2f8]">
+                <div>
+                    Rental Information
+                </div>
+
+                <div id="tabs" class="text-lg justify-center grid grid-cols-[repeat(auto-fit,10rem)] h-12 gap-2 pl-2 w-full">
+                    <button class="hover:bg-[#babaed26] hover:border-b-2 active:bg-[#9194cb2b] border-b-2 border-black" onclick="switchScrn(event,1);getRentals()">View Rentals</button>
+                    <button class="hover:bg-[#babaed26] hover:border-b-2 active:bg-[#9194cb2b]" onclick="switchScrn(event,2)">Add Rental</button>
+                </div>
+
             </div>
-            <div class="bg-slate-50"></div>
+
+            <div class=" w-full h-full">
+
+                <div id="screens" class="h-full">
+                <div id="Scrn1" class="h-full">
+                        <div class="flex my-2 ml-20">
+                            <div class="w-max">
+                                <form id="" class="searchContainer search relative" onsubmit="event.preventDefault()">
+                                    <button onclick="search(event)" class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
+                                        <div class="searchIconOuter">
+                                            <div class="searchIconInner">
+                                                &#10991;
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <input id="namesearch" type="text" name="vehicle_id" placeholder="Search License Plate" class="searchBox outline-none pl-2 border-y-2" maxlength='100' maxlength='10' minlength="10" pattern="[a-zA-Z\d]{10}">
+                                    </input>
+                                    <div class=" absolute bg-white w-full h-max hidden border-2">
+                                    </div>
+                                </form>
+                            </div>
+                        <div class="relative bg-white w-[80px]">
+                            <details id="filterOptions" class="absolute w-max z-40">
+                                <summary class="bg-white h-[30px] w-20 border-2">
+                                    <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="16" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                                    </svg>
+                                    Filter
+                                </summary>
+                                <form id="filters" onsubmit="event.preventDefault();" class="bg-white grid grid-cols-[10rem,1fr] w-96 gap-2 p-4 border-2">
+                                    <div class="text-xl pl-2">Column Name</div>
+                                    <div class="text-xl pl-2">Search Value</div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                        <select name="" class="filter border-2 outline-none">
+                                            <option data-opt="1" value="" selected></option>
+                                            <option data-opt="2" value="first_name">First Name</option>
+                                            <option data-opt="3" value="surname">Surname</option>
+                                            <option data-opt="4" value="phone_number">Phone Number</option>
+                                            <option data-opt="5" value="email">Email</option>
+                                        </select>
+                                        <div class="w-full border-2">
+                                            <input type="text" class="outline-none">
+                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
+                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
+                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
+                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 flex gap-2">
+                                        <input type="submit" onclick="filterData()" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Apply Filters"></input>
+                                        <input onclick="document.getElementById('filterOptions').removeAttribute('open')" type="button" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Cancel"></input>
+                                    </div>
+                                </form>
+                                <script>
+
+                                    function filterData() {
+
+                                        let params = {
+                                            table: "customers",
+                                            default: null,
+                                            options: {}
+                                        }
+
+                                        document.querySelectorAll("#filters select").forEach(filter => {
+                                            let index = null;
+                                            let inputs = filter.parentElement.querySelectorAll("input");
+
+                                            if (filter.value == "first_name")
+                                                index = 1
+                                            else if (filter.value == "surname")
+                                                index = 2
+                                            else if (filter.value == "email")
+                                                index = 4
+                                            else if (filter.value == "phone_number")
+                                                index = 3
+                                            else
+                                                index = null;
+                                            console.log()
+                                            if (index)
+                                                params.options[filter.value] = inputs[index].value
+
+                                        })
+
+                                        if (Object.hasOwn(params.options, "phone_number"))
+                                            params.options.phone_number = params.options.phone_number.replaceAll(" ", "-")
+
+                                        if (Object.keys(params.options).length == 0)
+                                            return false;
+
+                                        fetch('rentals', {
+                                            method: 'POST',
+                                            body: JSON.stringify({ func: "Query", params: params }),
+                                        }).then((res) => res.json())
+                                            .then((results) => loadData(results))
+
+
+
+                                        document.getElementById('filterOptions').removeAttribute('open')
+
+                                        return false;
+                                    }
+
+                                    document.querySelectorAll("#filters select").forEach(opt => {
+                                        opt.addEventListener('change', (event) => {
+                                            let index = null;
+
+                                            if (event.srcElement.value == "")
+                                                index = 0
+                                            else if (event.srcElement.value == "first_name")
+                                                index = 1
+                                            else if (event.srcElement.value == "surname")
+                                                index = 2
+                                            else if (event.srcElement.value == "email")
+                                                index = 4
+                                            else if (event.srcElement.value == "phone_number")
+                                                index = 3
+
+                                            let inputs = event.srcElement.parentElement.querySelector("div")
+                                            inputs = inputs.querySelectorAll("input")
+                                            inputs.forEach(input => {
+                                                input.style.display = "none";
+                                                input.disabled = true
+                                            })
+
+                                            inputs[index].style.display = "unset"
+                                            inputs[index].disabled = false
+
+                                        })
+                                    })
+                                </script>
+                            </details>
+                        </div>
+                        <button onclick="getRentals()" class="ml-12 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2 h-[30px]">
+                            View All
+                        </button>
+                    </div>
+
+
+                    <!-- #ab79d6 border text #351d4a -->
+
+                    <div id="table" class="relative" style="grid-template-columns: min-content repeat(2,minmax(max-content,auto))">
+
+                        <div id="selects" class="selects mt-[92px] relative">
+
+
+
+                        </div>
+                        <details open class="relative border-x-2 border-y-2">
+                            <summary class="hover:bg-[#f7f4f8]">
+                                Rental Details
+                            </summary>
+                            <div>
+                                <table>
+                                    <thead style="color: #a78bfa;">
+                                        <tr>
+                                            <th>Vehicle License Plate</th>
+                                            <th>Lent Date</th>
+                                            <th>Return Date</th>
+                                            <th>Returned Date</th>
+                                            <th>Lent Condition</th>
+                                            <th>Return Condition</th>
+                                            <th>Rental Rate</th>
+                                            <th>Rental Fee</th>
+                                            <th>Extra Charges</th>
+                                            <th class="border-r-0">Payment Method</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="rDetails">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+
+                        <details class="border-y-2 border-r-2">
+                            <summary class="hover:bg-[#f7f4f8]">Customer Details</summary>
+                            <div>
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Surame</th>
+                                            <th>Driver's License</th>
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                            <th class="border-r-0">Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cDetails">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div id="Scrn2" class="hidden">
+                    <form id="rentalInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveRentalInfo(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            New Rental Form
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            General Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Customer Id:
+                                <input required type="number" name="customer_id" id="customer_id" class="customer_id border-2">
+                            </label>
+                            <div class="grid">
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700"  onclick="showCustomers(event)">Show Customers</button>
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles(event)">Show Vehicles</button>
+                            </div>
+                            <label class="grid">
+                                Vehicle License Plate:
+                                <input required type="text" name="vehicle_id" id="vehicle_id" class="vehicle_id border-2 " maxlength="10">
+                            </label>
+                            <label class="grid">
+                                Payment Method:
+                                <select required name="payment_method" id="payment_method" class="border-2 focus:outline-none outline-none">
+                                    <option value="cash">Cash</option>
+                                    <option value="card">Debit/Credit Card</option>
+                                </select>
+                            </label>
+
+                            <label class="grid col-span-2">
+                                Condtion When Lent:
+                                <textarea required class="border-2" name="lent_condition" id="lent_condition" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
+                            </label>
+
+                            
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            Rental Duration 
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Lend Date:
+                                <input required type="date" name="lend_date" id="lend_date" class="border-2 text-center" style="width:max-content">
+                            </label>
+
+                            <label class="grid">
+                                Return Date:
+                                <input required placeholder="Planned Return Date" type="date" name="return_date" id="return_date" class="border-2 text-center" style="width:max-content">
+                            </label>
+
+                            <label class="grid">
+                                Rental Rate:
+                                <input placeholder="Daily Rental Rate" step="0.01" min="0"  required type="number" name="rental_fee" id="rental_fee" class="border-2 ">
+                            </label>
+                        </div>
+                     
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input id="resetBtn" type="reset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div id="Scrn3" class="hidden">
+
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+        <div id="popup" class="hidden absolute z-20 top-0  h-full w-full backdrop-blur-sm bg-white/10">
+            <div class="bg-white overflow-hidden rounded-lg absolute top-0 bottom-0 right-0 left-0 m-auto min-w-[23rem] max-w-max h-max max-h-[65vh] grid grid-rows-[min-content,1fr,min-content] border-2">
+                <div class="text-2xl text-center relative pb-1 p-3 pl-4">
+                    <span id="mtitle" class="text-2xl">Offerred Vehicles</span>
+                    <button title="Close Modal" onclick="document.getElementById('popup').style.display = ''" class="absolute text-base font-medium right-3 top-3">
+                        &#x26CC;
+                    </button>
+                </div>
+                <div id="mcontents" class="mx-3 mt-1 border-t-2 p-1 pb-4 overflow-y-auto">
+                    stuff
+                </div>
+                <div class="flex justify-end pr-4">
+                    <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold py-2 px-4 border  rounded shadow my-2 w-24" onclick="document.getElementById('popup').style.display = ''">Dismiss</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <script>
+          /*
+            Checks for backend
+            vehicle license plate exists
+            customer doesn't have any rentals
 
 
+            */
+
+        var currentEditInfo = null;
+
+        function saveEdits(){
+          
+            console.log(currentEditInfo)
+
+            let inputs = document.querySelectorAll("#editInfo label:not(.ignore) input");
+            let params = {table: "customers" }
+            params.customer_id = document.querySelector("#customer_id").value
+
+            
+            inputs.forEach(input => {
+                if(input.value != currentEditInfo[input.name])
+                    params[input.name] = input.value;
+            })
+
+            // console.log(params)
+            params.credit_card_expiration_date += '-01';
+            if(params.credit_card_expiration_date == currentEditInfo.credit_card_expiration_date)
+                delete params.credit_card_expiration_date
+            
+            if(Object.keys(params).length < 2){
+                popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Make Changes Before Clicking Apply Edits</div>`, true)
+                return;
+            }
+                
+            fetch('customers', {
+                method: 'POST',
+                body: JSON.stringify({ func:"updateQuery", params: params }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    if (Object.hasOwn(data, "error"))
+                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                    else{
+                        document.location.reload()
+                    }
+                })
+
+        }
+
+        function editReset() {
+            for(key in currentEditInfo){
+                    document.querySelector(`#${key}2`).value = currentEditInfo[key]
+                }
+        }
+
+        function edit() {
+
+            let id = document.querySelector("#selects input:checked");
+            if (!id) {
+                popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
+                return
+            }
+            
+            document.getElementById("customer_id").value = id.value;
+            id = id.value;
+
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'customers', options:{customer_id:id} } }),
+            }).then((res) => res.json())
+            .then(res=>{
+                info = res[0];
+                console.log(info)
+                
+                delete info.customer_id
+
+                currentEditInfo = JSON.parse(JSON.stringify(info));
+
+                info.credit_card_expiration_date = info.credit_card_expiration_date.slice(0,-3)
+                
+
+                for(key in info){
+                    document.querySelector(`#${key}2`).value = info[key]
+                }
+
+            })
+
+            switchScrn(null, 3)
+
+        }
+
+        let prev = -1;
+
+        function setRow(event) {
+            document.querySelectorAll(`tbody>tr:nth-of-type(${prev})`).forEach(row => {
+                row.style.color = "";
+            })
+
+            document.querySelectorAll(`tbody>tr:nth-of-type(${event.target.dataset.row})`).forEach(row => {
+                row.style.color = "#845bff";
+            })
+            prev = event.target.dataset.row;
+        }
+
+        function getRentals() {
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'rentals', default: null } }),
+            }).then((res) => res.json())
+                .then((results) => loadData(results))
+        }
+
+        function loadData(results) {
+            if (!results.length) {
+                popup("Error No Customer Data", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer Data Found</div>`, true)
+                return
+            }
+
+            let rDetails = document.getElementById("rDetails")
+            let cDetails = document.getElementById("cDetails")
+            let selects = document.getElementById("selects");
+
+            rDetails.innerHTML = "";
+            cDetails.innerHTML = "";
+            selects.innerHTML = "";
+
+            let today = new Date()
+            let color = undefined
+
+            
+
+
+            let count_ = 0
+
+            results.forEach(res => {
+                color = undefined;
+                console.log(res)
+
+                let rd = new Date(res.return_date);
+                if(res.returned_date == "null" || !res.returned_date){
+                    if(rd< today){
+                        color = `style="color:rgb(244 63 94)"`
+                        res.returned_date = "Overdue"
+                    
+                    }else{
+                        color = `style="color:rgb(52 211 153)"`
+                        res.returned_date = "Ongoing"
+                    }
+
+                }else if(rd < new Date(res.returned_date)){
+                    color = `style="color:rgb(244 63 94)"`
+                }
+
+                res.return_condition = res.return_codntion ? res.return_codntion : ""
+                res.extra_charges = res.extra_charges ? res.extra_charges : ""
+                count_ += 1;
+                selects.innerHTML += `<div style='height:40px' class=" grid items-center relative">
+                                                <input title='Select This Row' type="radio" name="cust" data-row=${count_} onchange="setRow(event)" id="" value="${res.rental_id}">
+                                                <div></div>
+                                            </div>`
+
+
+                rDetails.innerHTML += `<tr>
+                                            <td>${res.vehicle_id}</td>
+                                            <td>${res.lend_date}</td>
+                                            <td>${res.return_date}</td>
+                                            <td ${color}>${res.returned_date}</td>
+                                            <td>${res.lent_condition}</td>
+                                            <td>${res.return_codntion}</td>
+                                            <td>${res.rental_rate}</td>
+                                            <td>${res.rental_fee}</td>
+                                            <td>${res.extra_charges}</td>
+                                            <td>${res.payment_method}</td>
+                                        </tr>`
+
+                cDetails.innerHTML += `<tr>
+                                            <td>${res.first_name}</td>
+                                            <td>${res.surname}</td>
+                                            <td>${res.drivers_license}</td>
+                                            <td>${res.phone_number}</td>
+                                            <td>${res.email}</td>
+                                            <td>${res.address}</td>
+                                        </tr>`
+             
+
+
+            })
+
+        }
+
+        function search(event) {
+            let input = event.srcElement.parentElement.parentElement.parentElement.querySelector("input")
+            let temp = input.name
+            let params = {
+                table: input.dataset.table,
+                default: null,
+                options: { }
+            }
+            
+            params.options[input.name] = input.value
+
+            input.value = ""
+
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: params }),
+            }).then((res) => res.json())
+                .then((results) =>{
+                        loadData(results)
+                })
+
+        }
+
+
+        function switchScrn(event, num) {
+            document.querySelectorAll("#screens>*:not(#tabs)").forEach(scrn => {
+                scrn.style.display = "none"
+            })
+
+            document.getElementById(`Scrn${num}`).style.display = "unset";
+
+            document.querySelectorAll("#tabs>*").forEach(tab => {
+                tab.style.borderBottom = "none"
+            })
+
+            if (event)
+                event.srcElement.style.borderBottom = "2px solid"
+
+            if (num != 1)
+                document.getElementById("editBtn").style.display = "none"
+            else
+                document.getElementById("editBtn").style.display = ""
+        }
+
+        function popup(title, innerhtml, error) {
+            let modal = document.getElementById("popup");
+            modal.querySelector("#mtitle").innerHTML = title;
+            modal.querySelector("#mcontents").innerHTML = innerhtml;
+            document.getElementById("popup").style.display = "block";
+
+            if (error)
+                document.querySelector("#mcontents").style.borderColor = "rgb(244 63 94)"
+            else
+                document.querySelector("#mcontents").style.borderColor = ""
+
+        }
+
+        function showVehicles(event) {
+            console.log(event)
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "availableVehicles" }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    
+                    if (!data.length) {
+                        popup("Error - No Data Found", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Vehicle Data Found</div>`, true)
+                        return
+                    }
+
+                    let temp = `<table style='width:100%; text-align:center'> 
+                                    <tr>
+                                        <th>License Plate</th>
+                                        <th>VIN</th>
+                                        <th>Condition</th>
+                                    </tr>`
+                    data.forEach(vehicle => {
+                        temp += `<tr>
+                                <td><button onclick="document.getElementById('${event.srcElement.parentElement.parentElement.querySelector("input.vehicle_id").id}').value = ${vehicle.license_plate_number};document.getElementById('popup').style.display = ''">${vehicle.license_plate_number}</button></td>
+                                <td>${vehicle.vehicle_type}</td>
+                                <td>${vehicle.condition_}</td>
+                               </tr>`
+                    })
+                    temp += `</table>`
+                    popup("Available Vehicles", temp);
+                })
+        }
+
+        function showCustomers(event) {
+            console.log(event)
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "CustNoOutRental", params: {}}),
+            }).then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    
+                    if (!data.length) {
+                        popup("Error - No Data Found", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Vehicle Data Found</div>`, true)
+                        return
+                    }
+
+                    let temp = `<table style='width:100%; text-align:center'> 
+                                    <tr>
+                                        <th>Customer ID</th>
+                                        <th>Name</th>
+                                        <th>Phone Number</th>
+                                        <th>License</th>
+                                    </tr>`
+                    data.forEach(customer => {
+                        temp += `<tr>
+                                <td><button onclick="document.getElementById('${event.srcElement.parentElement.parentElement.querySelector("input.customer_id").id}').value = ${customer.customer_id};document.getElementById('popup').style.display = ''">${customer.customer_id}</button></td>
+                                <td>${customer.first_name} ${customer.surname}</td>
+                                <td>${customer.phone_number}</td>
+                                <td>${customer.drivers_license}</td>
+                               </tr>`
+                    })
+                    temp += `</table>`
+                    popup("Available Vehicles", temp);
+                })
+        }
+
+        function saveRentalInfo(event) {
+            event.preventDefault()
+
+            let inputs = document.querySelectorAll("#rentalInfo label:not(.ignore) input");
+            let params = { table: "rentals" }
+
+            inputs.forEach(input => {
+                params[input.name] = input.value;
+            })
+            
+            if(new Date(params.lend_date) > new Date(params.return_date)){
+                popup("Invalid Rental Duration", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Ensure That The Rental Return Date Is After The Lend Date</div>`)
+                return
+            }
+            
+            let ptype = document.querySelector("#payment_method").value
+            
+            
+            fetch('customers', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: {table: "customers", options:{customer_id: params.customer_id}} }),
+            }).then((res) => res.json())
+            .then((data) => {
+                console.log("got customer stuff")
+                if(data.length == 0){
+                    popup("Invalid Customer Id", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer  Record Exists With The Given Id <br> Please Use The Show Customers Button To Select A Customer Record</div>`)
+                    return;   
+                }
+
+                if(ptype == "card"){
+                    console.log("card")
+                    if(data.credit_card_number){
+                        if(new Date() <= new Date(data.credit_card_expiration_date)){
+                            popup("Payment Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>The Specified Customer's Credit/Debit Card Has Expired</div>`)
+                            return;    
+                        }
+                    }else{
+                        popup("Payment Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>The Specified Customer Has No Stored Payment Information <br> Please Select The Cash Option Or Choose Another Customer</div>`)
+                        return;
+                    }
+                }
+                
+                params.table = "rentals"
+                console.log(params)
+                console.log("fetch")
+
+                fetch('rentals',{
+                    method: 'POST',
+                    body: JSON.stringify({func: "insertQuery",params:params})
+                }).then(res=>res.json())
+                .then(data=>{
+                    if (Object.hasOwn(data, "error"))
+                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                    else{
+                        document.location.reload()
+                    }
+                })
+
+
+            })
+
+
+            
+
+           
+
+
+            // fetch('rentals', {
+            //     method: 'POST',
+            //     body: JSON.stringify({ func: "insertQuery", params: params }),
+            // }).then((res) => res.json())
+            //     .then((data) => {
+            //         if (Object.hasOwn(data, "error"))
+            //             popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+            //         else{
+            //             document.location.reload()
+            //         }
+            //     })
+
+            return false;
+        }
+
+        function useName(editForm) {
+            if(editForm)
+                document.getElementById("credit_card_name2").value = `${document.getElementById("first_name2").value.trim()} ${document.getElementById("surname2").value.trim()}`
+            else
+                document.getElementById("credit_card_name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`
+        }
+
+        function init() {
+            let temp = new Date();
+            temp = new Date(temp.setMonth(temp.getMonth() + 1)); //user card can't be expired
+            temp = temp.toISOString().slice(0, 7);
+
+            getRentals();
+        }
+
+
+
+
+    </script>
 
 </body>
+
 </html>

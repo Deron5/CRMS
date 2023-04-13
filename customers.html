@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Customers</title>
+    <title>CRMS</title>
     <link rel="stylesheet" href="tailwind.css">
     <link rel="stylesheet" href="main.css">
 
@@ -140,8 +140,8 @@
             <div class=" w-full h-full">
 
                 <div id="screens" class="h-full">
-                    <div id="Scrn1" class="overflow-x-auto h-full">
-                        <div class="w-full flex my-2 ml-20">
+                    <div id="Scrn1" class="h-full">
+                        <div class="flex my-2 ml-20">
                             <div class="w-max">
                                 <div id="" class="searchContainer search relative">
                                     <button onclick="search()" class="pl-1 pr-[.15rem] bg-[#dcdee6] hover:bg-[#caccd5] rounded-tl-[3px] rounded-bl-[3px]">
@@ -326,7 +326,7 @@
 
                     <div id="table" class="relative">
 
-                        <div id="selects" class="mt-[90px] relative">
+                        <div id="selects" class="selects mt-[92px] relative">
 
 
 
@@ -537,7 +537,7 @@
                 <div id="Scrn3" class="hidden">
 
 
-                    <form id="editInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return editCustInfo(event)">
+                    <form id="editInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="event.preventDefault();saveEdits();">
                         <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
                             Customer Edit Form
                         </div>
@@ -653,8 +653,8 @@
 
 
                         <div class="flex justify-end gap-8 my-8 mr-4">
-                            <input type="button" onclick="editReset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
-                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                            <input type="button" onclick="editReset()" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24" value='Reset'></input>
+                            <input value="Submit Changes" type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2"></input>
                         </div>
                     </form>
                 </div>
@@ -683,6 +683,51 @@
     </div>
 
     <script>
+        var currentEditInfo = null;
+
+        function saveEdits(){
+
+            console.log(currentEditInfo)
+
+            let inputs = document.querySelectorAll("#editInfo label:not(.ignore) input");
+            let params = {table: "customers" }
+            params.customer_id = document.querySelector("#customer_id").value
+
+            
+            inputs.forEach(input => {
+                if(input.value != currentEditInfo[input.name])
+                    params[input.name] = input.value;
+            })
+
+            // console.log(params)
+            params.credit_card_expiration_date += '-01';
+            if(params.credit_card_expiration_date == currentEditInfo.credit_card_expiration_date)
+                delete params.credit_card_expiration_date
+            
+            if(Object.keys(params).length < 2){
+                popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Make Changes Before Clicking Apply Edits</div>`, true)
+                return;
+            }
+                
+            fetch('customers', {
+                method: 'POST',
+                body: JSON.stringify({ func:"updateQuery", params: params }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    if (Object.hasOwn(data, "error"))
+                        popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                    else{
+                        document.location.reload()
+                    }
+                })
+
+        }
+
+        function editReset() {
+            for(key in currentEditInfo){
+                    document.querySelector(`#${key}2`).value = currentEditInfo[key]
+                }
+        }
 
         function edit() {
 
@@ -691,9 +736,33 @@
                 popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
                 return
             }
-
+            
             document.getElementById("customer_id").value = id.value;
+            id = id.value;
+
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify({ func: "Query", params: { table: 'customers', options:{customer_id:id} } }),
+            }).then((res) => res.json())
+            .then(res=>{
+                info = res[0];
+                console.log(info)
+                
+                delete info.customer_id
+
+                currentEditInfo = JSON.parse(JSON.stringify(info));
+
+                info.credit_card_expiration_date = info.credit_card_expiration_date.slice(0,-3)
+                
+
+                for(key in info){
+                    document.querySelector(`#${key}2`).value = info[key]
+                }
+
+            })
+
             switchScrn(null, 3)
+
         }
 
         let prev = -1;
@@ -716,8 +785,6 @@
             }).then((res) => res.json())
                 .then((results) => loadData(results))
         }
-
-
 
         function loadData(results) {
             if (!results.length) {
@@ -783,7 +850,6 @@
 
         }
 
-
         function search() {
             let params = {
                 table: "customers",
@@ -808,8 +874,6 @@
                 body: JSON.stringify({ func: "Query", params: params }),
             }).then((res) => res.json())
                 .then((results) => loadData(results))
-
-
 
         }
 
@@ -906,7 +970,6 @@
 
         }
 
-
         function saveCustInfo(event) {
             event.preventDefault()
 
@@ -930,13 +993,19 @@
                 .then((data) => {
                     if (Object.hasOwn(data, "error"))
                         popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
+                    else{
+                        document.location.reload()
+                    }
                 })
 
             return false;
         }
 
-        function useName() {
-            document.getElementById("credit_card_name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`
+        function useName(editForm) {
+            if(editForm)
+                document.getElementById("credit_card_name2").value = `${document.getElementById("first_name2").value.trim()} ${document.getElementById("surname2").value.trim()}`
+            else
+                document.getElementById("credit_card_name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`
         }
 
         function init() {
@@ -946,6 +1015,10 @@
 
             document.getElementById("credit_card_expiration_date").setAttribute("min", temp);
             document.getElementById("credit_card_expiration_date").setAttribute("value", temp)
+
+            document.getElementById("credit_card_expiration_date2").setAttribute("min", temp);
+            document.getElementById("credit_card_expiration_date2").setAttribute("value", temp)
+
 
             getCustomers();
         }
