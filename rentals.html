@@ -167,83 +167,110 @@
                                 </form>
                             </div>
                         <div class="relative bg-white w-[80px]">
-                            <details id="filterOptions" class="absolute w-max z-40">
+                            <details id="filterOptions" class="relative w-max z-40">
                                 <summary class="bg-white h-[30px] w-20 border-2">
                                     <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="16" height="24" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                                     </svg>
                                     Filter
                                 </summary>
-                                <form id="filters" onsubmit="event.preventDefault();" class="bg-white grid grid-cols-[10rem,1fr] w-96 gap-2 p-4 border-2">
-                                    <div class="text-xl pl-2">Column Name</div>
+                                <form id="filters" onsubmit="event.preventDefault();filterData()" class="bg-white grid grid-cols-[10rem,3rem,10rem] w-max gap-2 p-4 border-2 absolute left-[-16.4rem]">
+                                    <div class="text-xl pl-2">Field Name</div>
+                                    <div class="text-xl text-center">Filter</div>
                                     <div class="text-xl pl-2">Search Value</div>
-                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,3rem,10rem] gap-2">
                                         <select name="" class="filter border-2 outline-none">
                                             <option data-opt="1" value="" selected></option>
-                                            <option data-opt="2" value="first_name">First Name</option>
-                                            <option data-opt="3" value="surname">Surname</option>
-                                            <option data-opt="4" value="phone_number">Phone Number</option>
-                                            <option data-opt="5" value="email">Email</option>
+                                            <option data-opt="2" value="lend_date">Lent Date</option>
+                                            <option data-opt="3" value="return_date">Return Date</option>
+                                            <option data-opt="4" value="vehicle_id">License Plate</option>
                                         </select>
-                                        <div class="w-full border-2">
-                                            <input type="text" class="outline-none">
-                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
-                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
-                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
-                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        <div class="border-2 filter_types">
+                                            <select class="w-full"></select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value=">=" selected>&#8805;</option>
+                                                <option value="=">=</option>
+                                                <option value="<=">&#8804;</option>
+                                            </select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value="<=" selected>&#8804;</option>
+                                                <option value="="> = </option>
+                                                <option value=">=">&#8805;</option>
+                                            </select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value="=" selected>=</option>
+                                            </select>
+                                        </div>
+                                        <div class="border-2 w-full filter_values">
+                                            <input type="text" class="outline-none w-full">
+                                            <input disabled placeholder="" required type="date" name="lend_date" id="lend_date3" class="hidden outline-none w-full" style="width:100%">
+                                            <input disabled placeholder="" required type="date" name="return_date" id="return_date3" class="hidden outline-none w-full" style="width:100%">
+                                            <input disabled placeholder="License Plate" required type="test" name="vehicle_id" id="vehicle_id3" pattern="[a-zA-Z0-9]{10}" minlength="10" maxlength="10" class="hidden outline-none w-full">
                                         </div>
                                     </div>
-                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,3rem,10rem] gap-2">
                                         <select name="" class="filter border-2 outline-none">
                                             <option data-opt="1" value="" selected></option>
-                                            <option data-opt="2" value="first_name">First Name</option>
-                                            <option data-opt="3" value="surname">Surname</option>
-                                            <option data-opt="4" value="phone_number">Phone Number</option>
-                                            <option data-opt="5" value="email">Email</option>
+                                            <option data-opt="2" value="lend_date">Lent Date</option>
+                                            <option data-opt="3" value="return_date">Return Date</option>
+                                            <option data-opt="4" value="vehicle_id">License Plate</option>
                                         </select>
-                                        <div class="w-full border-2">
-                                            <input type="text" class="outline-none">
-                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
-                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
-                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
-                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        <div class="border-2 filter_types">
+                                            <select class="w-full"></select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value=">=" selected>&#8805;</option>
+                                                <option value="=">=</option>
+                                                <option value="<=">&#8804;</option>
+                                            </select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value="<=" selected>&#8804;</option>
+                                                <option value="="> = </option>
+                                                <option value=">=">&#8805;</option>
+                                            </select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value="=" selected>=</option>
+                                            </select>
+                                        </div>
+                                        <div class="border-2 w-full filter_values">
+                                            <input type="text" class="outline-none w-full">
+                                            <input disabled placeholder="" required type="date" name="lend_date" id="lend_date3" class="hidden outline-none w-full" style="width:100%">
+                                            <input disabled placeholder="" required type="date" name="return_date" id="return_date3" class="hidden outline-none w-full" style="width:100%">
+                                            <input disabled placeholder="License Plate" required type="test" name="vehicle_id" id="vehicle_id3" pattern="[a-zA-Z0-9]{10}" minlength="10" maxlength="10" class="hidden outline-none w-full">
                                         </div>
                                     </div>
-                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
+                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,3rem,10rem] gap-2">
                                         <select name="" class="filter border-2 outline-none">
                                             <option data-opt="1" value="" selected></option>
-                                            <option data-opt="2" value="first_name">First Name</option>
-                                            <option data-opt="3" value="surname">Surname</option>
-                                            <option data-opt="4" value="phone_number">Phone Number</option>
-                                            <option data-opt="5" value="email">Email</option>
+                                            <option data-opt="2" value="lend_date">Lent Date</option>
+                                            <option data-opt="3" value="return_date">Return Date</option>
+                                            <option data-opt="4" value="vehicle_id">License Plate</option>
                                         </select>
-                                        <div class="w-full border-2">
-                                            <input type="text" class="outline-none">
-                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
-                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
-                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
-                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        <div class="border-2 filter_types">
+                                            <select class="w-full"></select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value=">=" selected>&#8805;</option>
+                                                <option value="=">=</option>
+                                                <option value="<=">&#8804;</option>
+                                            </select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value="<=" selected>&#8804;</option>
+                                                <option value="="> = </option>
+                                                <option value=">=">&#8805;</option>
+                                            </select>
+                                            <select name="" class="border-2 outline-none hidden w-full text-center">
+                                                <option value="=" selected>=</option>
+                                            </select>
                                         </div>
-                                    </div>
-                                    <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
-                                        <select name="" class="filter border-2 outline-none">
-                                            <option data-opt="1" value="" selected></option>
-                                            <option data-opt="2" value="first_name">First Name</option>
-                                            <option data-opt="3" value="surname">Surname</option>
-                                            <option data-opt="4" value="phone_number">Phone Number</option>
-                                            <option data-opt="5" value="email">Email</option>
-                                        </select>
-                                        <div class="w-full border-2">
-                                            <input type="text" class="outline-none">
-                                            <input disabled placeholder="First Name" required type="text" name="first_name" id="first_name3" maxlength="50" class="hidden outline-none">
-                                            <input disabled placeholder="Surname" required type="text" name="surname" id="surname3" maxlength="50" class="hidden outline-none">
-                                            <input disabled required type="tel" placeholder="1 123 123 1234" name="phone_number" id="phone_number3" pattern="(([0-9]-){0,1}[0-9]{3}[-\s][0-9]{0,3}[-\s][0-9]{4})" maxlength="14" class="hidden outline-none">
-                                            <input disabled placeholder="name@example.com" required type="email" name="email" id="email3" class="hidden outline-none">
+                                        <div class="border-2 w-full filter_values">
+                                            <input type="text" class="outline-none w-full">
+                                            <input disabled placeholder="" required type="date" name="lend_date" id="lend_date3" class="hidden outline-none w-full" style="width:100%">
+                                            <input disabled placeholder="" required type="date" name="return_date" id="return_date3" class="hidden outline-none w-full" style="width:100%">
+                                            <input disabled placeholder="License Plate" required type="test" name="vehicle_id" id="vehicle_id3" pattern="[a-zA-Z0-9]{10}" minlength="10" maxlength="10" class="hidden outline-none w-full">
                                         </div>
                                     </div>
                                     <div class="col-span-2 flex gap-2">
-                                        <input type="submit" onclick="filterData()" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Apply Filters"></input>
-                                        <input onclick="document.getElementById('filterOptions').removeAttribute('open')" type="button" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Cancel"></input>
+                                        <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Apply Filters"></input>
+                                        <input onclick="document.getElementById('filterOptions').removeAttribute('open');" type="button" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow" value="Cancel"></input>
                                     </div>
                                 </form>
                                 <script>
@@ -251,22 +278,35 @@
                                     function filterData() {
 
                                         let params = {
-                                            table: "customers",
+                                            table: "rentals",
                                             default: null,
-                                            options: {}
+                                            options: {},
+                                            operators:{},
                                         }
+
+
+                                        document.querySelectorAll("#filters>.filterOpts").forEach(group=>{
+                                            let name = group.querySelector(".filter").value
+                                            let filter = group.querySelector(".filter_types>select:not([disabled])").value
+                                            let value = group.querySelector(".filter_values>input:not([disabled])").value
+                                            
+                                            if(!name)
+                                                return
+                                            params.options[name] = value
+                                            params.operators[name] = filter
+                                        })
+                                        
+                                        console.log(params)
 
                                         document.querySelectorAll("#filters select").forEach(filter => {
                                             let index = null;
                                             let inputs = filter.parentElement.querySelectorAll("input");
 
-                                            if (filter.value == "first_name")
+                                            if (event.srcElement.value == "lend_date")
                                                 index = 1
-                                            else if (filter.value == "surname")
+                                            else if (event.srcElement.value == "return_date")
                                                 index = 2
-                                            else if (filter.value == "email")
-                                                index = 4
-                                            else if (filter.value == "phone_number")
+                                            else if (event.srcElement.value == "vehicle_id")
                                                 index = 3
                                             else
                                                 index = null;
@@ -275,9 +315,6 @@
                                                 params.options[filter.value] = inputs[index].value
 
                                         })
-
-                                        if (Object.hasOwn(params.options, "phone_number"))
-                                            params.options.phone_number = params.options.phone_number.replaceAll(" ", "-")
 
                                         if (Object.keys(params.options).length == 0)
                                             return false;
@@ -295,30 +332,31 @@
                                         return false;
                                     }
 
-                                    document.querySelectorAll("#filters select").forEach(opt => {
+                                    document.querySelectorAll("#filters>.filterOpts>select").forEach(opt => {
                                         opt.addEventListener('change', (event) => {
                                             let index = null;
 
                                             if (event.srcElement.value == "")
                                                 index = 0
-                                            else if (event.srcElement.value == "first_name")
+                                            else if (event.srcElement.value == "lend_date")
                                                 index = 1
-                                            else if (event.srcElement.value == "surname")
+                                            else if (event.srcElement.value == "return_date")
                                                 index = 2
-                                            else if (event.srcElement.value == "email")
-                                                index = 4
-                                            else if (event.srcElement.value == "phone_number")
+                                            else if (event.srcElement.value == "vehicle_id")
                                                 index = 3
 
-                                            let inputs = event.srcElement.parentElement.querySelector("div")
-                                            inputs = inputs.querySelectorAll("input")
-                                            inputs.forEach(input => {
-                                                input.style.display = "none";
-                                                input.disabled = true
-                                            })
+                                            let divs = event.srcElement.parentElement.querySelectorAll("div");
+                                            for(grp of divs){
+                                               for(select of grp.children){
+                                                    select.style.display = "none";
+                                                    select.disabled = true
+                                                }
 
-                                            inputs[index].style.display = "unset"
-                                            inputs[index].disabled = false
+                                                grp.children[index].style.display = "unset"
+                                                grp.children[index].disabled = false
+                                            }
+
+                                            
 
                                         })
                                     })
@@ -411,7 +449,7 @@
                             </div>
                             <label class="grid">
                                 Vehicle License Plate:
-                                <input required type="text" name="vehicle_id" id="vehicle_id" class="vehicle_id border-2 " maxlength="10">
+                                <input required onchange="getCondition()" type="text" name="vehicle_id" id="vehicle_id" class="vehicle_id border-2 " maxlength="10">
                             </label>
                             <label class="grid">
                                 Payment Method:
@@ -422,8 +460,8 @@
                             </label>
 
                             <label class="grid col-span-2">
-                                Condtion When Lent:
-                                <textarea required class="border-2" name="lent_condition" id="lent_condition" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
+                                Condition When Lent:
+                                <textarea  required class="border-2" name="lent_condition" id="lent_condition" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
                             </label>
 
                             
@@ -436,20 +474,60 @@
 
                             <label class="grid">
                                 Lend Date:
-                                <input required type="date" name="lend_date" id="lend_date" class="border-2 text-center" style="width:max-content">
+                                <input onchange="updateRentalFee(event)" required type="date" name="lend_date" id="lend_date" class="border-2 text-center lend_date" style="width:max-content">
                             </label>
 
                             <label class="grid">
                                 Return Date:
-                                <input required placeholder="Planned Return Date" type="date" name="return_date" id="return_date" class="border-2 text-center" style="width:max-content">
-                            </label>
-
-                            <label class="grid">
-                                Rental Rate:
-                                <input placeholder="Daily Rental Rate" step="0.01" min="0"  required type="number" name="rental_fee" id="rental_fee" class="border-2 ">
+                                <input onchange="updateRentalFee(event)" required placeholder="Planned Return Date" type="date" name="return_date" id="return_date" class="border-2 text-center return_date" style="width:max-content">
                             </label>
                         </div>
                      
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            Rental Costs 
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Rental Rate:
+                                <input onchange="updateRentalFee(event)" placeholder="Daily Rental Rate" step="0.01" min="1"  required type="number" name="rental_rate" id="rental_rate" class="border-2 rental_rate">
+                            </label>
+
+                            <div class="grid col-span-2 border-b-2" style="font-size: 1.2rem;font-weight: bold;margin-bottom: px;padding-left: 0.5rem;margin-top: 0.5rem;">
+                                Extra Fees
+                            </div>
+                            <div class="relative col-span-2 grid grid-cols-[1fr,1fr] gap-2 mr-[1.23rem] pb-10">
+                                <div class="pl-[.35rem]">Fee Name</div><div class="pl-[.35rem]">Fee Amount</div>
+                                <div class="feebox col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                    <input type="text" class="border-2" placeholder="Fee Name">
+                                    <input min="1" onchange="updateRentalFee(event)" type="number" class="border-2 feeAmount" placeholder="Fee Amount" step="0.01">
+                                </div>
+                                <div class="relative col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                    <div class="feebox col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                        <input type="text" class="border-2" placeholder="Fee Name">
+                                        <input min="1" onchange="updateRentalFee(event)"  type="number" class="border-2 feeAmount" placeholder="Fee Amount" step="0.01">
+                                    </div>
+                                    <button type="button" class="absolute removefee" onclick="removeBox(event)" style="color: #a78bfa;font-size: 1.25rem; font-weight: 600; width: .25rem;margin-right: .5rem;right: -20px;" class="" type="button">&#x2717;</button>
+                                </div>
+
+                                <button onclick="addFee(event)" type="button" class="absolute grid grid-cols-[max-content,max-content] items-center gap-1 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2" style="left:0; bottom: 0; font-size: 1.5rem;">
+                                    <div style="font-size: 1rem; color: inherit;">Add Fee</div>
+                                   
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16" style="margin-top: 1px;margin-right:-2px;" >
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+
+                            </div>
+                          
+
+                            <label class="grid" title="Automatically Generated From The Information Above">
+                                Rental Fee:
+                                <input disabled placeholder="Rental Fee" step="0.01" min="0"  required type="number" name="rental_fee" id="rental_fee" class="border-2 rental_fee">
+                            </label>
+                        </div>
+
                         <div class="flex justify-end gap-8 my-8 mr-4">
                             <input id="resetBtn" type="reset" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
                             <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
@@ -459,10 +537,139 @@
                 </div>
 
                 <div id="Scrn3" class="hidden">
+                    <form id="rentalEditInfo" class="grid bg-white max-w-max px-4 m-auto border-2 my-4" onsubmit="return saveEdits(event)">
+                        <div class="m-auto text-3xl w-full text-center mt-4 mb-1">
+                            New Rental Form
+                        </div>
 
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            General Information
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Customer Id:
+                                <input required type="number" name="customer_id" id="customer_id2" class="customer_id border-2">
+                            </label>
+                            <div class="grid">
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700"  onclick="showCustomers(event)">Show Customers</button>
+                                <button type="button" class="text-gray-400 text-left hover:text-indigo-500 active:text-indigo-700" onclick="showVehicles(event)">Show Vehicles</button>
+                            </div>
+                            <label class="grid">
+                                Vehicle License Plate:
+                                <input required onchange="getCondition()" type="text" name="vehicle_id" id="vehicle_id2" class="vehicle_id border-2 " maxlength="10">
+                            </label>
+                            <label class="grid">
+                                Payment Method:
+                                <select required name="payment_method" id="payment_method2" class="border-2 focus:outline-none outline-none">
+                                    <option value="cash">Cash</option>
+                                    <option value="card">Debit/Credit Card</option>
+                                </select>
+                            </label>
+
+                            <label class="grid col-span-2">
+                                Condition When Lent:
+                                <textarea  required class="border-2" name="lent_condition" id="lent_condition2" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
+                            </label>
+
+                            <label class="grid col-span-2">
+                                Condition When Returned:
+                                <textarea  required class="border-2" name="return_condition" id="return_condition2" cols="30" rows="4" maxlength="255" style="resize: none;"></textarea>
+                            </label>
+                            
+                        </div>
+
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            Rental Duration 
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Lend Date:
+                                <input onchange="updateRentalFee(event)" required type="date" name="lend_date" id="lend_date2" class="border-2 text-center lend_date" style="width:max-content">
+                            </label>
+
+                            <label class="grid">
+                                Return Date:
+                                <input onchange="updateRentalFee(event)" required placeholder="Planned Return Date" type="date" name="return_date" id="return_date2" class="border-2 text-center return_date" style="width:max-content">
+                            </label>
+
+                            <label class="grid">
+                                Returned Date:
+                                <input onchange="updateRentalFee(event)"  type="date" name="returned_date" id="returned_date2" class="border-2 text-center returned_date" style="width:max-content">
+                            </label>
+                        </div>
+                     
+                        <div class="text-xl font-bold h-10 px-4 mb-2 mt-4">
+                            Rental Costs 
+                        </div>
+                        <div class="grid grid-cols-[1fr,1fr] border-2 p-4 gap-4 text-lg">
+
+                            <label class="grid">
+                                Rental Rate:
+                                <input onchange="updateRentalFee(event)" placeholder="Daily Rental Rate" step="0.01" min="1"  required type="number" name="rental_rate" id="rental_rate2" class="border-2 rental_rate">
+                            </label>
+
+                            <div class="grid col-span-2 border-b-2" style="font-size: 1.2rem;font-weight: bold;margin-bottom: px;padding-left: 0.5rem;margin-top: 0.5rem;">
+                                Extra Fees
+                            </div>
+                            <div id="editFees" class="relative col-span-2 grid grid-cols-[1fr,1fr] gap-2 mr-[1.23rem] pb-10">
+                                <div class="pl-[.35rem]">Fee Name</div><div class="pl-[.35rem]">Fee Amount</div>
+                                <div class="feebox col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                    <input type="text" class="border-2" placeholder="Fee Name">
+                                    <input min="1" onchange="updateRentalFee(event)" type="number" class="border-2 feeAmount" placeholder="Fee Amount" step="0.01">
+                                </div>
+
+                                <button onclick="addFee(event)" type="button" class="absolute grid grid-cols-[max-content,max-content] items-center gap-1 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2" style="left:0; bottom: 0; font-size: 1.5rem;">
+                                    <div style="font-size: 1rem; color: inherit;">Add Fee</div>
+                                   
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16" style="margin-top: 1px;margin-right:-2px;" >
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+
+                            </div>
+                          
+
+                            <label class="grid" title="Automatically Generated From The Information Above">
+                                Rental Fee:
+                                <input disabled placeholder="Rental Fee" step="0.01" min="0"  required type="number" name="rental_fee" id="rental_fee2" class="border-2 rental_fee">
+                            </label>
+
+                            <script>
+                                function removeBox(event) {
+                                        
+                                    let temp ={srcElement: event.srcElement.closest("form")}
+                                    event.srcElement.parentElement.remove() 
+                                    updateRentalFee(temp); 
+
+                                }
+
+                                function addFee(event){
+                                    event.srcElement.parentElement.parentElement.innerHTML+= `
+                                                <div class="relative col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                                    <div class="feebox col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                                        <input type="text" class="border-2" placeholder="Fee Name">
+                                                        <input min="1" onchange="updateRentalFee(event)" type="number" class="border-2 feeAmount" placeholder="Fee Amount" step="0.01">
+                                                    </div>
+                                                    <button class="absolute removefee" onclick="removeBox(event)" style="color: #a78bfa;font-size: 1.25rem; font-weight: 600; width: .25rem;margin-right: .5rem;right: -20px;" class="" type="button">&#x2717;</button>
+                                                </div>
+                                    `
+                                }
+                            </script>
+
+                        </div>
+                     
+
+                        <div class="flex justify-end gap-8 my-8 mr-4">
+                            <input type="button" value="Undo" onclick="loadEditData(JSON.parse(JSON.stringify(currentEditInfo)));console.log('from undo');" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                            <input type="submit" style="padding: .5rem 1rem;" class="text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow my-2 w-24"></input>
+                        </div>
+
+                    </form>
                 </div>
-
-            </div>
+                </div>
 
             </div>
         </div>
@@ -485,6 +692,26 @@
     </div>
 
     <script>
+// swen1005
+        function getCondition() {
+            let id = document.getElementById("vehicle_id").value
+            if(id.trim().length == 10){
+                         
+            fetch('vehicles', {
+                method: 'POST',
+                body: JSON.stringify({ func:"Query", params:{table: 'vehicles', options:{license_plate_number:id}} }),
+            }).then((res) => res.json())
+                .then((data) => {
+                    console.log("data:")
+                    console.log(data)
+                    if(data.length != 0)
+                        document.getElementById("lent_condition").value = data[0].condition_
+                    else
+                        document.getElementById("lent_condition").value = ""
+                })  
+            }
+        }
+
           /*
             Checks for backend
             vehicle license plate exists
@@ -495,31 +722,70 @@
 
         var currentEditInfo = null;
 
-        function saveEdits(){
-          
-            console.log(currentEditInfo)
+        function saveEdits(event){
+            event.preventDefault();
+            updateRentalFee(event); //just in case
 
-            let inputs = document.querySelectorAll("#editInfo label:not(.ignore) input");
-            let params = {table: "customers" }
-            params.customer_id = document.querySelector("#customer_id").value
-
+            let inputs = document.querySelectorAll("#rentalEditInfo label:not(.ignore) input")
             
+            let params = {table: "rentals"}
+            params.rental_id = currentEditInfo.rental_id;
+
             inputs.forEach(input => {
                 if(input.value != currentEditInfo[input.name])
                     params[input.name] = input.value;
             })
 
-            // console.log(params)
-            params.credit_card_expiration_date += '-01';
-            if(params.credit_card_expiration_date == currentEditInfo.credit_card_expiration_date)
-                delete params.credit_card_expiration_date
+            if(new Date(params.lend_date) > new Date(params.return_date)){
+                popup("Invalid Rental Duration", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Ensure That The Rental Return Date Is After The Lend Date</div>`)
+                return
+            }
+
+            if((new Date(params.returned_date) > new Date(params.return_date)) || (new Date(params.returned_date) > new Date(params.lend_date))){
+                popup("Invalid Rental Duration", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Ensure That The Actual Returned Date Is After The Lend Date & Return Date</div>`)
+                return
+            }
+
+            params.extra_charges = {}
+            event.srcElement.closest("form").querySelectorAll(".feebox").forEach(extrafee=>{
+                if(extrafee.children[0].value.trim())
+                    params.extra_charges[extrafee.children[0].value] = extrafee.children[1].value
+                else if (extrafee.children[1].value){
+                    popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Enter A Fee Name Or Remove The Fee Amount</div>`)
+                    return;
+                }
+            })
+
+            params.extra_charges = JSON.stringify(params.extra_charges)
             
+            if(params.extraCharges == currentEditInfo.extra_charges)
+                delete params.extraCharges
+
+
+            let ptype = document.querySelector("#payment_method2").value
+
+            if(ptype != currentEditInfo.payment_method)
+                params.payment_method = ptype
+
+                let lc = document.getElementById("lent_condition2").value
+            let rc = document.getElementById("return_condition2").value
+
+            if(rc != currentEditInfo.return_condition)
+                params.return_condition = rc
+           
+            if(lc != currentEditInfo.lent_condition)
+                params.lent_condition = lc
+
+
+
+            console.log(params)
+
             if(Object.keys(params).length < 2){
                 popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Make Changes Before Clicking Apply Edits</div>`, true)
                 return;
             }
-                
-            fetch('customers', {
+               
+            fetch('rentals', {
                 method: 'POST',
                 body: JSON.stringify({ func:"updateQuery", params: params }),
             }).then((res) => res.json())
@@ -531,12 +797,46 @@
                     }
                 })
 
+            
         }
 
-        function editReset() {
-            for(key in currentEditInfo){
-                    document.querySelector(`#${key}2`).value = currentEditInfo[key]
+        function loadEditData(info) {
+            console.log(currentEditInfo)
+            console.log(info)
+            clearFeeBoxes();
+
+            let charges = info.extra_charges
+
+            if(charges){
+                let extraCharges = document.getElementById("editFees");
+                charges = JSON.parse(charges)
+                for(const [key,value] of Object.entries(charges)){
+                    extraCharges.innerHTML += `<div class="relative col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                                    <div class="feebox col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+                                                        <input type="text" value=${key} class="border-2" placeholder="Fee Name">
+                                                        <input min="1" value=${value} onchange="updateRentalFee(event)"  type="number" class="border-2 feeAmount" placeholder="Fee Amount" step="0.01">
+                                                    </div>
+                                                    <button type="button" class="absolute removefee" onclick="removeBox(event)" style="color: #a78bfa;font-size: 1.25rem; font-weight: 600; width: .25rem;margin-right: .5rem;right: -20px;" class="" type="button">&#x2717;</button>
+                                                </div>`
                 }
+            }
+
+            // `<div class="relative col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+            //         <div class="feebox col-span-2 grid grid-cols-[1fr,1fr] gap-2">
+            //             <input type="text" class="border-2" placeholder="Fee Name">
+            //             <input min="1" onchange="updateRentalFee(event)"  type="number" class="border-2 feeAmount" placeholder="Fee Amount" step="0.01">
+            //         </div>
+            //         <button type="button" class="absolute removefee" onclick="removeBox(event)" style="color: #a78bfa;font-size: 1.25rem; font-weight: 600; width: .25rem;margin-right: .5rem;right: -20px;" class="" type="button">&#x2717;</button>
+            // </div>`
+
+            delete info.rental_id
+            delete info.extra_charges
+
+            for(key in info){
+                document.querySelector(`#${key}2`).value = info[key]
+            }
+       
+       
         }
 
         function edit() {
@@ -546,29 +846,16 @@
                 popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
                 return
             }
-            
-            document.getElementById("customer_id").value = id.value;
-            id = id.value;
 
+            id = id.value;
+            console.log(id)
             fetch('rentals', {
                 method: 'POST',
-                body: JSON.stringify({ func: "Query", params: { table: 'customers', options:{customer_id:id} } }),
+                body: JSON.stringify({ func: "Query", params: { table: 'rentals', options:{rental_id:id} } }),
             }).then((res) => res.json())
             .then(res=>{
-                info = res[0];
-                console.log(info)
-                
-                delete info.customer_id
-
-                currentEditInfo = JSON.parse(JSON.stringify(info));
-
-                info.credit_card_expiration_date = info.credit_card_expiration_date.slice(0,-3)
-                
-
-                for(key in info){
-                    document.querySelector(`#${key}2`).value = info[key]
-                }
-
+                currentEditInfo = JSON.parse(JSON.stringify(res[0]));
+                loadEditData(JSON.parse(JSON.stringify(res[0])))
             })
 
             switchScrn(null, 3)
@@ -596,9 +883,22 @@
                 .then((results) => loadData(results))
         }
 
+        function formatCharges(data){
+            data = JSON.parse(data)
+            console.log(data)
+            let temp = ""
+            for(const [key,value] of Object.entries(data)){
+                console.log(key)
+                console.log(value)
+                temp+= `${key}: ${value};&nbsp`
+            }
+
+            return temp;
+        }
+
         function loadData(results) {
             if (!results.length) {
-                popup("Error No Customer Data", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer Data Found</div>`, true)
+                popup("Error No Rental Data", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer Data Found</div>`, true)
                 return
             }
 
@@ -620,7 +920,6 @@
 
             results.forEach(res => {
                 color = undefined;
-                console.log(res)
 
                 let rd = new Date(res.return_date);
                 if(res.returned_date == "null" || !res.returned_date){
@@ -628,6 +927,9 @@
                         color = `style="color:rgb(244 63 94)"`
                         res.returned_date = "Overdue"
                     
+                    }else if(new Date(res.lend_date) > today){
+                        color = `style="color:rgb(52 211 153)"`
+                        res.returned_date = "Future Rental"
                     }else{
                         color = `style="color:rgb(52 211 153)"`
                         res.returned_date = "Ongoing"
@@ -637,8 +939,9 @@
                     color = `style="color:rgb(244 63 94)"`
                 }
 
-                res.return_condition = res.return_codntion ? res.return_codntion : ""
-                res.extra_charges = res.extra_charges ? res.extra_charges : ""
+                res.return_condition = res.return_condition ? res.return_condition : ""
+                res.extra_charges = res.extra_charges ? formatCharges(res.extra_charges) : ""
+                
                 count_ += 1;
                 selects.innerHTML += `<div style='height:40px' class=" grid items-center relative">
                                                 <input title='Select This Row' type="radio" name="cust" data-row=${count_} onchange="setRow(event)" id="" value="${res.rental_id}">
@@ -652,7 +955,7 @@
                                             <td>${res.return_date}</td>
                                             <td ${color}>${res.returned_date}</td>
                                             <td>${res.lent_condition}</td>
-                                            <td>${res.return_codntion}</td>
+                                            <td>${res.return_condition}</td>
                                             <td>${res.rental_rate}</td>
                                             <td>${res.rental_fee}</td>
                                             <td>${res.extra_charges}</td>
@@ -732,13 +1035,11 @@
         }
 
         function showVehicles(event) {
-            console.log(event)
             fetch('rentals', {
                 method: 'POST',
                 body: JSON.stringify({ func: "availableVehicles" }),
             }).then((res) => res.json())
                 .then((data) => {
-                    console.log(data)
                     
                     if (!data.length) {
                         popup("Error - No Data Found", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Vehicle Data Found</div>`, true)
@@ -753,7 +1054,7 @@
                                     </tr>`
                     data.forEach(vehicle => {
                         temp += `<tr>
-                                <td><button onclick="document.getElementById('${event.srcElement.parentElement.parentElement.querySelector("input.vehicle_id").id}').value = ${vehicle.license_plate_number};document.getElementById('popup').style.display = ''">${vehicle.license_plate_number}</button></td>
+                                <td><button onclick="document.getElementById('${event.srcElement.parentElement.parentElement.querySelector("input.vehicle_id").id}').value = '${vehicle.license_plate_number}';document.getElementById('popup').style.display = '';getCondition()">${vehicle.license_plate_number}</button></td>
                                 <td>${vehicle.vehicle_type}</td>
                                 <td>${vehicle.condition_}</td>
                                </tr>`
@@ -763,15 +1064,23 @@
                 })
         }
 
+        function setLicense(event,licenseValue) {
+            
+        }
+
+        function clearFeeBoxes() {
+            document.querySelectorAll(".removefee").forEach(btn=>{
+                btn.click()
+            })
+        }
+
         function showCustomers(event) {
-            console.log(event)
             fetch('rentals', {
                 method: 'POST',
                 body: JSON.stringify({ func: "CustNoOutRental", params: {}}),
             }).then((res) => res.json())
                 .then((data) => {
                     console.log(data)
-                    
                     if (!data.length) {
                         popup("Error - No Data Found", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem;color:rgb(244 63 94)'>No Vehicle Data Found</div>`, true)
                         return
@@ -798,7 +1107,10 @@
         }
 
         function saveRentalInfo(event) {
+
             event.preventDefault()
+            
+            updateRentalFee(event)
 
             let inputs = document.querySelectorAll("#rentalInfo label:not(.ignore) input");
             let params = { table: "rentals" }
@@ -814,20 +1126,41 @@
             
             let ptype = document.querySelector("#payment_method").value
             
+            params.extra_charges = {}
             
+            event.srcElement.closest("form").querySelectorAll(".feebox").forEach(extrafee=>{
+                if(extrafee.children[0].value.trim())
+                    params.extra_charges[extrafee.children[0].value] = extrafee.children[1].value
+                else if (extrafee.children[1].value){
+                    popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Enter A Fee Name Or Remove The Fee Amount</div>`)
+                    return;
+                }
+            })
+            
+            if(Object.keys(params.extra_charges).length)
+                params.extra_charges = JSON.stringify(params.extra_charges)
+            else
+                delete params.extra_charges
+
+            params.lent_condition = document.getElementById("lent_condition").value
+
+            if(params.extra_charges && params.extra_charges.length > 255){
+                popup("DB Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Can't Store All Of The Extra Charges <br> Try Shorterning The Fee Names</div>`)
+                return;
+            }
+
             fetch('customers', {
                 method: 'POST',
                 body: JSON.stringify({ func: "Query", params: {table: "customers", options:{customer_id: params.customer_id}} }),
             }).then((res) => res.json())
             .then((data) => {
-                console.log("got customer stuff")
                 if(data.length == 0){
                     popup("Invalid Customer Id", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Customer  Record Exists With The Given Id <br> Please Use The Show Customers Button To Select A Customer Record</div>`)
                     return;   
                 }
 
                 if(ptype == "card"){
-                    console.log("card")
+                    console.log(data)
                     if(data.credit_card_number){
                         if(new Date() <= new Date(data.credit_card_expiration_date)){
                             popup("Payment Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>The Specified Customer's Credit/Debit Card Has Expired</div>`)
@@ -838,11 +1171,12 @@
                         return;
                     }
                 }
-                
-                params.table = "rentals"
-                console.log(params)
-                console.log("fetch")
 
+                params.table = "rentals"
+                params.payment_method = ptype
+
+                console.log(params)
+                
                 fetch('rentals',{
                     method: 'POST',
                     body: JSON.stringify({func: "insertQuery",params:params})
@@ -857,12 +1191,6 @@
 
 
             })
-
-
-            
-
-           
-
 
             // fetch('rentals', {
             //     method: 'POST',
@@ -894,6 +1222,48 @@
             getRentals();
         }
 
+
+
+        function updateRentalFee(event){
+            let total = 0;
+            let form = event.srcElement.closest("form")
+            console.log(form)
+            let extraFees = form.querySelectorAll(".feebox>input:nth-of-type(2)")
+            let rental_rate = form.querySelector(".rental_rate").value
+
+            let lend_date = form.querySelector(".lend_date").value
+            let return_date = form.querySelector(".return_date").value
+            
+            let returned_date = form.querySelector(".returned_date")
+            
+            if(returned_date && returned_date.value)
+                return_date = returned_date.value;
+
+
+            if(lend_date && rental_rate && return_date)
+                if(return_date > lend_date){
+                    return_date = new Date(return_date)
+                    lend_date = new Date(lend_date)
+                    total+= (rental_rate*(1+Math.round((return_date - lend_date) / (1000 * 60 * 60 * 24))))
+                }else if (return_date == lend_date){
+                    total += 1*rental_rate
+                }
+            
+
+            console.log(total)
+            extraFees.forEach(input=>{
+                if(input.value && input.value > 0)
+                    total+= +input.value
+
+            })
+
+
+            if(total)
+                form.querySelector(".rental_fee").value = +total
+            else
+                form.querySelector(".rental_fee").value = ''
+            
+        }
 
 
 

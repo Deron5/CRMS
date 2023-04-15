@@ -166,7 +166,7 @@
                                     Filter
                                 </summary>
                                 <form id="filters" onsubmit="event.preventDefault();" class="bg-white grid grid-cols-[10rem,1fr] w-96 gap-2 p-4 border-2">
-                                    <div class="text-xl pl-2">Column Name</div>
+                                    <div class="text-xl pl-2">Field Name</div>
                                     <div class="text-xl pl-2">Search Value</div>
                                     <div class="col-span-2 filterOpts grid grid-cols-[10rem,1fr] gap-2">
                                         <select name="" class="filter border-2 outline-none">
@@ -685,38 +685,38 @@
     <script>
         var currentEditInfo = null;
 
-        function saveEdits(){
+        function saveEdits() {
 
             console.log(currentEditInfo)
 
             let inputs = document.querySelectorAll("#editInfo label:not(.ignore) input");
-            let params = {table: "customers" }
+            let params = { table: "customers" }
             params.customer_id = document.querySelector("#customer_id").value
 
-            
+
             inputs.forEach(input => {
-                if(input.value != currentEditInfo[input.name])
+                if (input.value != currentEditInfo[input.name])
                     params[input.name] = input.value;
             })
 
             // console.log(params)
             params.credit_card_expiration_date += '-01';
-            if(params.credit_card_expiration_date == currentEditInfo.credit_card_expiration_date)
+            if (params.credit_card_expiration_date == currentEditInfo.credit_card_expiration_date)
                 delete params.credit_card_expiration_date
-            
-            if(Object.keys(params).length < 2){
+
+            if (Object.keys(params).length < 2) {
                 popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>Please Make Changes Before Clicking Apply Edits</div>`, true)
                 return;
             }
-                
+
             fetch('customers', {
                 method: 'POST',
-                body: JSON.stringify({ func:"updateQuery", params: params }),
+                body: JSON.stringify({ func: "updateQuery", params: params }),
             }).then((res) => res.json())
                 .then((data) => {
                     if (Object.hasOwn(data, "error"))
                         popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
-                    else{
+                    else {
                         document.location.reload()
                     }
                 })
@@ -724,9 +724,9 @@
         }
 
         function editReset() {
-            for(key in currentEditInfo){
-                    document.querySelector(`#${key}2`).value = currentEditInfo[key]
-                }
+            for (key in currentEditInfo) {
+                document.querySelector(`#${key}2`).value = currentEditInfo[key]
+            }
         }
 
         function edit() {
@@ -736,30 +736,30 @@
                 popup("No Record Selected", "Please Select A Record To Edit By Selecting The Adjacent Checkbox", true)
                 return
             }
-            
+
             document.getElementById("customer_id").value = id.value;
             id = id.value;
 
             fetch('rentals', {
                 method: 'POST',
-                body: JSON.stringify({ func: "Query", params: { table: 'customers', options:{customer_id:id} } }),
+                body: JSON.stringify({ func: "Query", params: { table: 'customers', options: { customer_id: id } } }),
             }).then((res) => res.json())
-            .then(res=>{
-                info = res[0];
-                console.log(info)
-                
-                delete info.customer_id
+                .then(res => {
+                    info = res[0];
+                    console.log(info)
 
-                currentEditInfo = JSON.parse(JSON.stringify(info));
+                    delete info.customer_id
 
-                info.credit_card_expiration_date = info.credit_card_expiration_date.slice(0,-3)
-                
+                    currentEditInfo = JSON.parse(JSON.stringify(info));
 
-                for(key in info){
-                    document.querySelector(`#${key}2`).value = info[key]
-                }
+                    info.credit_card_expiration_date = info.credit_card_expiration_date.slice(0, -3)
 
-            })
+
+                    for (key in info) {
+                        document.querySelector(`#${key}2`).value = info[key]
+                    }
+
+                })
 
             switchScrn(null, 3)
 
@@ -930,7 +930,7 @@
                                     </tr>`
                     data.forEach(vehicle => {
                         temp += `<tr>
-                                <td><button onclick="document.getElementById('preferred_vehicle').value = ${vehicle.vin};document.getElementById('popup').style.display = ''">${vehicle.vin}</button></td>
+                                <td><button onclick="document.getElementById('preferred_vehicle').value = '${vehicle.vin}';document.getElementById('popup').style.display = ''">${vehicle.vin}</button></td>
                                 <td>${vehicle.brand}</td>
                                 <td>${vehicle.model}</td>
                                 <td>${vehicle.manufactured_year}</td>
@@ -993,7 +993,7 @@
                 .then((data) => {
                     if (Object.hasOwn(data, "error"))
                         popup("Error", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>${data.error}</div>`, true)
-                    else{
+                    else {
                         document.location.reload()
                     }
                 })
@@ -1002,7 +1002,7 @@
         }
 
         function useName(editForm) {
-            if(editForm)
+            if (editForm)
                 document.getElementById("credit_card_name2").value = `${document.getElementById("first_name2").value.trim()} ${document.getElementById("surname2").value.trim()}`
             else
                 document.getElementById("credit_card_name").value = `${document.getElementById("first_name").value.trim()} ${document.getElementById("surname").value.trim()}`

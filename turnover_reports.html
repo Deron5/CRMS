@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CRMS</title>
+    <title>Customers</title>
     <link rel="stylesheet" href="tailwind.css">
     <link rel="stylesheet" href="main.css">
 
@@ -476,7 +476,6 @@
                         if (monthly_rentals[i] !== 0) {
                             columns[i].style.gridRow = `${13 - monthly_rentals[i]}/span ${monthly_rentals[i]}`
                         } else {
-                            console.log("else!!")
                             columns[i].style.alignSelf = "end";
                             columns[i].style.height = "10%";
                         }
@@ -554,3 +553,36 @@
 </body>
 
 </html>
+
+<!-- let columns = document.querySelectorAll(".col");
+            
+if(!Object.hasOwn(data,"monthly_rentals")){
+    for (let i = 0; i < 12; i++) {
+        columns[i].style.alignSelf = "end";
+        columns[i].style.height = "15%";
+        columns[i].style.gridRow = 12;
+    }
+}
+
+license = data.license;
+
+let typeinfo = data.typeinfo;
+let monthly_rentals = data.monthly_rentals;
+// grid-row: 10/ span 3;
+
+for (let i = 0; i < 12; i++) {
+    if (monthly_rentals[i] !== 0) {
+        columns[i].style.gridRow = `${13 - monthly_rentals[i]}/span ${monthly_rentals[i]}`
+        columns[i].style.height = "100%";
+    } else {
+        console.log("else")
+        
+        columns[i].style.alignSelf = "end";
+        columns[i].style.height = "10%";
+        columns[i].style.gridRow = 12;
+        console.log(columns[i])
+    }
+    // columns[i].style.zIndex = 1;
+    columns[i].children[0].childNodes[1].innerHTML = monthly_rentals[i];
+    // columns[i].childNodes[0]. = monthly_rentals[i];
+} -->

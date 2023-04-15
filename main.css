@@ -171,7 +171,7 @@ details>summary{
   border: rgb(213 215 223) 2px solid;
   border-radius: .125rem;
   min-width: 35rem;
-  max-width: 75%;
+  max-width: max-content;
 
 }
 
@@ -259,6 +259,7 @@ input[type="date"]{
   padding: 0 .25rem;
   border-bottom: 2px solid #e5e7eb;
 }
+
 #table>details{
 }
 

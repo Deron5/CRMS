@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CRMS</title>
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="main.css">
+  
+
+    <style>
+        tbody>tr:hover{
+            background-color: #e8e7f2;
+        }
+        th{
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+<body class="">
+
+    <div class="h-screen grid grid-rows-1 main border-2 border-stone-100">
+        <details open class="sidebar h-full relative p-2 border-r-2 border-indigo-200">
+            <summary class="list-none min-w-[5.75rem] mb-5 text-violet-500 text-3xl pb-4  border-[#767b99] border-b-2">
+                CRMS
+            </summary>
+            <div class="flex flex-col w-40 gap-6">
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/index.html'">Home Page
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                    </div>
+                </button>
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/customers.html'">Customer Page
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                    </div>
+                </button>
+               
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/vehicles.html'">Vehicles Page
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                    </div>
+                </button>
+                <button class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-slate-200 rounded relative" onclick="window.location.href='http://localhost:8080/rentals.html'">Rentals Page
+
+                    <div class="absolute right-0 top-[.45rem]">
+                        <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec"><path d="M0 0h24v24H0z" fill="none"></path><path fill="white" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"></path></svg>
+                    </div>
+               </button>
+
+               <details open class="leftArw opts">
+                <summary
+                    class="bg-violet-400 hover:bg-[#8e72e1] text-white font-bold py-2 px-4 border border-b-0 border-slate-300 rounded list-none text-center">
+                    Reports</summary>
+                <div class="flex flex-col bg-[#f2f2f8]">
+                    <button
+                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 relative"
+                        onclick="window.location.href='http://localhost:8080/rentals_reports'">
+                        Vehicle Rentals
+                        <div class="absolute right-[-5px] top-[.35rem]">
+                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button
+                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                        onclick="window.location.href='http://localhost:8080/customer_reports'">
+                        Customer Rentals
+                        <div class="absolute right-[-5px] top-[.35rem]">
+                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button
+                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                        onclick="window.location.href='http://localhost:8080/rentals_reports'">
+                        Rental History
+                        <div class="absolute right-[-5px] top-[.35rem]">
+                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button
+                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                        onclick="window.location.href='http://localhost:8080/availability_reports'">
+                        Vehicle Availability
+                        <div class="absolute right-[-5px] top-[.35rem]">
+                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button
+                        class=" p-2 bg-[#fbfcff] text-gray-700 text-[15px] font-medium hover:bg-[#a78bfa9c] border-2 border-t-0 relative"
+                        onclick="window.location.href='http://localhost:8080/late_return_reports'">
+                        Late Returns
+                        <div class="absolute right-[-5px] top-[.35rem]">
+                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button
+                        class=" p-2 bg-[#fbfcff] text-[#404355] text-[15px]  font-medium hover:bg-[#a78bfa9c]  border-2 border-t-0 relative"
+                        onclick="window.location.href='http://localhost:8080/turnover_reports'">
+                        Vehicle Turnover
+                        <div class="absolute right-[-5px] top-[.35rem]">
+                            <svg viewBox="0 0 24 24" focusable="false" height="28" width="28" class="t0PEec">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="#404355" d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </details>
+
+
+                
+            </div>
+        </details>
+        <div class="bg-white w-full h-full PageContents">
+            <div id="title" class="flex items-center justify-center h-24 text-4xl text bg-[#f2f2f8]">
+                Available Vehicles
+            </div>
+            <div class="bg-slate-50">
+                <div class="flex m-4 h-10 gap-8">
+                    <button onclick="getData('available')" type="button" class="grid grid-cols-[max-content,max-content] items-center gap-1 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2" >
+                        Available Vehicles
+                    </button>
+                    <button onclick="getData('rented')" type="button" class=" grid grid-cols-[max-content,max-content] items-center gap-1 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2" >
+                        Rented Vehicles
+                    </button>
+                    <button onclick="getData('reserved')" type="button" class=" grid grid-cols-[max-content,max-content] items-center gap-1 text-center bg-violet-400 hover:bg-[#8e72e1] text-white font-semibold border rounded shadow px-2" >
+                        Reserved Vehicles
+                    </button>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vehicle License Plate</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Year Manufactured</th>
+                                <th>VIN</th>
+                                <th>Interior Colour</th>
+                                <th>Exterior Colour</th>
+                                <th>Odometer Reading</th>
+                                <th>Condition</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rentalInfo">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getData(type) {
+            let params = {func:"availabilityReport", params:{type:type}};
+
+            fetch('rentals', {
+                method: 'POST',
+                body: JSON.stringify(params),
+            }).then((res) => res.json())
+            .then((results) =>{
+                loadData(results)
+            })
+        }
+
+
+        function loadData(results) {
+            console.log(results)
+            let tb = document.querySelector("#rentalInfo");
+            tb.innerHTML = "";
+            if(!results.length){
+                popup("No Data Found", `<div style='width:100%;padding-top:.5rem;padding-left:4px;font-size:1.25rem'>No Vehicle Records Matching The Request Were Found</div>`)
+                return;
+            }
+
+            let today = new Date();
+
+            results.forEach(vehicle=>{
+                tb.innerHTML+=`
+                    <tr>
+                        <td>${vehicle.license_plate_number}</td>
+                        <td>${vehicle.brand}</td>
+                        <td>${vehicle.model}</td>
+                        <td>${vehicle.manufactured_year}</td>
+                        <td>${vehicle.vin}</td>
+                        <td>${vehicle.interior_colour}</td>
+                        <td>${vehicle.exterior_colour}</td>
+                        <td>${vehicle.odometer_reading}</td>
+                        <td>${vehicle.condition_}</td>
+                    </tr>
+                `
+            })
+        }
+    </script>
+
+
+
+</body>
+</html>

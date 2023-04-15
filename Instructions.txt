@@ -1,0 +1,8 @@
+Install Node
+Install Tailwind css
+
+In one terminal cd backend && npm run dev1
+In another: cd backend && npm run dev2
+
+The database connection information, 
+host,user,password etc can be found at the top of the request.js file

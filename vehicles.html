@@ -801,7 +801,7 @@
                                     </tr>`
                     data.forEach(vehicle => {
                         temp += `<tr>
-                                <td style='padding:0' class="hover:bg-[#f7f4f8]"><button onclick="document.getElementById('vehicle_type').value = ${vehicle.vin};document.getElementById('popup').style.display = ''">${vehicle.vin}</button></td>
+                                <td style='padding:0' class="hover:bg-[#f7f4f8]"><button onclick="document.getElementById('vehicle_type').value = '${vehicle.vin}'';document.getElementById('popup').style.display = ''">${vehicle.vin}</button></td>
                                 <td>${vehicle.brand}</td>
                                 <td>${vehicle.model}</td>
                                 <td>${vehicle.manufactured_year}</td>

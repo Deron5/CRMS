@@ -96,7 +96,7 @@ CREATE TABLE `rentals` (
   `rental_id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int NOT NULL,
   `vehicle_id` varchar(10) NOT NULL,
-  `rental_rate` varchar(255) not NULL,
+  `rental_rate` float not NULL,
   `lend_date` date not NULL,
   `return_date` date  not NULL,
   `returned_date` date default NULL,

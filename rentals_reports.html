@@ -164,7 +164,9 @@
 								<div>Exterior Colour: <span id="exterior_colour"></span></div>
 								<div>Manufactured Year: <span id="manufactured_year"></span></div>
 								<div>Odometer Reading: <span id="odometer_reading"></span></div>
-								<div class="col-span-2"></div>
+								<div class="col-span-2"> Condition: <br>
+									<span id="condition_"></span>
+								</div>
 							</div>
 						</div>
 
@@ -217,7 +219,7 @@
 					</div>
 					<div class="flex py-4 gap-4 text-[17px] font-semibold justify-center">
 						<div class="bg-white p-4">Number of Rentals: <span id="nor"></span></div>
-						<div class="bg-white p-4">Total Rental Days: <span id="rd"></span></div>
+						<div class="bg-white p-4">Total Rental Period: <span id="rd"></span></div>
 						<div class="bg-white p-4">Total Revenue: <span id="tr"></span></div>
 						<div class="bg-white p-4">Average Daily Revenue: <span id="dr"></span></div>
 					</div>
@@ -269,7 +271,7 @@
 
 			let res = "";
 			let temp = [[365, "year"], [31, "month"], [7, "week"], [1, "day"]]
-
+			console.log(days);
 			temp.forEach(grp => {
 				let q = Math.floor(days / grp[0])
 				let r = days % grp[0]
@@ -358,7 +360,7 @@
 			let searcParams = {};
 
 			if (params.get("vid"));
-			searcParams.vid = params.get("vid");
+				searcParams.vid = params.get("vid");
 
 			fetch("reports", {
 				method: "POST",
@@ -387,18 +389,17 @@
 
 			if (Object.hasOwn(results, "typeinfo")) {
 				delete results.typeinfo.vehicle_type
-				for (const [key, value] of Object.entries(results.typeinfo))
+				for (const [key, value] of Object.entries(results.typeinfo)){
+					console.log(key)
 					document.getElementById(key).innerHTML = value;
+				}
 			}else
 				document.querySelectorAll("#vInfoBox span").forEach(span => {
 					span.innerHTML = "";
 				})
 
-
-
 			let revenue = 0;
 			let totaldays = 0;
-
 			results.rentals.forEach(res => {
 				
 				document.getElementById("rentals").innerHTML +=
@@ -434,7 +435,6 @@
 				;
 				let copy = document.querySelector("#rentals").lastElementChild;
 
-				let rental_fee = res.days * res.rental_rate;
 				res.extra_charges = JSON.parse(res.extra_charges);
 
 				for (key in res.extra_charges) {
@@ -448,10 +448,9 @@
 						</span>	
 					</div>
 					`
-					rental_fee += res.extra_charges[key];
 				}
-				copy.querySelector(".rental_fee").innerHTML = `$${rental_fee}`;
-				revenue += rental_fee;
+				copy.querySelector(".rental_fee").innerHTML = `$${res.rental_fee}`;
+				revenue += res.rental_fee;
 
 				res.return_date = new Date(res.return_date);
 				res.lend_date = new Date(res.lend_date);
@@ -460,13 +459,17 @@
 					if (res.returned_date == res.lend_date) {
 						res.days = 1;
 					}
+					res.returned_date = res.returned_date.toDateString();
 				}
-
 				totaldays += res.days;
 
 				res.return_date = res.return_date.toDateString();
 				res.lend_date = res.lend_date.toDateString();
 
+				console.log(res.lend_date)
+				console.log(res.returned_date)
+				console.log(res.days)
+				
 
 				copy.querySelector(".duration").innerHTML = daysMonthsYears(res.days);
 
@@ -484,8 +487,10 @@
 				if (res.return_condition !== res.lend_condition)
 					copy.querySelector(".return_condition").style.color = "rgb(244 63 94)";
 
-				if (res.returned_date !== res.return_date)
+				if (res.returned_date > res.return_date)
 					copy.querySelector(".returned_date").style.color = "rgb(244 63 94)";
+
+				delete res.rental_id
 
 				for (const [key, value] of Object.entries(res)) {
 					copy.querySelector(`.${key}`).innerHTML = value;
@@ -500,7 +505,7 @@
 			document.getElementById("nor").innerHTML = results.rentals.length
 			document.getElementById("rd").innerHTML = totaldays > 0 ? daysMonthsYears(totaldays) : totaldays;
 			document.getElementById("tr").textContent = `$${revenue}`;
-			document.getElementById("dr").innerHTML = `$${totaldays > 0 ? revenue / totaldays : 0}`;
+			document.getElementById("dr").innerHTML = `$${totaldays > 0 ? (revenue / totaldays).toFixed(2) : 0}`;
 
 			// text-emerald-500
 			// text-rose-500
