@@ -1,4 +1,4 @@
-Install Node
+Install NodeJS
 Install Tailwind css
 
 In one terminal cd backend && npm run dev1

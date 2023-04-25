@@ -585,6 +585,7 @@ class RequestHandler {
     }
 
     async turnoverFromRowNumber(params) {
+        console.log(params)
         const res = await new Promise((resolve, reject) => {
             if (params.row < 0)
                 conn.query(FIRST_LAST_RENTAL_VID, (err, results) => {
@@ -619,6 +620,8 @@ class RequestHandler {
                         })
 
                     } else {
+                        console.log("else else")
+                        console.log(results)
                         resolve(this.turnover_report({ vid: results[0].vehicle_id, row: params.row }));
                     }
                 })
@@ -703,6 +706,9 @@ class RequestHandler {
     }
 
     async turnoverHelper(params) {
+        console.log("Helper:!!!")
+        console.log(params);
+
         const res = await new Promise((resolve, reject) => {
 
             let data = {
@@ -761,6 +767,7 @@ class RequestHandler {
                     console.log(err)
                     reject(err)
                 } else {
+                    console.log("HERE!!!!!")
                     console.log(res1)
                     let year = date.getFullYear();
                     let month = date.getMonth();
@@ -772,6 +779,7 @@ class RequestHandler {
 
                     conn.query(RENTAL_DAYS_YEAR_MONTH, [params.vid, year, month], (err, res2) => {
                         console.log(res2)
+                        console.log("Here!!!!@@@@")
                         if (err)
                             console.log("turnover_report QUERY: RENTAL_DAYS_YEAR_MONTH INNER");
                         if (res2)
@@ -780,7 +788,6 @@ class RequestHandler {
                             else if(res2[0].count == res1[0].count)
                                 data.inde = 0
                             else {
-                                console.log()
                                 let cur = res1[0].count
                                 let prev = res2[0].count;
                                 console.log(cur)
@@ -794,12 +801,12 @@ class RequestHandler {
 
                                 console.log(total)
                                 console.log(data)
-
-                                total -= 1;
-                                if (!total)
-                                    resolve(JSON.stringify(data))
-
+                                
                             }
+                        total -= 1;
+                        if (!total)
+                            resolve(JSON.stringify(data))
+
                     })
 
                 }
@@ -820,14 +827,19 @@ class RequestHandler {
             })
 
         })
+
         return res;
     }
 
     async turnover_report(params) {
+        console.log("turnover: ")
+        console.log(params)
         const res = await new Promise((resolve, reject) => {
             if (params && Object.hasOwn(params, "vid")) {
 
                 this.turnoverHelper({ vid: params.vid, row: Object.hasOwn(params, "row") ? params.row : 0 }).then((data) => {
+                    console.log("from helper!!!")
+                    console.log(data)
                     resolve(data)
                 }).catch(err => {
                     console.log(err);

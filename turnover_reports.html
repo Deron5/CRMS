@@ -457,10 +457,13 @@
 
 
         function formatData(data) {
+            console.log("received")
+            console.log(data)
                     let columns = document.querySelectorAll(".col");
             
                     if(!Object.hasOwn(data,"monthly_rentals")){
                         for (let i = 0; i < 12; i++) {
+                            columns[i].style.gridRow = ""
                             columns[i].style.alignSelf = "end";
                             columns[i].style.height = "15%";
                         }
@@ -475,7 +478,10 @@
                     for (let i = 0; i < 12; i++) {
                         if (monthly_rentals[i] !== 0) {
                             columns[i].style.gridRow = `${13 - monthly_rentals[i]}/span ${monthly_rentals[i]}`
+                            columns[i].style.alignSelf = "unset";
+                            columns[i].style.height = "unset";
                         } else {
+                            columns[i].style.gridRow = ""
                             columns[i].style.alignSelf = "end";
                             columns[i].style.height = "10%";
                         }

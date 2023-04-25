@@ -887,6 +887,10 @@ video {
   width: min-content;
 }
 
+.w-\[50\%\] {
+  width: 50%;
+}
+
 .min-w-\[23rem\] {
   min-width: 23rem;
 }
@@ -899,6 +903,11 @@ video {
   min-width: 5.75rem;
 }
 
+.min-w-max {
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+
 .max-w-\[25rem\] {
   max-width: 25rem;
 }
@@ -906,6 +915,10 @@ video {
 .max-w-max {
   max-width: -moz-max-content;
   max-width: max-content;
+}
+
+.max-w-\[50\%\] {
+  max-width: 50%;
 }
 
 .rotate-180 {

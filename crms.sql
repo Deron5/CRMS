@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS `stores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `stores` (
   `store_id` int NOT NULL AUTO_INCREMENT,
-  `location` varchar(255) not null,
+  `address` varchar(255) not null, /*changed this to address to match the js*/
   PRIMARY KEY (`store_id`)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -68,7 +68,7 @@ CREATE TABLE `customers` (
   `cvn` varchar(4) not null,
   `credit_card_expiration_date` date not null,
   PRIMARY KEY (`customer_id`),
-  FOREIGN KEY (`preferred_vehicle`) references vehicle_types(`vin`),
+  FOREIGN KEY (`preferred_vehicle`) references vehicle_types(`vin`),/* supposed to be vehicle_types*/
   FOREIGN KEY (`preferred_pickup`) references stores(`store_id`),
   FOREIGN KEY (`preferred_dropoff`) references stores(`store_id`)
 ) ;
@@ -85,7 +85,7 @@ CREATE TABLE `vehicles` (
   `vehicle_type` varchar(17) NOT NULL,
   `condition_` varchar(255) not null,
   PRIMARY KEY (`license_plate_number`),
-  FOREIGN KEY (`vehicle_type`) references vehicles(`vin`)
+  FOREIGN KEY (`vehicle_type`) references vehicle_types(`vin`)
 ) ;
 
 
