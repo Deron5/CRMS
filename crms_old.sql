@@ -109,39 +109,3 @@ CREATE TABLE `rentals` (
   FOREIGN KEY (`vehicle_id`) references vehicles(`license_plate_number`),
   FOREIGN KEY (`customer_id`) references customers(`customer_id`)
 ) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rentals`
---
-
-
-
--- Dumping data for table `stores`
---
-
--- Table structure for table `vehicle_types`
---
-
-
-
---
--- Table structure for table `vehicles`
---
-
-
-
-
--- LOCK TABLES `customers` WRITE;
--- UNLOCK TABLES;
-
--- LOCK TABLES `vehicle_types` WRITE;
--- UNLOCK TABLES;
-
-
--- LOCK TABLES `rentals` WRITE;
--- UNLOCK TABLES;
-
-
--- LOCK TABLES `vehicles` WRITE;
--- UNLOCK TABLES;
