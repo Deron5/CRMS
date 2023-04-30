@@ -466,7 +466,6 @@ class RequestHandler {
                     }
                         
                 }
-
                 if (query.slice(-3) == "and")
                     query = query.slice(0, query.length - 3)
                 else if (query.slice(-5) == "where")

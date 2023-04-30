@@ -1,0 +1,4 @@
+change lines 440-442 in customer_reports.html to,
+remove the first if and the else part of the second one
+if(results.length){
+
